@@ -1,0 +1,380 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0743B2B62174334D00F15570 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2B52174334D00F15570 /* AppDelegate.m */; };
+		0743B2B92174334D00F15570 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2B82174334D00F15570 /* ViewController.m */; };
+		0743B2BC2174334D00F15570 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0743B2BA2174334D00F15570 /* Main.storyboard */; };
+		0743B2BE2174334F00F15570 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0743B2BD2174334F00F15570 /* Assets.xcassets */; };
+		0743B2C12174334F00F15570 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0743B2BF2174334F00F15570 /* LaunchScreen.storyboard */; };
+		0743B2C42174334F00F15570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2C32174334F00F15570 /* main.m */; };
+		0743B2CD217433B600F15570 /* MixRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2CC217433B600F15570 /* MixRoute.m */; };
+		0743B2D0217434DA00F15570 /* MixRouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2CF217434DA00F15570 /* MixRouteManager.m */; };
+		0743B2D32174401800F15570 /* MixRouteDriverManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2D22174401800F15570 /* MixRouteDriverManager.m */; };
+		0743B2D9217442DC00F15570 /* MixRouteDefaultDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2D8217442DC00F15570 /* MixRouteDefaultDriver.m */; };
+		0743B2DC2174459500F15570 /* MixVCRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2DB2174459500F15570 /* MixVCRoute.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0743B2B12174334D00F15570 /* MixRoute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixRoute.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0743B2B42174334D00F15570 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0743B2B52174334D00F15570 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0743B2B72174334D00F15570 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		0743B2B82174334D00F15570 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		0743B2BB2174334D00F15570 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0743B2BD2174334F00F15570 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0743B2C02174334F00F15570 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0743B2C22174334F00F15570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0743B2C32174334F00F15570 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0743B2CB217433B600F15570 /* MixRoute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRoute.h; sourceTree = "<group>"; };
+		0743B2CC217433B600F15570 /* MixRoute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRoute.m; sourceTree = "<group>"; };
+		0743B2CE217434DA00F15570 /* MixRouteManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRouteManager.h; sourceTree = "<group>"; };
+		0743B2CF217434DA00F15570 /* MixRouteManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRouteManager.m; sourceTree = "<group>"; };
+		0743B2D12174401800F15570 /* MixRouteDriverManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRouteDriverManager.h; sourceTree = "<group>"; };
+		0743B2D22174401800F15570 /* MixRouteDriverManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRouteDriverManager.m; sourceTree = "<group>"; };
+		0743B2D7217442DC00F15570 /* MixRouteDefaultDriver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRouteDefaultDriver.h; sourceTree = "<group>"; };
+		0743B2D8217442DC00F15570 /* MixRouteDefaultDriver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRouteDefaultDriver.m; sourceTree = "<group>"; };
+		0743B2DA2174459500F15570 /* MixVCRoute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixVCRoute.h; sourceTree = "<group>"; };
+		0743B2DB2174459500F15570 /* MixVCRoute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixVCRoute.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0743B2AE2174334D00F15570 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0743B2A82174334D00F15570 = {
+			isa = PBXGroup;
+			children = (
+				0743B2CA217433A600F15570 /* Classes */,
+				0743B2B32174334D00F15570 /* MixRoute */,
+				0743B2B22174334D00F15570 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0743B2B22174334D00F15570 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0743B2B12174334D00F15570 /* MixRoute.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0743B2B32174334D00F15570 /* MixRoute */ = {
+			isa = PBXGroup;
+			children = (
+				0743B2B42174334D00F15570 /* AppDelegate.h */,
+				0743B2B52174334D00F15570 /* AppDelegate.m */,
+				0743B2B72174334D00F15570 /* ViewController.h */,
+				0743B2B82174334D00F15570 /* ViewController.m */,
+				0743B2BA2174334D00F15570 /* Main.storyboard */,
+				0743B2BD2174334F00F15570 /* Assets.xcassets */,
+				0743B2BF2174334F00F15570 /* LaunchScreen.storyboard */,
+				0743B2C22174334F00F15570 /* Info.plist */,
+				0743B2C32174334F00F15570 /* main.m */,
+			);
+			path = MixRoute;
+			sourceTree = "<group>";
+		};
+		0743B2CA217433A600F15570 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0743B2CB217433B600F15570 /* MixRoute.h */,
+				0743B2CC217433B600F15570 /* MixRoute.m */,
+				0743B2D7217442DC00F15570 /* MixRouteDefaultDriver.h */,
+				0743B2D8217442DC00F15570 /* MixRouteDefaultDriver.m */,
+				0743B2D12174401800F15570 /* MixRouteDriverManager.h */,
+				0743B2D22174401800F15570 /* MixRouteDriverManager.m */,
+				0743B2CE217434DA00F15570 /* MixRouteManager.h */,
+				0743B2CF217434DA00F15570 /* MixRouteManager.m */,
+				0743B2DA2174459500F15570 /* MixVCRoute.h */,
+				0743B2DB2174459500F15570 /* MixVCRoute.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0743B2B02174334D00F15570 /* MixRoute */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0743B2C72174334F00F15570 /* Build configuration list for PBXNativeTarget "MixRoute" */;
+			buildPhases = (
+				0743B2AD2174334D00F15570 /* Sources */,
+				0743B2AE2174334D00F15570 /* Frameworks */,
+				0743B2AF2174334D00F15570 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MixRoute;
+			productName = MixRoute;
+			productReference = 0743B2B12174334D00F15570 /* MixRoute.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0743B2A92174334D00F15570 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = YOOEE;
+				TargetAttributes = {
+					0743B2B02174334D00F15570 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 0743B2AC2174334D00F15570 /* Build configuration list for PBXProject "MixRoute" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0743B2A82174334D00F15570;
+			productRefGroup = 0743B2B22174334D00F15570 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0743B2B02174334D00F15570 /* MixRoute */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0743B2AF2174334D00F15570 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0743B2C12174334F00F15570 /* LaunchScreen.storyboard in Resources */,
+				0743B2BE2174334F00F15570 /* Assets.xcassets in Resources */,
+				0743B2BC2174334D00F15570 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0743B2AD2174334D00F15570 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0743B2D9217442DC00F15570 /* MixRouteDefaultDriver.m in Sources */,
+				0743B2D0217434DA00F15570 /* MixRouteManager.m in Sources */,
+				0743B2B92174334D00F15570 /* ViewController.m in Sources */,
+				0743B2D32174401800F15570 /* MixRouteDriverManager.m in Sources */,
+				0743B2C42174334F00F15570 /* main.m in Sources */,
+				0743B2DC2174459500F15570 /* MixVCRoute.m in Sources */,
+				0743B2CD217433B600F15570 /* MixRoute.m in Sources */,
+				0743B2B62174334D00F15570 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0743B2BA2174334D00F15570 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0743B2BB2174334D00F15570 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0743B2BF2174334F00F15570 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0743B2C02174334F00F15570 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0743B2C52174334F00F15570 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		0743B2C62174334F00F15570 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0743B2C82174334F00F15570 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = MixRoute/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = YOOEE.MixRoute;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		0743B2C92174334F00F15570 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = MixRoute/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = YOOEE.MixRoute;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0743B2AC2174334D00F15570 /* Build configuration list for PBXProject "MixRoute" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0743B2C52174334F00F15570 /* Debug */,
+				0743B2C62174334F00F15570 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0743B2C72174334F00F15570 /* Build configuration list for PBXNativeTarget "MixRoute" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0743B2C82174334F00F15570 /* Debug */,
+				0743B2C92174334F00F15570 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0743B2A92174334D00F15570 /* Project object */;
+}

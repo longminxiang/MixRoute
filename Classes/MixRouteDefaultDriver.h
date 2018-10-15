@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MixRouteDriverManager.h"
+#import "MixRouteManager.h"
 
 @interface MixRouteDefaultModuleDriver : NSObject <MixRouteModuleDriver>
 

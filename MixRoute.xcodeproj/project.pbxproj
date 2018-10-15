@@ -15,7 +15,6 @@
 		0743B2C42174334F00F15570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2C32174334F00F15570 /* main.m */; };
 		0743B2CD217433B600F15570 /* MixRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2CC217433B600F15570 /* MixRoute.m */; };
 		0743B2D0217434DA00F15570 /* MixRouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2CF217434DA00F15570 /* MixRouteManager.m */; };
-		0743B2D32174401800F15570 /* MixRouteDriverManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2D22174401800F15570 /* MixRouteDriverManager.m */; };
 		0743B2D9217442DC00F15570 /* MixRouteDefaultDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2D8217442DC00F15570 /* MixRouteDefaultDriver.m */; };
 		0743B2DC2174459500F15570 /* MixVCRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2DB2174459500F15570 /* MixVCRoute.m */; };
 /* End PBXBuildFile section */
@@ -35,8 +34,6 @@
 		0743B2CC217433B600F15570 /* MixRoute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRoute.m; sourceTree = "<group>"; };
 		0743B2CE217434DA00F15570 /* MixRouteManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRouteManager.h; sourceTree = "<group>"; };
 		0743B2CF217434DA00F15570 /* MixRouteManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRouteManager.m; sourceTree = "<group>"; };
-		0743B2D12174401800F15570 /* MixRouteDriverManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRouteDriverManager.h; sourceTree = "<group>"; };
-		0743B2D22174401800F15570 /* MixRouteDriverManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRouteDriverManager.m; sourceTree = "<group>"; };
 		0743B2D7217442DC00F15570 /* MixRouteDefaultDriver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRouteDefaultDriver.h; sourceTree = "<group>"; };
 		0743B2D8217442DC00F15570 /* MixRouteDefaultDriver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRouteDefaultDriver.m; sourceTree = "<group>"; };
 		0743B2DA2174459500F15570 /* MixVCRoute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixVCRoute.h; sourceTree = "<group>"; };
@@ -92,12 +89,10 @@
 			children = (
 				0743B2CB217433B600F15570 /* MixRoute.h */,
 				0743B2CC217433B600F15570 /* MixRoute.m */,
-				0743B2D7217442DC00F15570 /* MixRouteDefaultDriver.h */,
-				0743B2D8217442DC00F15570 /* MixRouteDefaultDriver.m */,
-				0743B2D12174401800F15570 /* MixRouteDriverManager.h */,
-				0743B2D22174401800F15570 /* MixRouteDriverManager.m */,
 				0743B2CE217434DA00F15570 /* MixRouteManager.h */,
 				0743B2CF217434DA00F15570 /* MixRouteManager.m */,
+				0743B2D7217442DC00F15570 /* MixRouteDefaultDriver.h */,
+				0743B2D8217442DC00F15570 /* MixRouteDefaultDriver.m */,
 				0743B2DA2174459500F15570 /* MixVCRoute.h */,
 				0743B2DB2174459500F15570 /* MixVCRoute.m */,
 			);
@@ -177,7 +172,6 @@
 				0743B2D9217442DC00F15570 /* MixRouteDefaultDriver.m in Sources */,
 				0743B2D0217434DA00F15570 /* MixRouteManager.m in Sources */,
 				0743B2B92174334D00F15570 /* ViewController.m in Sources */,
-				0743B2D32174401800F15570 /* MixRouteDriverManager.m in Sources */,
 				0743B2C42174334F00F15570 /* main.m in Sources */,
 				0743B2DC2174459500F15570 /* MixVCRoute.m in Sources */,
 				0743B2CD217433B600F15570 /* MixRoute.m in Sources */,

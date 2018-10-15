@@ -22,19 +22,21 @@ MixRouteName const MixRouteNameBackToRoot = @"MixRouteNameBackToRoot";
 @end
 
 @implementation MixVCRouteDriver
+@synthesize route = _route;
+@synthesize moduleClass = _moduleClass;
 
 + (void)load
 {
-    [[MixRouteDriverManager shared] registerDriver:self forModule:@protocol(MixVCRouteModule)];
+    [[MixRouteManager shared] registerDriver:self forModule:@protocol(MixVCRouteModule)];
 }
 
-+ (UIViewController<MixRouteViewControlelr> *)topVC
+- (UIViewController<MixRouteViewControlelr> *)topVC
 {
     UIViewController *avc = [UIApplication sharedApplication].delegate.window.rootViewController;
     return [self findTopVC:avc];
 }
 
-+ (UIViewController<MixRouteViewControlelr> *)findTopVC:(UIViewController *)vc
+- (UIViewController<MixRouteViewControlelr> *)findTopVC:(UIViewController *)vc
 {
     UIViewController *avc;
     if (vc.presentedViewController) {
@@ -54,18 +56,19 @@ MixRouteName const MixRouteNameBackToRoot = @"MixRouteNameBackToRoot";
     return avc.mixRoute_vc;
 }
 
-+ (void)module:(Class<MixVCRouteModule>)module driveRoute:(__kindof id<MixVCRoute>)route completion:(void (^)(id<MixVCRoute>))completion
+- (void)drive:(void (^)(void))completion
 {
-    UIViewController<MixRouteViewControlelr> *vc = [module initWithRoute:route];
+    id<MixVCRoute> route = self.route;
+    UIViewController<MixRouteViewControlelr> *vc = [self.moduleClass initWithRoute:route];
     if (!vc) {
-        if (completion) completion(route);
+        if (completion) completion();
     }
 
     UIViewController<MixRouteViewControlelr> *topVC = [self topVC];
     if (MixRouteNameEqual(route.name, MixRouteNameBack)) {
         if (topVC.router.style == MixRouteStylePresent) {
             [topVC dismissViewControllerAnimated:YES completion:^{
-                if (completion) completion(route);
+                if (completion) completion();
             }];
         }
         else {
@@ -81,21 +84,21 @@ MixRouteName const MixRouteNameBackToRoot = @"MixRouteNameBackToRoot";
                 UIViewController *xvc = topVC.navigationController.viewControllers[count - delta - 1];
                 [topVC.navigationController popToViewController:xvc animated:YES];
             }
-            if (completion) completion(route);
+            if (completion) completion();
         }
     }
     else if (MixRouteNameEqual(route.name, MixRouteNameBackToRoot)) {
         [topVC.navigationController popToRootViewControllerAnimated:YES];
-        if (completion) completion(route);
+        if (completion) completion();
     }
     else if (route.style == MixRouteStylePresent) {
         [topVC presentViewController:vc animated:YES completion:^{
-            if (completion) completion(route);
+            if (completion) completion();
         }];
     }
     else {
         [topVC.navigationController pushViewController:vc animated:YES];
-        if (completion) completion(route);
+        if (completion) completion();
     }
 }
 

@@ -13,6 +13,8 @@
 
 + (instancetype)shared;
 
+- (void)registerDriver:(Class<MixRouteModuleDriver>)driverClass forModule:(Protocol *)moduleProtocol;
+
 - (void)registerModule:(Class<MixRouteModule>)moduleClass forName:(MixRouteName)name;
 
 - (void)route:(id<MixRoute>)route;

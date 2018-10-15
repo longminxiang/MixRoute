@@ -9,15 +9,17 @@
 #import "MixRouteDefaultDriver.h"
 
 @implementation MixRouteDefaultModuleDriver
+@synthesize route = _route;
+@synthesize moduleClass = _moduleClass;
 
 + (void)load
 {
-    [[MixRouteDriverManager shared] registerDriver:self forModule:@protocol(MixRouteModule)];
+    [[MixRouteManager shared] registerDriver:self forModule:@protocol(MixRouteModule)];
 }
 
-+ (void)module:(Class<MixRouteModule>)module driveRoute:(__kindof  id<MixRoute>)route completion:(void (^)(__kindof  id<MixRoute>))completion
+- (void)drive:(void (^)(void))completion
 {
-    if (completion) completion(route);
+    if (completion) completion();
 }
 
 @end

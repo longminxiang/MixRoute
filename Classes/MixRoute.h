@@ -30,3 +30,12 @@ FOUNDATION_STATIC_INLINE BOOL MixRouteNameEqual(MixRouteName name, MixRouteName 
 
 @end
 
+@protocol MixRouteModuleDriver
+
+@property (nonatomic, strong) id<MixRoute> route;
+
+@property (nonatomic, assign) Class<MixRouteModule> moduleClass;
+
+- (void)drive:(void (^)(void))completion;
+
+@end

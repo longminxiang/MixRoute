@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MixRoute.h"
-#import "MixRouteDriverManager.h"
 
 @protocol MixRouteViewControlelr;
 @protocol MixVCRoute;
@@ -49,6 +48,10 @@ typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
 @end
 
 @interface MixVCRouteDriver : NSObject<MixRouteModuleDriver>
+
+@property (nonatomic, strong) id<MixVCRoute> route;
+
+@property (nonatomic, assign) Class<MixVCRouteModule> moduleClass;
 
 @end
 

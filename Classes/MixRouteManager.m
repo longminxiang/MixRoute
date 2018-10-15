@@ -8,12 +8,12 @@
 
 #import "MixRouteManager.h"
 #import <objc/runtime.h>
-#import "MixRouteDriverManager.h"
 
 @interface MixRouteManager ()
 
 @property (nonatomic, readonly) NSMutableDictionary<MixRouteName, Class<MixRouteModule>> *modules;
-@property (nonatomic, readonly) NSMutableArray<id<MixRoute>> *routeQueue;
+@property (nonatomic, readonly) NSMutableDictionary<NSString *, Class<MixRouteModuleDriver>> *drivers;
+@property (nonatomic, readonly) NSMutableArray<id<MixRouteModuleDriver>> *driverQueue;
 
 @end
 
@@ -32,7 +32,8 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        _routeQueue = [NSMutableArray new];
+        _drivers = [NSMutableDictionary new];
+        _driverQueue = [NSMutableArray new];
         _modules = [NSMutableDictionary new];
     }
     return self;
@@ -43,27 +44,57 @@
     self.modules[name] = moduleClass;
 }
 
+- (void)registerDriver:(Class<MixRouteModuleDriver>)driverClass forModule:(Protocol *)moduleProtocol
+{
+    NSString *name = [self getProtocolName:moduleProtocol];
+    self.drivers[name] = driverClass;
+}
+
+- (NSString *)getProtocolName:(Protocol *)protocol
+{
+    NSString *name = [NSString stringWithCString:protocol_getName(protocol) encoding:NSUTF8StringEncoding];
+    return name;
+}
+
+- (NSString *)getProtocolNameWithModule:(Class<MixRouteModule>)moduleClass
+{
+    u_int count;
+    Protocol* __unsafe_unretained *protocols = class_copyProtocolList(moduleClass, &count);
+    for (int i = 0; i < count; i++) {
+        Protocol *protocol = protocols[i];
+        if (!protocol_conformsToProtocol(protocol, @protocol(MixRouteModule))) continue;
+        NSString *name = [self getProtocolName:protocol];
+        NSLog(@"%@", name);
+        return name;
+    }
+    return nil;
+}
+
 - (void)route:(id<MixRoute>)route
 {
     if (!route) return;
-    [self.routeQueue addObject:route];
-    [self startRouteQueue];
+    Class<MixRouteModule> moduleClass = self.modules[route.name];
+    NSString *protocolName = [self getProtocolNameWithModule:moduleClass];
+    Class driverClass = self.drivers[protocolName];
+    id<MixRouteModuleDriver> driver = [[driverClass alloc] init];
+    driver.route = route;
+    driver.moduleClass = moduleClass;
+    [self.driverQueue addObject:driver];
+    [self startDriverQueue];
 }
 
-- (void)startRouteQueue
+- (void)startDriverQueue
 {
-    id<MixRoute> route = [self.routeQueue firstObject];
-    if (!route) return;
-
-    Class<MixRouteModule> module = self.modules[route.name];
-    [module prepareRoute:route];
-
-    Class<MixRouteModuleDriver> driver = [[MixRouteDriverManager shared] getDriverWithModule:module];
-
+    id<MixRouteModuleDriver> driver = [self.driverQueue firstObject];
+    if (!driver) return;
+    
+    [driver.moduleClass prepareRoute:driver.route];
+    
     __weak typeof(self) weaks = self;
-    [driver module:module driveRoute:route completion:^(id<MixRoute> aroute){
-        [weaks.routeQueue removeObject:aroute];
-        [weaks startRouteQueue];
+    __weak typeof(driver) wd = driver;
+    [driver drive:^{
+        [weaks.driverQueue removeObject:wd];
+        [weaks startDriverQueue];
     }];
 }
 

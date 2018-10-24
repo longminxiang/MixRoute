@@ -7,16 +7,67 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
+#import "Route.h"
 
-@interface AppDelegate ()
+MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
+
+@interface TabBarController : UITabBarController<MixRouteViewControlelr>
+
+@end
+
+@implementation TabBarController
+@synthesize route = _route;
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+@end
+
+@interface AppDelegate ()<MixVCRouteModule>
 
 @end
 
 @implementation AppDelegate
 
++ (void)load
+{
+    [[MixRouteManager shared] registerModule:self forName:MixRouteNameTab];
+}
+
++ (void)prepareRoute:(id<MixRoute>)aroute
+{
+    
+}
+
++ (UIViewController<MixRouteViewControlelr> *)initWithRoute:(id<MixVCRoute>)route
+{
+    TabBarController *tab = [TabBarController new];
+    return tab;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window makeKeyAndVisible];
+    
+//    Route *route = [[Route alloc] initWithName:MixRouteNameTab];
+//    NSMutableArray *routes = [NSMutableArray new];
+//    for (int i = 0; i < 4; i++) {
+//        Route *route = [[Route alloc] initWithName:MixRouteNameVC1];
+//        route.params = [@(rand()) stringValue];
+//        [routes addObject:route];
+//    }
+//    route.tabRoutes = routes;
+    
+    Route *route = [[Route alloc] initWithName:MixRouteNameVC1];
+    
+    route.style = MixRouteStyleRoot;
+    [[MixRouteManager shared] route:route];
+    
     return YES;
 }
 

@@ -50,6 +50,11 @@
     self.drivers[name] = driverClass;
 }
 
+- (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name
+{
+    return self.modules[name];
+}
+
 - (NSString *)getProtocolName:(Protocol *)protocol
 {
     NSString *name = [NSString stringWithCString:protocol_getName(protocol) encoding:NSUTF8StringEncoding];

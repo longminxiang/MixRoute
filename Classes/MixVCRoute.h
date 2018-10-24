@@ -19,6 +19,7 @@ UIKIT_EXTERN MixRouteName const MixRouteNameBackToRoot;
 typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
     MixRouteStyleNormal,
     MixRouteStylePresent,
+    MixRouteStyleRoot,
 };
 
 @interface UIViewController (MixRoute)
@@ -31,19 +32,25 @@ typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
 
 @property (nonatomic, assign) MixVCRouteStyle style;
 
+@optional
+
+@property (nonatomic, strong) NSArray<id<MixVCRoute>> *tabRoutes;
+
 @end
 
 @protocol MixVCRouteModule<MixRouteModule>
 
-@property (nonatomic, readonly) id<MixVCRoute> router;
-
 + (UIViewController<MixRouteViewControlelr> *)initWithRoute:(id<MixVCRoute>)route;
+
+@optional
+
++ (Class)routeNavigationControllerClass;
 
 @end
 
 @protocol MixRouteViewControlelr
 
-@property (nonatomic, readonly) id<MixVCRoute> router;
+@property (nonatomic, strong) id<MixVCRoute> route;
 
 @end
 

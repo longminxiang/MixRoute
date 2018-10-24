@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MixVCRoute.h"
 
-@interface ViewController : UIViewController
+UIKIT_EXTERN MixRouteName const MixRouteNameVC1;
 
+@interface ViewController : UIViewController<MixVCRouteModule>
 
 @end
-

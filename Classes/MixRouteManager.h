@@ -19,4 +19,6 @@
 
 - (void)route:(id<MixRoute>)route;
 
+- (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name;
+
 @end

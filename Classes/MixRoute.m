@@ -7,3 +7,15 @@
 //
 
 #import "MixRoute.h"
+
+@implementation MixRoute
+
+- (instancetype)initWithName:(MixRouteName)name
+{
+    if (self = [super init]) {
+        _name = name;
+    }
+    return self;
+}
+
+@end

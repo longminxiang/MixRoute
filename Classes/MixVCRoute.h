@@ -7,58 +7,32 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MixRoute.h"
-
-@protocol MixRouteViewControlelr;
-@protocol MixVCRoute;
+#import "MixRouteManager.h"
+#import "MixRouteViewController.h"
 
 UIKIT_EXTERN MixRouteName const MixRouteNameBack;
-
 UIKIT_EXTERN MixRouteName const MixRouteNameBackToRoot;
 
 typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
-    MixRouteStyleNormal,
+    MixRouteStylePush,
     MixRouteStylePresent,
     MixRouteStyleRoot,
 };
 
-@interface UIViewController (MixRoute)
-
-@property (nonatomic, readonly) UIViewController<MixRouteViewControlelr> *mixRoute_vc;
-
-@end
-
-@protocol MixVCRoute<MixRoute>
+@interface MixVCRoute : MixRoute
 
 @property (nonatomic, assign) MixVCRouteStyle style;
 
-@optional
-
-@property (nonatomic, strong) NSArray<id<MixVCRoute>> *tabRoutes;
+@property (nonatomic, strong) NSArray<MixVCRoute *> *tabRoutes;
 
 @end
 
 @protocol MixVCRouteModule<MixRouteModule>
 
-+ (UIViewController<MixRouteViewControlelr> *)initWithRoute:(id<MixVCRoute>)route;
++ (UIViewController<MixRouteViewControlelr> *)vcWithRoute:(MixVCRoute *)route;
 
 @optional
 
 + (Class)routeNavigationControllerClass;
 
 @end
-
-@protocol MixRouteViewControlelr
-
-@property (nonatomic, strong) id<MixVCRoute> route;
-
-@end
-
-@interface MixVCRouteDriver : NSObject<MixRouteModuleDriver>
-
-@property (nonatomic, strong) id<MixVCRoute> route;
-
-@property (nonatomic, assign) Class<MixVCRouteModule> moduleClass;
-
-@end
-

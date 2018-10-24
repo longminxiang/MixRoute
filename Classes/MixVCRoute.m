@@ -7,17 +7,19 @@
 //
 
 #import "MixVCRoute.h"
-#import "MixRouteManager.h"
 
 MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
 MixRouteName const MixRouteNameBackToRoot = @"MixRouteNameBackToRoot";
 
-@implementation UIViewController (MixRoute)
+@implementation MixVCRoute
 
-- (UIViewController<MixRouteViewControlelr> *)mixRoute_vc
-{
-    return [self conformsToProtocol:@protocol(MixRouteViewControlelr)] ? (UIViewController<MixRouteViewControlelr> *)self : nil;
-}
+@end
+
+@interface MixVCRouteDriver : NSObject<MixRouteModuleDriver>
+
+@end
+
+@interface MixVCRouteDriver()<MixVCRouteModule>
 
 @end
 
@@ -26,6 +28,13 @@ MixRouteName const MixRouteNameBackToRoot = @"MixRouteNameBackToRoot";
 + (void)load
 {
     [[MixRouteManager shared] registerDriver:self forModule:@protocol(MixVCRouteModule)];
+    [[MixRouteManager shared] registerModule:self forName:MixRouteNameBack];
+    [[MixRouteManager shared] registerModule:self forName:MixRouteNameBackToRoot];
+}
+
++ (UIViewController<MixRouteViewControlelr> *)vcWithRoute:(MixVCRoute *)route
+{
+    return nil;
 }
 
 - (UIViewController<MixRouteViewControlelr> *)topVC
@@ -54,24 +63,11 @@ MixRouteName const MixRouteNameBackToRoot = @"MixRouteNameBackToRoot";
     return avc.mixRoute_vc;
 }
 
-- (Class)navigationControllerClass
+- (void)drive:(MixVCRoute *)route completion:(void (^)(void))completion
 {
-    Class navClass;
-    if ([(id)self.moduleClass respondsToSelector:@selector(routeNavigationControllerClass)]) {
-        navClass = [self.moduleClass routeNavigationControllerClass];
-    }
-    if (![navClass isKindOfClass:[UINavigationController class]]) {
-        navClass = [UINavigationController class];
-    }
-    return navClass;
-}
-
-- (void)drive:(void (^)(void))completion
-{
-    id<MixVCRoute> route = self.route;
     UIViewController<MixRouteViewControlelr> *topVC = [self topVC];
     if (MixRouteNameEqual(route.name, MixRouteNameBack)) {
-        if (topVC.route.style == MixRouteStylePresent) {
+        if (topVC.mix_route.style == MixRouteStylePresent) {
             [topVC dismissViewControllerAnimated:YES completion:^{
                 if (completion) completion();
             }];
@@ -97,32 +93,42 @@ MixRouteName const MixRouteNameBackToRoot = @"MixRouteNameBackToRoot";
         if (completion) completion();
     }
     else {
-        UIViewController<MixRouteViewControlelr> *vc = [self.moduleClass initWithRoute:route];
+        Class moduleClass = [[MixRouteManager shared] moduleClassWithName:route.name];
+        UIViewController<MixRouteViewControlelr> *vc = [moduleClass vcWithRoute:route];
         if (!vc) {
             if (completion) completion();
             return;
         }
-        vc.route = route;
+        vc.mix_route = route;
+
+        Class navClass;
+        if ([(id)moduleClass respondsToSelector:@selector(routeNavigationControllerClass)]) {
+            navClass = [moduleClass routeNavigationControllerClass];
+        }
+        if (![navClass isKindOfClass:[UINavigationController class]]) {
+            navClass = [UINavigationController class];
+        }
+
         if ([vc isKindOfClass:[UITabBarController class]] && route.tabRoutes) {
             NSMutableArray *navs = [NSMutableArray new];
             for (int i = 0; i < route.tabRoutes.count; i++) {
-                id<MixVCRoute> aroute = route.tabRoutes[i];
+                MixVCRoute *aroute = route.tabRoutes[i];
                 Class<MixVCRouteModule> acls = (Class<MixVCRouteModule>)[[MixRouteManager shared] moduleClassWithName:aroute.name];
-                UIViewController<MixRouteViewControlelr> *avc = [acls initWithRoute:aroute];
-                avc.route = aroute;
-                UINavigationController *nav = [[[self navigationControllerClass] alloc] initWithRootViewController:avc];
+                UIViewController<MixRouteViewControlelr> *avc = [acls vcWithRoute:aroute];
+                avc.mix_route = aroute;
+                UINavigationController *nav = [[navClass alloc] initWithRootViewController:avc];
                 [navs addObject:nav];
             }
             ((UITabBarController *)vc).viewControllers = navs;
         }
         
         if (route.style == MixRouteStyleRoot) {
-            UINavigationController *nav = [[[self navigationControllerClass] alloc] initWithRootViewController:vc];
+            UINavigationController *nav = [[navClass alloc] initWithRootViewController:vc];
             [UIApplication sharedApplication].delegate.window.rootViewController = nav;
             if (completion) completion();
         }
         else if (route.style == MixRouteStylePresent) {
-            UINavigationController *nav = [[[self navigationControllerClass] alloc] initWithRootViewController:vc];
+            UINavigationController *nav = [[navClass alloc] initWithRootViewController:vc];
             [topVC presentViewController:nav animated:YES completion:^{
                 if (completion) completion();
             }];

@@ -17,7 +17,9 @@
 
 - (void)registerModule:(Class<MixRouteModule>)moduleClass forName:(MixRouteName)name;
 
-- (void)route:(id<MixRoute>)route;
+- (void)route:(MixRoute *)route;
+
+- (void)routeTo:(MixRouteName)name;
 
 - (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name;
 

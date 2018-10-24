@@ -7,28 +7,20 @@
 //
 
 #import "ViewController.h"
-#import "Route.h"
 
 MixRouteName const MixRouteNameVC1 = @"MixRouteNameVC1";
 
-@interface ViewController ()<MixRouteViewControlelr>
+@interface ViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *label;
 
 @end
 
 @implementation ViewController
-@synthesize route = _route;
 
-+ (void)load {
-    [[MixRouteManager shared] registerModule:self forName:MixRouteNameVC1];
-}
+MixRegisterRouteModule(MixRouteNameVC1);
 
-+ (void)prepareRoute:(id<MixRoute>)aroute {
-    
-}
-
-+ (UIViewController<MixRouteViewControlelr> *)initWithRoute:(id<MixVCRoute>)route {
++ (UIViewController<MixRouteViewControlelr> *)vcWithRoute:(MixVCRoute *)route {
     ViewController *vc = [self new];
     return vc;
 }
@@ -42,13 +34,14 @@ MixRouteName const MixRouteNameVC1 = @"MixRouteNameVC1";
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor whiteColor];
-    self.label.text = self.route.params;
-    self.title = self.route.params;
+    self.label.text = self.mix_route.params;
+    self.title = self.mix_route.params;
 }
 
 - (IBAction)buttonTouched:(id)sender {
-    Route *route = [[Route alloc] initWithName:MixRouteNameVC1];    
+    MixVCRoute *route = [[MixVCRoute alloc] initWithName:MixRouteNameVC1];
     route.params = [@(rand()) stringValue];
+    route.style = rand() % 2 ? MixRouteStylePresent : MixRouteStylePush;
     [[MixRouteManager shared] route:route];
 }
 

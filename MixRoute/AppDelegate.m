@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import "Route.h"
+#import "MixVCRoute.h"
 
 MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 
@@ -17,7 +17,7 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 @end
 
 @implementation TabBarController
-@synthesize route = _route;
+@synthesize mix_route = _mix_route;
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -33,17 +33,9 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 
 @implementation AppDelegate
 
-+ (void)load
-{
-    [[MixRouteManager shared] registerModule:self forName:MixRouteNameTab];
-}
+MixRegisterRouteModule(MixRouteNameTab);
 
-+ (void)prepareRoute:(id<MixRoute>)aroute
-{
-    
-}
-
-+ (UIViewController<MixRouteViewControlelr> *)initWithRoute:(id<MixVCRoute>)route
++ (UIViewController<MixRouteViewControlelr> *)vcWithRoute:(MixVCRoute *)route
 {
     TabBarController *tab = [TabBarController new];
     return tab;
@@ -54,17 +46,17 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
     
-//    Route *route = [[Route alloc] initWithName:MixRouteNameTab];
-//    NSMutableArray *routes = [NSMutableArray new];
-//    for (int i = 0; i < 4; i++) {
-//        Route *route = [[Route alloc] initWithName:MixRouteNameVC1];
-//        route.params = [@(rand()) stringValue];
-//        [routes addObject:route];
-//    }
-//    route.tabRoutes = routes;
-    
-    Route *route = [[Route alloc] initWithName:MixRouteNameVC1];
-    
+    MixVCRoute *route = [[MixVCRoute alloc] initWithName:MixRouteNameTab];
+    NSMutableArray *routes = [NSMutableArray new];
+    for (int i = 0; i < 4; i++) {
+        MixVCRoute *route = [[MixVCRoute alloc] initWithName:MixRouteNameVC1];
+        route.params = [@(rand()) stringValue];
+        [routes addObject:route];
+    }
+    route.tabRoutes = routes;
+
+//    Route *route = [[Route alloc] initWithName:MixRouteNameVC1];
+
     route.style = MixRouteStyleRoot;
     [[MixRouteManager shared] route:route];
     

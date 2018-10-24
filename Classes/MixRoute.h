@@ -14,28 +14,29 @@ FOUNDATION_STATIC_INLINE BOOL MixRouteNameEqual(MixRouteName name, MixRouteName 
     return [name isEqualToString:aname];
 }
 
-@protocol MixRoute
+@interface MixRoute : NSObject
 
 @property (nonatomic, readonly) MixRouteName name;
-
 @property (nonatomic, strong) id params;
 
-- (instancetype)initWithName:(MixRouteName)name;
+- (instancetype)initWithName:(MixRouteName)name NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 
 @end
 
 @protocol MixRouteModule
 
-+ (void)prepareRoute:(id<MixRoute>)aroute;
-
 @end
 
 @protocol MixRouteModuleDriver
 
-@property (nonatomic, strong) id<MixRoute> route;
-
-@property (nonatomic, assign) Class<MixRouteModule> moduleClass;
-
-- (void)drive:(void (^)(void))completion;
+- (void)drive:(MixRoute *)route completion:(void (^)(void))completion;
 
 @end
+
+#define MixRegisterRouteModule(__name) \
++ (void)load { \
+    [[MixRouteManager shared] registerModule:self forName:__name]; \
+}

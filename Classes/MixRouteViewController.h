@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UINavigationItem+Mix.h"
 
 @class MixVCRoute;
 

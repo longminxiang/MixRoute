@@ -24,32 +24,96 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
     }
 }
 
+@interface UIViewController ()<UIGestureRecognizerDelegate>
+
+@end
+
 @implementation UIViewController (MixVCRoute)
 
 + (void)load
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(viewDidLoad), @selector(_mixVCRoute_viewDidLoad));
+        mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(viewDidLoad), @selector(_mix_vc_route_viewDidLoad));
+        mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(navigationItem), @selector(_mix_vc_route_navigationItem));
+        mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(preferredStatusBarStyle), @selector(_mix_vc_route_preferredStatusBarStyle));
+        mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(viewWillAppear:), @selector(_mix_vc_route_viewWillAppear:));
+        mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(viewDidAppear:), @selector(_mix_vc_route_viewDidAppear:));
     });
 }
 
-- (void)_mixVCRoute_viewDidLoad
+- (UIViewController<MixRouteViewControlelr> *)mixRoute_vc
 {
-    [self _mixVCRoute_viewDidLoad];
+    return [self conformsToProtocol:@protocol(MixRouteViewControlelr)] ? (UIViewController<MixRouteViewControlelr> *)self : nil;
+}
+
+- (void)_mix_vc_route_viewDidLoad
+{
+    [self _mix_vc_route_viewDidLoad];
     if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return;
 
-    BOOL isRoot = [self.navigationController.viewControllers firstObject] == self;
-    self.navigationController.interactivePopGestureRecognizer.enabled = !isRoot;
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+
     if (self.navigationController.isBeingPresented) {
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(basePopViewController)];
         self.navigationItem.leftBarButtonItem = item;
     }
 }
 
-- (UIViewController<MixRouteViewControlelr> *)mixRoute_vc
+- (UINavigationItem *)_mix_vc_route_navigationItem
 {
-    return [self conformsToProtocol:@protocol(MixRouteViewControlelr)] ? (UIViewController<MixRouteViewControlelr> *)self : nil;
+    UINavigationItem *item;
+    if ([self conformsToProtocol:@protocol(MixRouteViewControlelr)]) {
+        UINavigationItem *aitem = self.mixRoute_vc.mix_route.navigationItem;
+        if (aitem) item = aitem;
+        else aitem = item = [self _mix_vc_route_navigationItem];
+    }
+    else {
+        item = [self _mix_vc_route_navigationItem];
+    }
+    return item;
+}
+
+- (UIStatusBarStyle)_mix_vc_route_preferredStatusBarStyle
+{
+    UIStatusBarStyle style = [self _mix_vc_route_preferredStatusBarStyle];
+    if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return style;
+    if (self.navigationItem.mix_statusBarStyle) {
+        style = [self.navigationItem.mix_statusBarStyle intValue];
+    }
+    return style;
+}
+
+- (void)_mix_vc_route_viewWillAppear:(BOOL)animated
+{
+    [self _mix_vc_route_viewWillAppear:animated];
+    if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return;
+
+    UINavigationBar *bar = self.navigationController.navigationBar;
+    UINavigationItem *item = self.navigationItem;
+
+    BOOL barHidden = item.mix_barHidden ? [item.mix_barHidden boolValue] : self.navigationController.navigationBarHidden;
+    
+    [self.navigationController setNavigationBarHidden:barHidden animated:YES];
+    NSDictionary *titleTextAttributes = barHidden ? bar.titleTextAttributes : item.mix_titleTextAttributes;
+    UIColor *barTintColor = barHidden ? bar.barTintColor : item.mix_barTintColor;
+    if (titleTextAttributes) bar.titleTextAttributes = titleTextAttributes;
+    if (barTintColor) bar.barTintColor = barTintColor;
+    if (self.navigationItem.mix_statusBarStyle) {
+        UIStatusBarStyle style = [self.navigationItem.mix_statusBarStyle intValue];
+        bar.barStyle = style == UIStatusBarStyleLightContent ? UIBarStyleBlack : UIBarStyleDefault;
+    }
+}
+
+- (void)_mix_vc_route_viewDidAppear:(BOOL)animated
+{
+    [self _mix_vc_route_viewDidAppear:animated];
+    if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return;
+
+    UINavigationItem *item = self.navigationItem;
+
+    BOOL isRoot = [self.navigationController.viewControllers firstObject] == self;
+    self.navigationController.interactivePopGestureRecognizer.enabled = !isRoot && !item.mix_disableInteractivePopGesture;
 }
 
 - (void)basePopViewController

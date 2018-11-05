@@ -50,7 +50,7 @@ MixRegisterRouteModule(MixRouteNameTab);
     NSMutableArray *routes = [NSMutableArray new];
     for (int i = 0; i < 4; i++) {
         MixVCRoute *route = [[MixVCRoute alloc] initWithName:MixRouteNameVC1];
-        route.params = [@(rand()) stringValue];
+        route.navigationItem = [[UINavigationItem alloc] initWithTitle:[@(rand()) stringValue]];
         [routes addObject:route];
     }
     route.tabRoutes = routes;

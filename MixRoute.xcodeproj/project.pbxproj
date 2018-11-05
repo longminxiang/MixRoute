@@ -16,6 +16,7 @@
 		0743B2D0217434DA00F15570 /* MixRouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2CF217434DA00F15570 /* MixRouteManager.m */; };
 		0743B2DC2174459500F15570 /* MixVCRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2DB2174459500F15570 /* MixVCRoute.m */; };
 		07BD20AF21779A17005BC428 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07BD20AE21779A17005BC428 /* ViewController.xib */; };
+		07D1315A218FF1620091CA9E /* UINavigationItem+Mix.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D13159218FF1610091CA9E /* UINavigationItem+Mix.m */; };
 		07F3D9AC218069AE00B2E923 /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F3D9AB218069AE00B2E923 /* BaseVC.m */; };
 		07F3D9AF21806AE800B2E923 /* MixRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F3D9AE21806AE800B2E923 /* MixRouteViewController.m */; };
 /* End PBXBuildFile section */
@@ -37,6 +38,8 @@
 		0743B2DA2174459500F15570 /* MixVCRoute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixVCRoute.h; sourceTree = "<group>"; };
 		0743B2DB2174459500F15570 /* MixVCRoute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixVCRoute.m; sourceTree = "<group>"; };
 		07BD20AE21779A17005BC428 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		07D13158218FF1610091CA9E /* UINavigationItem+Mix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+Mix.h"; sourceTree = "<group>"; };
+		07D13159218FF1610091CA9E /* UINavigationItem+Mix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+Mix.m"; sourceTree = "<group>"; };
 		07F3D9AA218069AE00B2E923 /* BaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseVC.h; sourceTree = "<group>"; };
 		07F3D9AB218069AE00B2E923 /* BaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseVC.m; sourceTree = "<group>"; };
 		07F3D9AD21806AE800B2E923 /* MixRouteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRouteViewController.h; sourceTree = "<group>"; };
@@ -100,6 +103,8 @@
 				0743B2DB2174459500F15570 /* MixVCRoute.m */,
 				07F3D9AD21806AE800B2E923 /* MixRouteViewController.h */,
 				07F3D9AE21806AE800B2E923 /* MixRouteViewController.m */,
+				07D13158218FF1610091CA9E /* UINavigationItem+Mix.h */,
+				07D13159218FF1610091CA9E /* UINavigationItem+Mix.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -177,6 +182,7 @@
 				0743B2D0217434DA00F15570 /* MixRouteManager.m in Sources */,
 				0743B2B92174334D00F15570 /* ViewController.m in Sources */,
 				0743B2C42174334F00F15570 /* main.m in Sources */,
+				07D1315A218FF1620091CA9E /* UINavigationItem+Mix.m in Sources */,
 				0743B2DC2174459500F15570 /* MixVCRoute.m in Sources */,
 				0743B2CD217433B600F15570 /* MixRoute.m in Sources */,
 				0743B2B62174334D00F15570 /* AppDelegate.m in Sources */,
@@ -314,7 +320,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = U7D47F5WSK;
 				INFOPLIST_FILE = MixRoute/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -332,7 +338,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = U7D47F5WSK;
 				INFOPLIST_FILE = MixRoute/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (

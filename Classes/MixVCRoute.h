@@ -23,6 +23,8 @@ typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
 
 @property (nonatomic, assign) MixVCRouteStyle style;
 
+@property (nonatomic, strong) UINavigationItem *navigationItem;
+
 @property (nonatomic, strong) NSArray<MixVCRoute *> *tabRoutes;
 
 @end

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
             <connections>
-                <outlet property="label" destination="n0b-tC-9z6" id="jnW-D3-bEZ"/>
+                <outlet property="contentView" destination="kMJ-1x-FuP" id="r2n-P9-16w"/>
+                <outlet property="label" destination="rfB-dG-OOO" id="R1P-xv-G5b"/>
+                <outlet property="scrollView" destination="aCT-j6-Kcc" id="mxX-0H-6Ak"/>
                 <outlet property="view" destination="iN0-l3-epB" id="qXG-lG-ifM"/>
             </connections>
         </placeholder>
@@ -20,24 +22,51 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCT-VY-b9z">
-                    <rect key="frame" x="164" y="318" width="46" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button"/>
-                    <connections>
-                        <action selector="buttonTouched:" destination="-1" eventType="touchUpInside" id="Egm-AM-M6x"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0b-tC-9z6">
-                    <rect key="frame" x="166" y="230" width="42" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCT-j6-Kcc">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="aCT-j6-Kcc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="a1Z-9x-AVf"/>
+                <constraint firstAttribute="trailing" secondItem="aCT-j6-Kcc" secondAttribute="trailing" id="lWP-Q2-sa3"/>
+                <constraint firstAttribute="bottom" secondItem="aCT-j6-Kcc" secondAttribute="bottom" id="pIK-a7-SBs"/>
+                <constraint firstItem="aCT-j6-Kcc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="sVI-ja-NTq"/>
+            </constraints>
+            <point key="canvasLocation" x="-180" y="-90"/>
+        </view>
+        <view contentMode="scaleToFill" id="kMJ-1x-FuP">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="468"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfB-dG-OOO">
+                    <rect key="frame" x="166.5" y="88" width="42" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6K-pt-fOc">
+                    <rect key="frame" x="166" y="208" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="buttonTouched:" destination="-1" eventType="touchUpInside" id="vO9-Bu-VTR"/>
+                    </connections>
+                </button>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7IY-Jf-7ej">
+                    <rect key="frame" x="163" y="0.0" width="49" height="31"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </switch>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <point key="canvasLocation" x="-117" y="-27"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="rfB-dG-OOO" firstAttribute="top" secondItem="kMJ-1x-FuP" secondAttribute="top" constant="88" id="9k3-YF-YXx"/>
+                <constraint firstAttribute="trailing" secondItem="rfB-dG-OOO" secondAttribute="trailing" constant="166.5" id="TVg-yc-uIq"/>
+                <constraint firstAttribute="bottom" secondItem="rfB-dG-OOO" secondAttribute="bottom" constant="359.5" id="w5O-dM-xtO"/>
+                <constraint firstItem="rfB-dG-OOO" firstAttribute="leading" secondItem="kMJ-1x-FuP" secondAttribute="leading" constant="166.5" id="zvq-q5-02e"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="524" y="-77"/>
         </view>
     </objects>
 </document>

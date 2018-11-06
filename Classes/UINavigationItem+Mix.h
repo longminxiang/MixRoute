@@ -8,18 +8,39 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UINavigationItem (MixRoute)
+@interface MixNavigationItem : NSObject
 
-/* You may specify the font, text color, and shadow properties for the title in the text attributes dictionary, using the keys found in NSAttributedString.h.
- */
-@property (nonatomic, strong) NSDictionary *mix_titleTextAttributes;
+@property (nonatomic, assign) BOOL disableInteractivePopGesture;
 
-@property (nonatomic, copy) UIColor *mix_barTintColor;
+@property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
 
-@property (nonatomic, strong) NSNumber *mix_barHidden;
 
-@property (nonatomic, assign) BOOL mix_disableInteractivePopGesture;
+@property (nonatomic, assign) BOOL barHidden;
 
-@property (nonatomic, strong) NSNumber *mix_statusBarStyle;
+@property (nonatomic, strong) NSDictionary *barTitleTextAttributes;
+
+@property (nonatomic, copy) UIColor *barTintColor;
+
+@property (nonatomic, strong) UIImage *barBackgroundImage;
+
+@end
+
+@interface UINavigationItem (MixNavigationItem)
+
+@property (nonatomic, readonly) MixNavigationItem *mix;
+
+@end
+
+@interface MixNavigationItemManager : NSObject
+
+- (void)viewWillAppear:(BOOL)animated;
+
+- (void)viewDidAppear:(BOOL)animated;
+
+@end
+
+@interface UIViewController (MixNavigationItem)
+
+@property (nonatomic, readonly) MixNavigationItemManager *mix_itemManager;
 
 @end

@@ -78,9 +78,7 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
 {
     UIStatusBarStyle style = [self _mix_vc_route_preferredStatusBarStyle];
     if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return style;
-    if (self.navigationItem.mix_statusBarStyle) {
-        style = [self.navigationItem.mix_statusBarStyle intValue];
-    }
+    style = self.navigationItem.mix.statusBarStyle;
     return style;
 }
 
@@ -88,32 +86,14 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
 {
     [self _mix_vc_route_viewWillAppear:animated];
     if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return;
-
-    UINavigationBar *bar = self.navigationController.navigationBar;
-    UINavigationItem *item = self.navigationItem;
-
-    BOOL barHidden = item.mix_barHidden ? [item.mix_barHidden boolValue] : self.navigationController.navigationBarHidden;
-    
-    [self.navigationController setNavigationBarHidden:barHidden animated:YES];
-    NSDictionary *titleTextAttributes = barHidden ? bar.titleTextAttributes : item.mix_titleTextAttributes;
-    UIColor *barTintColor = barHidden ? bar.barTintColor : item.mix_barTintColor;
-    if (titleTextAttributes) bar.titleTextAttributes = titleTextAttributes;
-    if (barTintColor) bar.barTintColor = barTintColor;
-    if (self.navigationItem.mix_statusBarStyle) {
-        UIStatusBarStyle style = [self.navigationItem.mix_statusBarStyle intValue];
-        bar.barStyle = style == UIStatusBarStyleLightContent ? UIBarStyleBlack : UIBarStyleDefault;
-    }
+    [self.mix_itemManager viewWillAppear:animated];
 }
 
 - (void)_mix_vc_route_viewDidAppear:(BOOL)animated
 {
     [self _mix_vc_route_viewDidAppear:animated];
     if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return;
-
-    UINavigationItem *item = self.navigationItem;
-
-    BOOL isRoot = [self.navigationController.viewControllers firstObject] == self;
-    self.navigationController.interactivePopGestureRecognizer.enabled = !isRoot && !item.mix_disableInteractivePopGesture;
+    [self.mix_itemManager viewDidAppear:animated];
 }
 
 - (void)basePopViewController

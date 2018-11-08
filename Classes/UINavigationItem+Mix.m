@@ -66,13 +66,27 @@
         }
         [self observeValueForKeyPath:keyPath ofObject:self.vc.navigationItem.mix change:nil context:context];
     }
+    [self.vc.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        for (UIView *view in [bar subviews]) {
+            if (![view isKindOfClass:NSClassFromString(@"_UINavigationBarContentView")]) continue;
+            for (UILabel *label in [view subviews]) {
+                if (![label isKindOfClass:[UILabel class]]) continue;
+                label.attributedText = [[NSAttributedString alloc] initWithString:label.text attributes:item.barTitleTextAttributes];
+                break;
+            }
+            break;
+        }
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [self observeValueForKeyPath:@"disableInteractivePopGesture" ofObject:self.vc.navigationItem.mix change:nil context:NULL];
     [self observeValueForKeyPath:@"barBackgroundImage" ofObject:self.vc.navigationItem.mix change:nil context:NULL];
-    [self observeValueForKeyPath:@"barTitleTextAttributes" ofObject:self.vc.navigationItem.mix change:nil context:NULL];
+//    [self observeValueForKeyPath:@"barTintColor" ofObject:self.vc.navigationItem.mix change:nil context:NULL];
+//    [self observeValueForKeyPath:@"barTitleTextAttributes" ofObject:self.vc.navigationItem.mix change:nil context:NULL];
 }
 
 - (NSArray *)mixItemKeyPaths

@@ -12,7 +12,6 @@
 @interface MixRouteManager ()
 
 @property (nonatomic, readonly) NSMutableDictionary<MixRouteName, Class<MixRouteModule>> *modules;
-@property (nonatomic, readonly) NSMutableDictionary<NSString *, Class<MixRouteModuleDriver>> *drivers;
 @property (nonatomic, readonly) NSMutableArray<MixRoute *> *routeQueue;
 
 @property (nonatomic, assign) BOOL routing;
@@ -34,7 +33,6 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        _drivers = [NSMutableDictionary new];
         _modules = [NSMutableDictionary new];
         _routeQueue = [NSMutableArray new];
     }
@@ -46,49 +44,21 @@
     self.modules[name] = moduleClass;
 }
 
-- (void)registerDriver:(Class<MixRouteModuleDriver>)driverClass forModule:(Protocol *)moduleProtocol
-{
-    NSString *name = [self getProtocolName:moduleProtocol];
-    self.drivers[name] = [[(Class)driverClass alloc] init];
-}
-
 - (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name
 {
     return self.modules[name];
 }
 
-- (NSString *)getProtocolName:(Protocol *)protocol
-{
-    NSString *name = [NSString stringWithCString:protocol_getName(protocol) encoding:NSUTF8StringEncoding];
-    return name;
-}
-
-- (NSString *)getProtocolNameWithModule:(Class<MixRouteModule>)moduleClass
-{
-    u_int count;
-    Protocol* __unsafe_unretained *protocols = class_copyProtocolList(moduleClass, &count);
-    for (int i = 0; i < count; i++) {
-        Protocol *protocol = protocols[i];
-        if (!protocol_conformsToProtocol(protocol, @protocol(MixRouteModule))) continue;
-        NSString *name = [self getProtocolName:protocol];
-        NSLog(@"%@", name);
-        return name;
-    }
-    return nil;
-}
-
-- (id<MixRouteModuleDriver>)driverWithRoute:(MixRoute *)route
-{
-    Class<MixRouteModule> moduleClass = [self moduleClassWithName:route.name];
-    NSString *moduleProtocolName = [self getProtocolNameWithModule:moduleClass];
-    id<MixRouteModuleDriver> driver = self.drivers[moduleProtocolName];
-    return driver;
-}
-
 - (void)routeTo:(MixRouteName)name
+{
+    [self routeTo:name params:nil];
+}
+
+- (void)routeTo:(MixRouteName)name params:(id<MixRouteParams>)params
 {
     if (!name) return;
     MixRoute *route = [[MixRoute alloc] initWithName:name];
+    route.params = params;
     [self route:route];
 }
 
@@ -105,12 +75,19 @@
     MixRoute *route = [self.routeQueue firstObject];
     if (!route) return;
 
+    Class<MixRouteModule> module = [self moduleClassWithName:route.name];
+    if (!module) {
+        NSLog(@"%@ not register", route.name);
+        return;
+    }
+    if (![(id)module respondsToSelector:@selector(drive:completion:)]) {
+        NSLog(@"%@ no drive method", route.name);
+        return;
+    }
+
     self.routing = YES;
-    id<MixRouteModuleDriver> driver = [self driverWithRoute:route];
-    NSAssert(driver, @"no driver");
-    
     __weak typeof(self) weaks = self;
-    [driver drive:route completion:^{
+    [module drive:route completion:^{
         [weaks.routeQueue removeObjectAtIndex:0];
         weaks.routing = NO;
         [weaks startRouteQueue];

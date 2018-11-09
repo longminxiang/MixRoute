@@ -9,16 +9,24 @@
 #import <UIKit/UIKit.h>
 #import "UINavigationItem+Mix.h"
 
-@class MixVCRoute;
+@class MixRoute;
 
 @protocol MixRouteViewControlelr
 
-@property (nonatomic, strong) MixVCRoute *mix_route;
+@end
+
+@interface MixViewController : NSObject
+
+@property (nonatomic, weak, readonly) UIViewController<MixRouteViewControlelr> *vc;
+
+@property (nonatomic, strong) MixRoute *route;
+
+@property (nonatomic, readonly, class) UIViewController<MixRouteViewControlelr> *topVC;
 
 @end
 
-@interface UIViewController (MixVCRoute)
+@interface UIViewController (MixRouteViewControlelr)
 
-@property (nonatomic, readonly) UIViewController<MixRouteViewControlelr> *mixRoute_vc;
+@property (nonatomic, readonly) MixViewController *mix;
 
 @end

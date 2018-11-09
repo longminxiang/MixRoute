@@ -9,7 +9,7 @@
 #import "MixRouteViewController.h"
 #import <objc/runtime.h>
 #import "MixRouteManager.h"
-#import "MixVCRoute.h"
+#import "MixViewControllerRouteBase.h"
 
 void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSelector, SEL swizzledSelector)
 {
@@ -24,11 +24,49 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
     }
 }
 
-@interface UINavigationController (MixVCRoute)
+@implementation MixViewController
+
++ (UIViewController<MixRouteViewControlelr> *)topVC
+{
+    UIViewController *avc = [UIApplication sharedApplication].delegate.window.rootViewController;
+    return [self findTopVC:avc];
+}
+
++ (UIViewController<MixRouteViewControlelr> *)findTopVC:(UIViewController *)vc
+{
+    UIViewController *avc;
+    if (vc.presentedViewController) {
+        avc = [self findTopVC:vc.presentedViewController];
+    }
+    else if ([vc isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *nav = (UINavigationController *)vc;
+        avc = [self findTopVC:nav.topViewController];
+    }
+    else if ([vc isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tvc = (UITabBarController *)vc;
+        avc = [self findTopVC:tvc.viewControllers[tvc.selectedIndex]];
+    }
+    else if ([vc isKindOfClass:[UIViewController class]] && ![vc isKindOfClass:[UIAlertController class]]) {
+        avc = vc;
+    }
+    return avc.mix.vc;
+}
+
+- (instancetype)initWithVC:(UIViewController<MixRouteViewControlelr> *)vc
+{
+    if (self = [super init]) {
+        _vc = vc;
+    }
+    return self;
+}
 
 @end
 
-@implementation UINavigationController (MixVCRoute)
+@interface UINavigationController (MixRouteViewControlelr)
+
+@end
+
+@implementation UINavigationController (MixRouteViewControlelr)
 
 + (void)load
 {
@@ -53,7 +91,7 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
 
 @end
 
-@implementation UIViewController (MixVCRoute)
+@implementation UIViewController (MixRouteViewControlelr)
 
 + (void)load
 {
@@ -67,9 +105,16 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
     });
 }
 
-- (UIViewController<MixRouteViewControlelr> *)mixRoute_vc
+- (MixViewController *)mix
 {
-    return [self conformsToProtocol:@protocol(MixRouteViewControlelr)] ? (UIViewController<MixRouteViewControlelr> *)self : nil;
+    if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return nil;
+
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (!obj) {
+        obj = [[MixViewController alloc] initWithVC:(UIViewController<MixRouteViewControlelr> *)self];
+        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return obj;
 }
 
 - (void)_mix_vc_route_viewDidLoad
@@ -80,7 +125,7 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
 
     if (self.navigationController.isBeingPresented) {
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(basePopViewController)];
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(_mix_dismissViewController)];
         self.navigationItem.leftBarButtonItem = item;
     }
 }
@@ -89,7 +134,7 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
 {
     UINavigationItem *item;
     if ([self conformsToProtocol:@protocol(MixRouteViewControlelr)]) {
-        UINavigationItem *aitem = self.mixRoute_vc.mix_route.navigationItem;
+        UINavigationItem *aitem = ((id<MixRouteViewControllerParams>)self.mix.route.params).navigationItem;
         if (aitem) item = aitem;
         else aitem = item = [self _mix_vc_route_navigationItem];
     }
@@ -121,7 +166,7 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
     [self.mix_itemManager viewDidAppear:animated];
 }
 
-- (void)basePopViewController
+- (void)_mix_dismissViewController
 {
     [[MixRouteManager shared] routeTo:MixRouteNameBack];
 }

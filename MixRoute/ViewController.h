@@ -11,6 +11,6 @@
 
 UIKIT_EXTERN MixRouteName const MixRouteNameVC1;
 
-@interface ViewController : BaseVC<MixVCRouteModule>
+@interface ViewController : BaseVC<MixViewControllerRouteModule>
 
 @end

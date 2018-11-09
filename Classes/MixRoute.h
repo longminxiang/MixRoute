@@ -14,10 +14,18 @@ FOUNDATION_STATIC_INLINE BOOL MixRouteNameEqual(MixRouteName name, MixRouteName 
     return [name isEqualToString:aname];
 }
 
+@protocol MixRouteParams <NSObject>
+
+@end
+
+#define MixRouteConverParams(__protocol, __params, __originParams) \
+id<__protocol> __params = (id<__protocol>)__originParams; \
+if (![__params conformsToProtocol:@protocol(__protocol)]) __params = nil;
+
 @interface MixRoute : NSObject
 
 @property (nonatomic, readonly) MixRouteName name;
-@property (nonatomic, strong) id params;
+@property (nonatomic, strong) id<MixRouteParams> params;
 
 - (instancetype)initWithName:(MixRouteName)name NS_DESIGNATED_INITIALIZER;
 
@@ -28,11 +36,9 @@ FOUNDATION_STATIC_INLINE BOOL MixRouteNameEqual(MixRouteName name, MixRouteName 
 
 @protocol MixRouteModule
 
-@end
+@optional
 
-@protocol MixRouteModuleDriver
-
-- (void)drive:(MixRoute *)route completion:(void (^)(void))completion;
++ (void)drive:(MixRoute *)route completion:(void (^)(void))completion;
 
 @end
 

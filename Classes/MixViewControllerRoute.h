@@ -1,8 +1,8 @@
 //
-//  MixVCRoute.h
+//  MixViewControllerRoute.h
 //  MixRoute
 //
-//  Created by Eric Lung on 2018/10/15.
+//  Created by Eric Lung on 2018/11/9.
 //  Copyright © 2018年 YOOEE. All rights reserved.
 //
 
@@ -10,8 +10,7 @@
 #import "MixRouteManager.h"
 #import "MixRouteViewController.h"
 
-UIKIT_EXTERN MixRouteName const MixRouteNameBack;
-UIKIT_EXTERN MixRouteName const MixRouteNameBackToRoot;
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
     MixRouteStylePush,
@@ -19,22 +18,28 @@ typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
     MixRouteStyleRoot,
 };
 
-@interface MixVCRoute : MixRoute
+@protocol MixRouteViewControllerParams <MixRouteParams>
 
 @property (nonatomic, assign) MixVCRouteStyle style;
 
 @property (nonatomic, strong) UINavigationItem *navigationItem;
 
-@property (nonatomic, strong) NSArray<MixVCRoute *> *tabRoutes;
+@end
+
+@protocol MixRouteTabBarControllerParams <MixRouteViewControllerParams>
+
+@property (nonatomic, strong) NSArray<MixRoute *> *tabRoutes;
 
 @end
 
-@protocol MixVCRouteModule<MixRouteModule>
+@protocol MixViewControllerRouteModule<MixRouteModule>
 
-+ (UIViewController<MixRouteViewControlelr> *)vcWithRoute:(MixVCRoute *)route;
++ (UIViewController<MixRouteViewControlelr> *)viewControllerWithRoute:(MixRoute *)route;
 
 @optional
 
 + (Class)routeNavigationControllerClass;
 
 @end
+
+NS_ASSUME_NONNULL_END

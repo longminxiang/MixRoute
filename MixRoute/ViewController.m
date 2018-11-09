@@ -8,8 +8,10 @@
 
 #import "ViewController.h"
 #import "UINavigationItem+Mix.h"
+#import "Action.h"
 
 MixRouteName const MixRouteNameVC1 = @"MixRouteNameVC1";
+MixRouteName const MixRouteNameVC2 = @"MixRouteNameVC2";
 
 @interface ViewController ()
 
@@ -23,7 +25,8 @@ MixRouteName const MixRouteNameVC1 = @"MixRouteNameVC1";
 
 MixRegisterRouteModule(MixRouteNameVC1);
 
-+ (UIViewController<MixRouteViewControlelr> *)vcWithRoute:(MixVCRoute *)route {
++ (UIViewController<MixRouteViewControlelr> *)viewControllerWithRoute:(MixRoute *)route
+{
     ViewController *vc = [self new];
     return vc;
 }
@@ -55,7 +58,6 @@ MixRegisterRouteModule(MixRouteNameVC1);
 }
 
 - (IBAction)buttonTouched:(id)sender {
-    MixVCRoute *route = [[MixVCRoute alloc] initWithName:MixRouteNameVC1];
 
     UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:[@(rand() / 100) stringValue]];
     NSDictionary *atts = @{NSForegroundColorAttributeName: [self randColor],
@@ -69,10 +71,22 @@ MixRegisterRouteModule(MixRouteNameVC1);
     item.mix.statusBarHidden = rand() % 2;
     item.mix.statusBarStyle = rand() % 2;
 //    item.mix.barBackgroundImage = [UIImage imageNamed:rand() % 2 ? @"nav1" : @"nav"];
-    route.navigationItem = item;
 
-//    route.style = rand() % 2 ? MixRouteStylePresent : MixRouteStylePush;
-    [[MixRouteManager shared] route:route];
+    MixRouteViewControllerBaseParams *params = [MixRouteViewControllerBaseParams new];
+//    params.style = rand() % 2 ? MixRouteStylePresent : MixRouteStylePush;
+    params.navigationItem = item;
+
+    [[MixRouteManager shared] routeTo:MixRouteNameVC1 params:params];
+}
+
+- (IBAction)action
+{
+    [[MixRouteManager shared] routeTo:MixRouteNameActionShowHUD];
+}
+
+- (IBAction)dismiss
+{
+    [[MixRouteManager shared] routeTo:MixRouteNameBack];
 }
 
 - (UIColor *)randColor

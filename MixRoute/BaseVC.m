@@ -35,7 +35,6 @@
 @end
 
 @implementation BaseVC
-@synthesize mix_route = _mix_route;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MixVCRoute.h"
+#import "MixViewControllerRouteBase.h"
 
 @interface BaseNavigationController : UINavigationController
 

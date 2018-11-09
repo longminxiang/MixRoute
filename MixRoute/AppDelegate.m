@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import "MixVCRoute.h"
+#import "MixViewControllerRouteBase.h"
 
 MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 
@@ -17,7 +17,6 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 @end
 
 @implementation TabBarController
-@synthesize mix_route = _mix_route;
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -27,7 +26,7 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 
 @end
 
-@interface AppDelegate ()<MixVCRouteModule>
+@interface AppDelegate ()<MixViewControllerRouteModule>
 
 @end
 
@@ -35,7 +34,7 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 
 MixRegisterRouteModule(MixRouteNameTab);
 
-+ (UIViewController<MixRouteViewControlelr> *)vcWithRoute:(MixVCRoute *)route
++ (UIViewController<MixRouteViewControlelr> *)viewControllerWithRoute:(MixRoute *)route
 {
     TabBarController *tab = [TabBarController new];
     return tab;
@@ -50,20 +49,20 @@ MixRegisterRouteModule(MixRouteNameTab);
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
-    
-    MixVCRoute *route = [[MixVCRoute alloc] initWithName:MixRouteNameTab];
+
     NSMutableArray *routes = [NSMutableArray new];
     for (int i = 0; i < 4; i++) {
-        MixVCRoute *route = [[MixVCRoute alloc] initWithName:MixRouteNameVC1];
-        route.navigationItem = [[UINavigationItem alloc] initWithTitle:[@(rand()) stringValue]];
+        MixRoute *route = [[MixRoute alloc] initWithName:MixRouteNameVC1];
+        MixRouteViewControllerBaseParams *params = [MixRouteViewControllerBaseParams new];
+        params.navigationItem = [[UINavigationItem alloc] initWithTitle:[@(rand()) stringValue]];
+        route.params = params;
         [routes addObject:route];
     }
-    route.tabRoutes = routes;
+    MixRouteTabBarControllerBaseParams *params = [MixRouteTabBarControllerBaseParams new];
+    params.style = MixRouteStyleRoot;
+    params.tabRoutes = routes;
 
-//    Route *route = [[Route alloc] initWithName:MixRouteNameVC1];
-
-    route.style = MixRouteStyleRoot;
-    [[MixRouteManager shared] route:route];
+    [[MixRouteManager shared] routeTo:MixRouteNameTab params:params];
     
     return YES;
 }

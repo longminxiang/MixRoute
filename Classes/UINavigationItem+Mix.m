@@ -66,33 +66,45 @@
         }
         [self observeValueForKeyPath:keyPath ofObject:self.vc.navigationItem.mix change:nil context:context];
     }
-    [self.vc.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        for (UIView *view in [bar subviews]) {
-            if (![view isKindOfClass:NSClassFromString(@"_UINavigationBarContentView")]) continue;
-            for (UILabel *label in [view subviews]) {
-                if (![label isKindOfClass:[UILabel class]]) continue;
-                label.attributedText = [[NSAttributedString alloc] initWithString:label.text attributes:item.barTitleTextAttributes];
-                break;
-            }
-            break;
-        }
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
 
-    }];
+    [self.vc.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        UIViewController *fromVC = [context viewControllerForKey:UITransitionContextFromViewControllerKey];
+        BOOL isPop = ![nav.viewControllers containsObject:fromVC];
+        if (!isPop) return ;
+
+        for (UIView *view in [bar subviews]) {
+            if ([view isKindOfClass:NSClassFromString(@"_UINavigationBarContentView")]) {
+                for (UILabel *label in [view subviews]) {
+                    if (![label isKindOfClass:[UILabel class]] || item.barHidden) continue;
+                    label.attributedText = [[NSAttributedString alloc] initWithString:label.text attributes:item.barTitleTextAttributes];
+                    break;
+                }
+            }
+            else if ([view isKindOfClass:NSClassFromString(@"_UIBarBackground")]) {
+                for (UIView *sview in [view subviews]) {
+                    if (![sview isKindOfClass:[UIVisualEffectView class]]) continue;
+                    for (UIView *ssview in [sview subviews]) {
+                        if (ssview.alpha < 0.86 && !item.barHidden) {
+                            ssview.backgroundColor = item.barTintColor;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    } completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self observeValueForKeyPath:@"disableInteractivePopGesture" ofObject:self.vc.navigationItem.mix change:nil context:NULL];
-    [self observeValueForKeyPath:@"barBackgroundImage" ofObject:self.vc.navigationItem.mix change:nil context:NULL];
-//    [self observeValueForKeyPath:@"barTintColor" ofObject:self.vc.navigationItem.mix change:nil context:NULL];
-//    [self observeValueForKeyPath:@"barTitleTextAttributes" ofObject:self.vc.navigationItem.mix change:nil context:NULL];
+    MixNavigationItem *item = self.vc.navigationItem.mix;
+    [self observeValueForKeyPath:@"disableInteractivePopGesture" ofObject:item change:nil context:NULL];
 }
 
 - (NSArray *)mixItemKeyPaths
 {
     NSArray *keyPaths = @[@"disableInteractivePopGesture", @"statusBarStyle", @"barHidden",
-                          @"barTitleTextAttributes", @"barTintColor", @"barBackgroundImage"];
+                          @"barTitleTextAttributes", @"barTintColor", @"barBackgroundImage", @"statusBarHidden"];
     return keyPaths;
 }
 
@@ -104,32 +116,34 @@
     if (nav.topViewController != self.vc) return;
 
     UINavigationBar *bar = nav.navigationBar;
-
     if ([keyPath isEqualToString:@"disableInteractivePopGesture"]) {
         BOOL lock = context;
-        if (!lock) {
-            BOOL isRoot = [nav.viewControllers firstObject] == self.vc;
-            nav.interactivePopGestureRecognizer.enabled = !isRoot && !item.disableInteractivePopGesture;
-        }
+        if (lock) return;
+        BOOL isRoot = [nav.viewControllers firstObject] == self.vc;
+        nav.interactivePopGestureRecognizer.enabled = !isRoot && !item.disableInteractivePopGesture;
     }
     else if ([keyPath isEqualToString:@"statusBarStyle"]) {
-        bar.barStyle = item.statusBarStyle == UIStatusBarStyleLightContent ? UIBarStyleBlack : UIBarStyleDefault;
         [self.vc setNeedsStatusBarAppearanceUpdate];
+    }
+    else if ([keyPath isEqualToString:@"statusBarHidden"]) {
+        UIView *view = [[UIApplication sharedApplication] valueForKeyPath:@"statusBarWindow.statusBar"];
+        view.alpha = !item.statusBarHidden || !item.barHidden;
     }
     else if ([keyPath isEqualToString:@"barHidden"]) {
         [nav setNavigationBarHidden:item.barHidden animated:YES];
     }
     else if ([keyPath isEqualToString:@"barTitleTextAttributes"]) {
+        if (item.barHidden) return;
         bar.titleTextAttributes = item.barTitleTextAttributes;
     }
     else if ([keyPath isEqualToString:@"barTintColor"]) {
+        if (item.barHidden) return;
         bar.barTintColor = item.barTintColor;
     }
     else if ([keyPath isEqualToString:@"barBackgroundImage"]) {
+        if (item.barHidden) return;
         UIImage *image = (__bridge UIImage *)(context);
-        if (![image isKindOfClass:[UIImage class]]) {
-           image = item.barBackgroundImage;
-        }
+        if (![image isKindOfClass:[UIImage class]]) image = item.barBackgroundImage;
         [bar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
     }
 }

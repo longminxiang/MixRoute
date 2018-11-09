@@ -8,6 +8,28 @@
 
 #import "BaseVC.h"
 
+@implementation BaseNavigationController
+
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController
+{
+    if (self = [super initWithRootViewController:rootViewController]) {
+        self.navigationBar.barStyle = UIBarStyleBlack;
+    }
+    return self;
+}
+
+- (UIViewController *)childViewControllerForStatusBarStyle
+{
+    return self.topViewController;
+}
+
+- (UIViewController *)childViewControllerForStatusBarHidden
+{
+    return self.topViewController;
+}
+
+@end
+
 @interface BaseVC ()
 
 @end

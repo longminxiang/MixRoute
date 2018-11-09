@@ -24,6 +24,31 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
     }
 }
 
+@interface UINavigationController (MixVCRoute)
+
+@end
+
+@implementation UINavigationController (MixVCRoute)
+
++ (void)load
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(childViewControllerForStatusBarStyle), @selector(_mix_childViewControllerForStatusBarStyle));
+    });
+}
+
+- (UIViewController *)_mix_childViewControllerForStatusBarStyle
+{
+    UIViewController *vc = [self _mix_childViewControllerForStatusBarStyle];
+    if ([self isKindOfClass:[UINavigationController class]] && !vc) {
+        vc = [(UINavigationController *)self topViewController];
+    }
+    return vc;
+}
+
+@end
+
 @interface UIViewController ()<UIGestureRecognizerDelegate>
 
 @end

@@ -105,7 +105,7 @@ MixRouteName const MixRouteNameBackToRoot = @"MixRouteNameBackToRoot";
         if ([(id)moduleClass respondsToSelector:@selector(routeNavigationControllerClass)]) {
             navClass = [moduleClass routeNavigationControllerClass];
         }
-        if (![navClass isKindOfClass:[UINavigationController class]]) {
+        if (![navClass isSubclassOfClass:[UINavigationController class]]) {
             navClass = [UINavigationController class];
         }
 

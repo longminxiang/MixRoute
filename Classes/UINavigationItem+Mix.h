@@ -12,6 +12,8 @@
 
 @property (nonatomic, assign) BOOL disableInteractivePopGesture;
 
+@property (nonatomic, assign) BOOL statusBarHidden;
+
 @property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
 
 

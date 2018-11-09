@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MixVCRoute.h"
 
+@interface BaseNavigationController : UINavigationController
+
+@end
+
 @interface BaseVC : UIViewController<MixRouteViewControlelr>
 
 @end

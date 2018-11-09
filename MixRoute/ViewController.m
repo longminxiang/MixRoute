@@ -38,6 +38,7 @@ MixRegisterRouteModule(MixRouteNameVC1);
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor whiteColor];
     self.label.text = self.navigationItem.title;
+//    MixNavigationItem *item = self.navigationItem.mix;
 //    self.title = self.mix_route.params;
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        self.navigationItem.mix.statusBarStyle = !self.navigationItem.mix.statusBarStyle;
@@ -47,6 +48,10 @@ MixRegisterRouteModule(MixRouteNameVC1);
     [self.scrollView addSubview:self.contentView];
     self.scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height * 2);
 //    self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//    if (!item.barTintColor) item.barTintColor = [self randColor];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        item.statusBarStyle = !item.statusBarStyle;
+//    });
 }
 
 - (IBAction)buttonTouched:(id)sender {
@@ -59,11 +64,11 @@ MixRegisterRouteModule(MixRouteNameVC1);
     item.mix.barTitleTextAttributes = atts;
     item.mix.barTintColor = [self randColor];
 //    item.mix.barTintColor = [UIColor whiteColor];
-    item.mix.barHidden = NO;
+    item.mix.barHidden = rand() % 2;
+//    item.mix.barHidden = NO;
+    item.mix.statusBarHidden = rand() % 2;
     item.mix.statusBarStyle = rand() % 2;
-    if (!item.mix.barHidden) {
-//        item.mix.barBackgroundImage = [UIImage imageNamed:rand() % 2 ? @"nav1" : @"nav"];
-    }
+//    item.mix.barBackgroundImage = [UIImage imageNamed:rand() % 2 ? @"nav1" : @"nav"];
     route.navigationItem = item;
 
 //    route.style = rand() % 2 ? MixRouteStylePresent : MixRouteStylePush;

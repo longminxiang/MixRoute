@@ -157,21 +157,3 @@
 }
 
 @end
-
-@interface UIViewController ()
-
-@end
-
-@implementation UIViewController (MixNavigationItem)
-
-- (MixNavigationItemManager *)mix_itemManager
-{
-    MixNavigationItemManager *obj = objc_getAssociatedObject(self, _cmd);
-    if (!obj) {
-        obj = [[MixNavigationItemManager alloc] initWithViewController:self];
-        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return obj;
-}
-
-@end

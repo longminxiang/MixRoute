@@ -25,6 +25,8 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
 }
 
 @implementation MixViewController
+@synthesize navigationItemManager = _navigationItemManager;
+@synthesize tabBarItemManager = _tabBarItemManager;
 
 + (UIViewController<MixRouteViewControlelr> *)topVC
 {
@@ -58,6 +60,18 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
         _vc = vc;
     }
     return self;
+}
+
+- (MixNavigationItemManager *)navigationItemManager
+{
+    if (!_navigationItemManager) _navigationItemManager = [[MixNavigationItemManager alloc] initWithViewController:self.vc];
+    return _navigationItemManager;
+}
+
+- (MixTabBarItemManager *)tabBarItemManager
+{
+    if (!_tabBarItemManager) _tabBarItemManager = [[MixTabBarItemManager alloc] initWithViewController:self.vc];
+    return _tabBarItemManager;
 }
 
 @end
@@ -99,6 +113,7 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
     dispatch_once(&onceToken, ^{
         mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(viewDidLoad), @selector(_mix_vc_route_viewDidLoad));
         mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(navigationItem), @selector(_mix_vc_route_navigationItem));
+        mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(tabBarItem), @selector(_mix_vc_route_tabBarItem));
         mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(preferredStatusBarStyle), @selector(_mix_vc_route_preferredStatusBarStyle));
         mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(viewWillAppear:), @selector(_mix_vc_route_viewWillAppear:));
         mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(viewDidAppear:), @selector(_mix_vc_route_viewDidAppear:));
@@ -144,6 +159,20 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
     return item;
 }
 
+- (UITabBarItem *)_mix_vc_route_tabBarItem
+{
+    UITabBarItem *item;
+    if ([self conformsToProtocol:@protocol(MixRouteViewControlelr)]) {
+        UITabBarItem *aitem = ((id<MixRouteViewControllerParams>)self.mix.route.params).tabBarItem;
+        if (aitem) item = aitem;
+        else aitem = item = [self _mix_vc_route_tabBarItem];
+    }
+    else {
+        item = [self _mix_vc_route_tabBarItem];
+    }
+    return item;
+}
+
 - (UIStatusBarStyle)_mix_vc_route_preferredStatusBarStyle
 {
     UIStatusBarStyle style = [self _mix_vc_route_preferredStatusBarStyle];
@@ -156,14 +185,15 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
 {
     [self _mix_vc_route_viewWillAppear:animated];
     if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return;
-    [self.mix_itemManager viewWillAppear:animated];
+    [self.mix.navigationItemManager viewWillAppear:animated];
+    [self.mix.tabBarItemManager viewWillAppear:animated];
 }
 
 - (void)_mix_vc_route_viewDidAppear:(BOOL)animated
 {
     [self _mix_vc_route_viewDidAppear:animated];
     if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return;
-    [self.mix_itemManager viewDidAppear:animated];
+    [self.mix.navigationItemManager viewDidAppear:animated];
 }
 
 - (void)_mix_dismissViewController

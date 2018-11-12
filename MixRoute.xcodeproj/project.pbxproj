@@ -17,6 +17,7 @@
 		0743B2C42174334F00F15570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2C32174334F00F15570 /* main.m */; };
 		0743B2CD217433B600F15570 /* MixRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2CC217433B600F15570 /* MixRoute.m */; };
 		0743B2D0217434DA00F15570 /* MixRouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2CF217434DA00F15570 /* MixRouteManager.m */; };
+		077AE30B2199696800D9EC88 /* UITabBarItem+Mix.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AE30A2199696800D9EC88 /* UITabBarItem+Mix.m */; };
 		07BD20AF21779A17005BC428 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07BD20AE21779A17005BC428 /* ViewController.xib */; };
 		07D1315A218FF1620091CA9E /* UINavigationItem+Mix.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D13159218FF1610091CA9E /* UINavigationItem+Mix.m */; };
 		07F3D9AC218069AE00B2E923 /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F3D9AB218069AE00B2E923 /* BaseVC.m */; };
@@ -43,6 +44,8 @@
 		0743B2CC217433B600F15570 /* MixRoute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRoute.m; sourceTree = "<group>"; };
 		0743B2CE217434DA00F15570 /* MixRouteManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRouteManager.h; sourceTree = "<group>"; };
 		0743B2CF217434DA00F15570 /* MixRouteManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRouteManager.m; sourceTree = "<group>"; };
+		077AE3092199696800D9EC88 /* UITabBarItem+Mix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+Mix.h"; sourceTree = "<group>"; };
+		077AE30A2199696800D9EC88 /* UITabBarItem+Mix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+Mix.m"; sourceTree = "<group>"; };
 		07BD20AE21779A17005BC428 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		07D13158218FF1610091CA9E /* UINavigationItem+Mix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+Mix.h"; sourceTree = "<group>"; };
 		07D13159218FF1610091CA9E /* UINavigationItem+Mix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+Mix.m"; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 				07F3D9AE21806AE800B2E923 /* MixRouteViewController.m */,
 				07D13158218FF1610091CA9E /* UINavigationItem+Mix.h */,
 				07D13159218FF1610091CA9E /* UINavigationItem+Mix.m */,
+				077AE3092199696800D9EC88 /* UITabBarItem+Mix.h */,
+				077AE30A2199696800D9EC88 /* UITabBarItem+Mix.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 				0712072B21957358009CD87B /* MixViewControllerRoute.m in Sources */,
 				07F3D9AF21806AE800B2E923 /* MixRouteViewController.m in Sources */,
 				07F3D9AC218069AE00B2E923 /* BaseVC.m in Sources */,
+				077AE30B2199696800D9EC88 /* UITabBarItem+Mix.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

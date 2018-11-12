@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UINavigationItem+Mix.h"
+#import "UITabBarItem+Mix.h"
 
 @class MixRoute;
 
@@ -22,6 +23,10 @@
 @property (nonatomic, strong) MixRoute *route;
 
 @property (nonatomic, readonly, class) UIViewController<MixRouteViewControlelr> *topVC;
+
+@property (nonatomic, readonly) MixNavigationItemManager *navigationItemManager;
+
+@property (nonatomic, readonly) MixTabBarItemManager *tabBarItemManager;
 
 @end
 

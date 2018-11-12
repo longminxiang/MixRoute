@@ -12,25 +12,11 @@
 
 MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 
-@interface TabBarController : UITabBarController<MixRouteViewControlelr>
+@interface TabBarController : UITabBarController<MixRouteViewControlelr, MixViewControllerRouteModule>
 
 @end
 
 @implementation TabBarController
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-@end
-
-@interface AppDelegate ()<MixViewControllerRouteModule>
-
-@end
-
-@implementation AppDelegate
 
 MixRegisterRouteModule(MixRouteNameTab);
 
@@ -45,28 +31,56 @@ MixRegisterRouteModule(MixRouteNameTab);
 //    return [BaseNavigationController class];
 //}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+@end
+
+@interface AppDelegate ()
+
+@end
+
+@implementation AppDelegate
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
 
     NSMutableArray *routes = [NSMutableArray new];
-    for (int i = 0; i < 4; i++) {
+    NSArray *imageNames = @[@"tab_home", @"tab_video", @"tab_live", @"tab_circle"];
+    for (int i = 0; i < imageNames.count; i++) {
         MixRoute *route = [[MixRoute alloc] initWithName:MixRouteNameVC1];
         MixRouteViewControllerBaseParams *params = [MixRouteViewControllerBaseParams new];
         params.navigationItem = [[UINavigationItem alloc] initWithTitle:[@(rand()) stringValue]];
+        NSString *name = imageNames[i];
+        UIImage *image = [[UIImage imageNamed:name] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *selImage = [[UIImage imageNamed:[name stringByAppendingString:@"_cur"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        if (!selImage) selImage = [[UIImage imageNamed:@"tab_reflash"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        params.tabBarItem = [[UITabBarItem alloc] initWithTitle:[@(rand()) stringValue] image:image selectedImage:selImage];
+        [params.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]} forState:UIControlStateNormal];
+        [params.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor orangeColor]} forState:UIControlStateSelected];
         route.params = params;
         [routes addObject:route];
     }
     MixRouteTabBarControllerBaseParams *params = [MixRouteTabBarControllerBaseParams new];
     params.style = MixRouteStyleRoot;
     params.tabRoutes = routes;
+    params.tabBarItem = [UITabBarItem new];
+    params.tabBarItem.mix.barTintColor = [UIColor redColor];
 
     [[MixRouteManager shared] routeTo:MixRouteNameTab params:params];
     
     return YES;
 }
 
+- (UIColor *)randColor
+{
+    return [UIColor colorWithRed:(float)(rand() % 10) / 10 green:(float)(rand() % 10) / 10 blue:(float)(rand() % 10) / 10 alpha:1];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

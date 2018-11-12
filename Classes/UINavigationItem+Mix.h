@@ -35,14 +35,10 @@
 
 @interface MixNavigationItemManager : NSObject
 
+- (instancetype)initWithViewController:(UIViewController *)vc;
+
 - (void)viewWillAppear:(BOOL)animated;
 
 - (void)viewDidAppear:(BOOL)animated;
-
-@end
-
-@interface UIViewController (MixNavigationItem)
-
-@property (nonatomic, readonly) MixNavigationItemManager *mix_itemManager;
 
 @end

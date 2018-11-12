@@ -24,6 +24,10 @@ typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
 
 @property (nonatomic, strong) UINavigationItem *navigationItem;
 
+@optional
+
+@property (nonatomic, strong) UITabBarItem *tabBarItem;
+
 @end
 
 @protocol MixRouteTabBarControllerParams <MixRouteViewControllerParams>

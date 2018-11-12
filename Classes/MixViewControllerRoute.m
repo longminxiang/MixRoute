@@ -49,7 +49,7 @@
             UINavigationController *nav = [[navClass alloc] initWithRootViewController:avc];
             [navs addObject:nav];
         }
-        ((UITabBarController *)vc).viewControllers = navs;
+        ((UITabBarController *)vc).viewControllers = navs;        
     }
 
     if (params.style == MixRouteStyleRoot) {

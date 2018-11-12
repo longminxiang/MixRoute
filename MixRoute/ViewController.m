@@ -55,6 +55,9 @@ MixRegisterRouteModule(MixRouteNameVC1);
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        item.statusBarStyle = !item.statusBarStyle;
 //    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.tabBarItem.mix.barTintColor = [self randColor];
+    });
 }
 
 - (IBAction)buttonTouched:(id)sender {

@@ -34,15 +34,31 @@ if (![__params conformsToProtocol:@protocol(__protocol)]) __params = nil;
 
 @end
 
-@protocol MixRouteModule
+typedef void (^MixRouteDriverBlock)(MixRoute *route, void (^completion)(void));
+typedef void (^MixRouteDriverRegister)(MixRouteName name, MixRouteDriverBlock block);
 
-@optional
+@interface MixRouteDriver : NSObject
 
-+ (void)drive:(MixRoute *)route completion:(void (^)(void))completion;
+@property (nonatomic, readonly) MixRouteDriverRegister reg;
 
 @end
 
-#define MixRegisterRouteModule(__name) \
-+ (void)load { \
-    [[MixRouteManager shared] registerModule:self forName:__name]; \
-}
+@protocol MixRouteModule
+
++ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver;
+
+@end
+
+@interface MixRouteManager : NSObject
+
++ (instancetype)shared;
+
+- (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name;
+
+- (void)route:(MixRoute *)route;
+
+- (void)routeTo:(MixRouteName)name;
+
+- (void)routeTo:(MixRouteName)name params:(id<MixRouteParams>)params;
+
+@end

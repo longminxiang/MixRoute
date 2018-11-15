@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MixRouteManager.h"
+#import "MixRoute.h"
 
 UIKIT_EXTERN MixRouteName const MixRouteNameActionShowHUD;
 

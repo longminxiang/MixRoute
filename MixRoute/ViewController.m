@@ -23,7 +23,14 @@ MixRouteName const MixRouteNameVC2 = @"MixRouteNameVC2";
 
 @implementation ViewController
 
-MixRegisterRouteModule(MixRouteNameVC1);
++ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver
+{
+    driver.regvc(MixRouteNameVC1);
+    driver.reg(MixRouteNameVC2, ^(MixRoute *route, void (^completion)(void)) {
+        NSLog(@"xxxxx");
+        completion();
+    });
+}
 
 + (UIViewController<MixRouteViewControlelr> *)viewControllerWithRoute:(MixRoute *)route
 {

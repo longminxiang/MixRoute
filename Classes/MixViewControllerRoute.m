@@ -9,19 +9,40 @@
 #import "MixViewControllerRoute.h"
 #import <objc/runtime.h>
 
-@interface NSObject (MixViewControllerRouteModule)<MixRouteModule>
+@implementation MixRouteDriver (MixViewControllerRoute)
 
-@end
-
-@implementation NSObject (MixViewControllerRouteModule)
-
-+ (void)drive:(MixRoute *)route completion:(void (^)(void))completion
+- (MixRouteDriverViewControllerRegister)regvc
 {
-    if (![self conformsToProtocol:@protocol(MixViewControllerRouteModule)]) return;
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (!obj) {
+        __weak typeof(self) weaks = self;
+        obj = ^(MixRouteName  _Nonnull name) {
+            weaks.reg(name, [[self class] sharedDriver]);
+        };
+        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    }
+    return obj;
+}
+
++ (MixRouteDriverBlock)sharedDriver
+{
+    static MixRouteDriverBlock driver;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        driver = ^(MixRoute *route, void (^completion)(void)){
+            [self defaultDriver:route completion:completion];
+        };
+    });
+    return driver;
+}
+
++ (void)defaultDriver:(MixRoute *)route completion:(void (^)(void))completion
+{
+    Class moduleClass = [[MixRouteManager shared] moduleClassWithName:route.name];
+    if (!moduleClass) return;
 
     MixRouteConverParams(MixRouteViewControllerParams, params, route.params);
 
-    Class moduleClass = [[MixRouteManager shared] moduleClassWithName:route.name];
     UIViewController<MixRouteViewControlelr> *vc = [moduleClass viewControllerWithRoute:route];
     if (!vc) {
         if (completion) completion();
@@ -49,7 +70,7 @@
             UINavigationController *nav = [[navClass alloc] initWithRootViewController:avc];
             [navs addObject:nav];
         }
-        ((UITabBarController *)vc).viewControllers = navs;        
+        ((UITabBarController *)vc).viewControllers = navs;
     }
 
     if (params.style == MixRouteStyleRoot) {

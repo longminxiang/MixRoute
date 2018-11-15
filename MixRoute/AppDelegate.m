@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "MixViewControllerRouteBase.h"
+#import "MixRoute-Swift.h"
+#import <objc/runtime.h>
 
 MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 
@@ -18,7 +20,10 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 
 @implementation TabBarController
 
-MixRegisterRouteModule(MixRouteNameTab);
++ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver
+{
+    driver.regvc(MixRouteNameTab);
+}
 
 + (UIViewController<MixRouteViewControlelr> *)viewControllerWithRoute:(MixRoute *)route
 {
@@ -35,6 +40,11 @@ MixRegisterRouteModule(MixRouteNameTab);
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)dealloc
+{
+    NSLog(@"%@ dealloc", [self class]);
 }
 
 @end
@@ -73,7 +83,28 @@ MixRegisterRouteModule(MixRouteNameTab);
     params.tabBarItem.mix.barTintColor = [UIColor redColor];
 
     [[MixRouteManager shared] routeTo:MixRouteNameTab params:params];
-    
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        MixRouteViewControllerBaseParams *params = [MixRouteViewControllerBaseParams new];
+        params.navigationItem = [[UINavigationItem alloc] initWithTitle:[@(rand()) stringValue]];
+        params.style = MixRouteStyleRoot;
+        [[MixRouteManager shared] routeTo:MixRouteNameVC1 params:params];
+    });
+
+    NSDictionary *rootDict = @{
+                                @"name": @"Tab",
+                                @"style": @(MixRouteStyleRoot),
+                                @"tabs": @[
+                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"yy", @"selImage": @"zz", @"title": @"ss"}},
+                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"yy", @"selImage": @"zz", @"title": @"ss"}},
+                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"yy", @"selImage": @"zz", @"title": @"ss"}},
+                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"yy", @"selImage": @"zz", @"title": @"ss"}},
+                                        ],
+                                };
+//    Route *route = [[Route alloc] initWithDictionary:rootDict];
+    Route *route = [Route routeWithDictionary:rootDict];
+    [[MixRouteManager shared] route:route.mix];
+
     return YES;
 }
 

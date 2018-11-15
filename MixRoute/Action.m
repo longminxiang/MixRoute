@@ -13,21 +13,16 @@ MixRouteName const MixRouteNameActionLog = @"MixRouteNameActionLog";
 
 @implementation Action
 
-+ (void)load
++ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver
 {
-    [[MixRouteManager shared] registerModule:self forName:MixRouteNameActionShowHUD];
-    [[MixRouteManager shared] registerModule:self forName:MixRouteNameActionLog];
-}
-
-+ (void)drive:(MixRoute *)route completion:(void (^)(void))completion
-{
-    if (MixRouteNameEqual(route.name, MixRouteNameActionShowHUD)) {
+    driver.reg(MixRouteNameActionShowHUD, ^(MixRoute *route, void (^completion)(void)) {
         NSLog(@"hud");
-    }
-    else if (MixRouteNameEqual(route.name, MixRouteNameActionLog)) {
+        completion();
+    });
+    driver.reg(MixRouteNameActionLog, ^(MixRoute *route, void (^completion)(void)) {
         NSLog(@"log");
-    }
-    completion();
+        completion();
+    });
 }
 
 @end

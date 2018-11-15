@@ -29,10 +29,13 @@ MixRouteName const MixRouteNameBackToRoot = @"MixRouteNameBackToRoot";
 
 @implementation MixViewControllerRouteBase
 
-+ (void)load
++ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver
 {
-    [[MixRouteManager shared] registerModule:self forName:MixRouteNameBack];
-    [[MixRouteManager shared] registerModule:self forName:MixRouteNameBackToRoot];
+    MixRouteDriverBlock block = ^(MixRoute *route, void (^completion)(void)) {
+        [self drive:route completion:completion];
+    };
+    driver.reg(MixRouteNameBack, block);
+    driver.reg(MixRouteNameBackToRoot, block);
 }
 
 + (void)drive:(MixRoute *)route completion:(void (^)(void))completion

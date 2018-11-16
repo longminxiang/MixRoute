@@ -26,9 +26,8 @@ MixRouteName const MixRouteNameVC2 = @"MixRouteNameVC2";
 + (void)mixRouteRegisterDriver:(MixRouteDriver *)driver
 {
     driver.regvc(MixRouteNameVC1);
-    driver.reg(MixRouteNameVC2, ^(MixRoute *route, void (^completion)(void)) {
+    driver.reg(MixRouteNameVC2, ^(MixRoute *route) {
         NSLog(@"xxxxx");
-        completion();
     });
 }
 
@@ -68,35 +67,66 @@ MixRouteName const MixRouteNameVC2 = @"MixRouteNameVC2";
 }
 
 - (IBAction)buttonTouched:(id)sender {
+    [self push];
+    MixRouteActionDelayParams *params = [MixRouteActionDelayParams new];
+    params.delay = 3000;
+    [MixRouteManager to:MixRouteNameActionDelay params:params];
+    [self push];
+    [self push];
+    [self push];
+    [self push];
+    [self push];
+    [self push];
+    [self push];
+    [self push];
+    [self push];
+    [self push];
 
+}
+
+- (void)push
+{
     UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:[@(rand() / 100) stringValue]];
     NSDictionary *atts = @{NSForegroundColorAttributeName: [self randColor],
                            NSFontAttributeName: [UIFont boldSystemFontOfSize:20],
                            };
     item.mix.barTitleTextAttributes = atts;
     item.mix.barTintColor = [self randColor];
-//    item.mix.barTintColor = [UIColor whiteColor];
+    //    item.mix.barTintColor = [UIColor whiteColor];
     item.mix.barHidden = rand() % 2;
-//    item.mix.barHidden = NO;
+    //    item.mix.barHidden = NO;
     item.mix.statusBarHidden = rand() % 2;
     item.mix.statusBarStyle = rand() % 2;
-//    item.mix.barBackgroundImage = [UIImage imageNamed:rand() % 2 ? @"nav1" : @"nav"];
+    //    item.mix.barBackgroundImage = [UIImage imageNamed:rand() % 2 ? @"nav1" : @"nav"];
 
     MixRouteViewControllerBaseParams *params = [MixRouteViewControllerBaseParams new];
-//    params.style = rand() % 2 ? MixRouteStylePresent : MixRouteStylePush;
+    //    params.style = rand() % 2 ? MixRouteStylePresent : MixRouteStylePush;
     params.navigationItem = item;
 
-    [[MixRouteManager shared] routeTo:MixRouteNameVC1 params:params];
+    [MixRouteManager to:MixRouteNameVC1 params:params];
 }
 
 - (IBAction)action
 {
-    [[MixRouteManager shared] routeTo:MixRouteNameActionShowHUD];
+    [MixRouteManager to:MixRouteNameActionShowHUD];
 }
 
 - (IBAction)dismiss
 {
-    [[MixRouteManager shared] routeTo:MixRouteNameBack];
+    MixRouteBackParams *params = [MixRouteBackParams new];
+    params.delta = 10;
+    [MixRouteManager to:MixRouteNameBack params:params];
+//    [MixRouteManager to:MixRouteNameBack];
+//    [MixRouteManager to:MixRouteNameBack];
+//    [MixRouteManager to:MixRouteNameBack];
+//    [MixRouteManager to:MixRouteNameBack];
+//    [MixRouteManager to:MixRouteNameBack];
+//    [MixRouteManager to:MixRouteNameBack];
+//    [MixRouteManager to:MixRouteNameBack];
+//    [MixRouteManager to:MixRouteNameBack];
+//    [MixRouteManager to:MixRouteNameBack];
+//    [MixRouteManager to:MixRouteNameBack];
+
 }
 
 - (UIColor *)randColor

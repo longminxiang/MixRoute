@@ -17,35 +17,34 @@
     if (!obj) {
         __weak typeof(self) weaks = self;
         obj = ^(MixRouteName  _Nonnull name) {
-            weaks.reg(name, [[self class] sharedDriver]);
+            weaks.reg(name, [[self class] viewControllerDriverBlock]);
         };
         objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_COPY_NONATOMIC);
     }
     return obj;
 }
 
-+ (MixRouteDriverBlock)sharedDriver
++ (MixRouteDriverBlock)viewControllerDriverBlock
 {
     static MixRouteDriverBlock driver;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        driver = ^(MixRoute *route, void (^completion)(void)){
-            [self defaultDriver:route completion:completion];
+        driver = ^(MixRoute *route) {
+            [self viewControllerDriver:route];
         };
     });
     return driver;
 }
 
-+ (void)defaultDriver:(MixRoute *)route completion:(void (^)(void))completion
++ (void)viewControllerDriver:(MixRoute *)route
 {
-    Class moduleClass = [[MixRouteManager shared] moduleClassWithName:route.name];
+    Class moduleClass = [MixRouteManager moduleClassWithName:route.name];
     if (!moduleClass) return;
 
-    MixRouteConverParams(MixRouteViewControllerParams, params, route.params);
+    MIX_ROUTE_PROTOCOL_PARAMS(MixRouteViewControllerParams, route.params, params);
 
     UIViewController<MixRouteViewControlelr> *vc = [moduleClass viewControllerWithRoute:route];
     if (!vc) {
-        if (completion) completion();
         return;
     }
     vc.mix.route = route;
@@ -58,13 +57,13 @@
         navClass = [UINavigationController class];
     }
 
-    MixRouteConverParams(MixRouteTabBarControllerParams, tabParams, route.params);
+    MIX_ROUTE_PROTOCOL_PARAMS(MixRouteTabBarControllerParams, route.params, tabParams);
     if ([vc isKindOfClass:[UITabBarController class]] && tabParams.tabRoutes.count) {
 
         NSMutableArray *navs = [NSMutableArray new];
         for (int i = 0; i < tabParams.tabRoutes.count; i++) {
             MixRoute *aroute = tabParams.tabRoutes[i];
-            Class<MixViewControllerRouteModule> acls = (Class<MixViewControllerRouteModule>)[[MixRouteManager shared] moduleClassWithName:aroute.name];
+            Class<MixViewControllerRouteModule> acls = (Class<MixViewControllerRouteModule>)[MixRouteManager moduleClassWithName:aroute.name];
             UIViewController<MixRouteViewControlelr> *avc = [acls viewControllerWithRoute:aroute];
             avc.mix.route = aroute;
             UINavigationController *nav = [[navClass alloc] initWithRootViewController:avc];
@@ -76,17 +75,19 @@
     if (params.style == MixRouteStyleRoot) {
         UINavigationController *nav = [[navClass alloc] initWithRootViewController:vc];
         [UIApplication sharedApplication].delegate.window.rootViewController = nav;
-        if (completion) completion();
     }
     else if (params.style == MixRouteStylePresent) {
         UINavigationController *nav = [[navClass alloc] initWithRootViewController:vc];
+        [MixRouteManager lock];
         [MixViewController.topVC presentViewController:nav animated:YES completion:^{
-            if (completion) completion();
+            [MixRouteManager unlock];
         }];
     }
     else {
-        [MixViewController.topVC.navigationController pushViewController:vc animated:YES];
-        if (completion) completion();
+        [MixRouteManager lock];
+        [MixViewController.topVC.navigationController mix_route_pushViewController:vc animated:YES completion:^{
+            [MixRouteManager unlock];
+        }];
     }
 }
 

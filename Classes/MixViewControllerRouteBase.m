@@ -9,7 +9,6 @@
 #import "MixViewControllerRouteBase.h"
 
 MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
-MixRouteName const MixRouteNameBackToRoot = @"MixRouteNameBackToRoot";
 
 @implementation MixRouteViewControllerBaseParams
 @synthesize style = _style;
@@ -31,43 +30,32 @@ MixRouteName const MixRouteNameBackToRoot = @"MixRouteNameBackToRoot";
 
 + (void)mixRouteRegisterDriver:(MixRouteDriver *)driver
 {
-    MixRouteDriverBlock block = ^(MixRoute *route, void (^completion)(void)) {
-        [self drive:route completion:completion];
-    };
-    driver.reg(MixRouteNameBack, block);
-    driver.reg(MixRouteNameBackToRoot, block);
+    driver.reg(MixRouteNameBack, ^(MixRoute *route) {
+        [self drive:route];
+    });
 }
 
-+ (void)drive:(MixRoute *)route completion:(void (^)(void))completion
++ (void)drive:(MixRoute *)route
 {
     UIViewController<MixRouteViewControlelr> *topVC = MixViewController.topVC;
-    MixRouteConverParams(MixRouteViewControllerParams, topParams, topVC.mix.route.params);
+    MIX_ROUTE_PROTOCOL_PARAMS(MixRouteViewControllerParams, topVC.mix.route.params, topParams);
+    MIX_ROUTE_PARAMS(MixRouteBackParams, route.params, params);
 
-    if (MixRouteNameEqual(route.name, MixRouteNameBack)) {
-        if (topParams.style == MixRouteStylePresent) {
-            [topVC dismissViewControllerAnimated:YES completion:^{
-                if (completion) completion();
-            }];
-        }
-        else {
-            MixRouteBackParams *params = (MixRouteBackParams *)route.params;
-            if (![params isKindOfClass:[MixRouteBackParams class]]) params = nil;
-
-            int count = (int)topVC.navigationController.viewControllers.count;
-            NSInteger delta = MAX(params.delta, 1);
-            if (delta >= count) {
-                [topVC.navigationController popToRootViewControllerAnimated:YES];
-            }
-            else {
-                UIViewController *xvc = topVC.navigationController.viewControllers[count - delta - 1];
-                [topVC.navigationController popToViewController:xvc animated:YES];
-            }
-            if (completion) completion();
-        }
+    if (topParams.style == MixRouteStylePresent) {
+        [MixRouteManager lock];
+        [topVC dismissViewControllerAnimated:!params.noAnimated completion:^{
+            [MixRouteManager unlock];
+        }];
     }
-    else if (MixRouteNameEqual(route.name, MixRouteNameBackToRoot)) {
-        [topVC.navigationController popToRootViewControllerAnimated:YES];
-        if (completion) completion();
+    else {
+        int count = (int)topVC.navigationController.viewControllers.count;
+        if (count <= 1) return;
+        NSInteger delta = params.toRoot ? count - 1 : MIN(MAX(params.delta, 1), count - 1);
+        UIViewController *xvc = topVC.navigationController.viewControllers[count - delta - 1];
+        [MixRouteManager lock];
+        [topVC.navigationController mix_route_popToViewController:xvc animated:!params.noAnimated completion:^{
+            [MixRouteManager unlock];
+        }];
     }
 }
 

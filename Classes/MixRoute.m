@@ -19,6 +19,11 @@
     return self;
 }
 
+- (void)dealloc
+{
+    NSLog(@"%@ delloc", NSStringFromClass([self class]));
+}
+
 @end
 
 @implementation MixRouteDriver
@@ -37,15 +42,15 @@
 @property (nonatomic, readonly) NSMutableDictionary<MixRouteName, MixRouteDriverBlock> *drivers;
 @property (nonatomic, readonly) NSMutableArray<MixRoute *> *routeQueue;
 
-@property (nonatomic, assign) BOOL routing;
-
 @property (nonatomic, assign) Class tmpClass;
+
+@property (nonatomic, assign) BOOL locked;
 
 @end
 
 @implementation MixRouteManager
 
-+ (instancetype)shared
++ (MixRouteManager *)shared
 {
     static id obj;
     static dispatch_once_t onceToken;
@@ -53,6 +58,39 @@
         obj = [self new];
     });
     return obj;
+}
+
++ (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name
+{
+    return [self shared].modules[name];
+}
+
++ (void)lock
+{
+    [[self shared] lock];
+}
+
++ (void)unlock
+{
+    [[self shared] unlock];
+}
+
++ (void)to:(MixRouteName)name
+{
+    [self to:name params:nil];
+}
+
++ (void)to:(MixRouteName)name params:(id<MixRouteParams>)params
+{
+    if (!name) return;
+    MixRoute *route = [[MixRoute alloc] initWithName:name];
+    route.params = params;
+    [self route:route];
+}
+
++ (void)route:(MixRoute *)route
+{
+    [[self shared] route:route];
 }
 
 - (instancetype)init
@@ -86,22 +124,16 @@
     free(allClasse);
 }
 
-- (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name
+- (void)lock
 {
-    return self.modules[name];
+    self.locked = YES;
 }
 
-- (void)routeTo:(MixRouteName)name
+- (void)unlock
 {
-    [self routeTo:name params:nil];
-}
-
-- (void)routeTo:(MixRouteName)name params:(id<MixRouteParams>)params
-{
-    if (!name) return;
-    MixRoute *route = [[MixRoute alloc] initWithName:name];
-    route.params = params;
-    [self route:route];
+    self.locked = NO;
+    if (self.routeQueue.count) [self.routeQueue removeObjectAtIndex:0];
+    [self startRouteQueue];
 }
 
 - (void)route:(MixRoute *)route
@@ -113,7 +145,7 @@
 
 - (void)startRouteQueue
 {
-    if (self.routing) return;
+    if (self.locked) return;
     MixRoute *route = [self.routeQueue firstObject];
     if (!route) return;
 
@@ -123,14 +155,10 @@
         NSLog(@"%@ no driver", route.name);
         return;
     }
-
-    self.routing = YES;
-    __weak typeof(self) weaks = self;
-    driver(route, ^{
-        [weaks.routeQueue removeObjectAtIndex:0];
-        weaks.routing = NO;
-        [weaks startRouteQueue];
-    });
+    driver(route);
+    if (!self.locked) {
+        [self unlock];
+    }
 }
 
 @end

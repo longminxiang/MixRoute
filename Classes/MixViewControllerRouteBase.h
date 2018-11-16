@@ -10,7 +10,6 @@
 #import "MixViewControllerRoute.h"
 
 UIKIT_EXTERN MixRouteName const MixRouteNameBack;
-UIKIT_EXTERN MixRouteName const MixRouteNameBackToRoot;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MixRouteBackParams : NSObject<MixRouteParams>
 
 @property (nonatomic, assign) NSInteger delta;
+@property (nonatomic, assign) BOOL toRoot;
+@property (nonatomic, assign) BOOL noAnimated;
 
 @end
 

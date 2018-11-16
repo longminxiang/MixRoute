@@ -35,3 +35,15 @@
 @property (nonatomic, readonly) MixViewController *mix;
 
 @end
+
+@interface UINavigationController (MixRouteViewControlelr)
+
+- (UIViewController *)mix_route_popViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion;
+
+- (void)mix_route_pushViewController:(UIViewController *)viewController animated:(BOOL)animated completion:(void (^)(void))completion;
+
+- (NSArray<__kindof UIViewController *> *)mix_route_popToViewController:(UIViewController *)viewController animated:(BOOL)animated completion:(void (^)(void))completion;
+
+- (NSArray<__kindof UIViewController *> *)mix_route_popToRootViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion;
+
+@end

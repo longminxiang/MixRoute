@@ -82,13 +82,13 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
     params.tabBarItem = [UITabBarItem new];
     params.tabBarItem.mix.barTintColor = [UIColor redColor];
 
-    [[MixRouteManager shared] routeTo:MixRouteNameTab params:params];
+    [MixRouteManager to:MixRouteNameTab params:params];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         MixRouteViewControllerBaseParams *params = [MixRouteViewControllerBaseParams new];
         params.navigationItem = [[UINavigationItem alloc] initWithTitle:[@(rand()) stringValue]];
         params.style = MixRouteStyleRoot;
-        [[MixRouteManager shared] routeTo:MixRouteNameVC1 params:params];
+        [MixRouteManager to:MixRouteNameVC1 params:params];
     });
 
     NSDictionary *rootDict = @{
@@ -103,7 +103,7 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
                                 };
 //    Route *route = [[Route alloc] initWithDictionary:rootDict];
     Route *route = [Route routeWithDictionary:rootDict];
-    [[MixRouteManager shared] route:route.mix];
+    [MixRouteManager route:route.mix];
 
     return YES;
 }

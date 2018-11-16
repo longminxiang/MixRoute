@@ -13,7 +13,15 @@ UIKIT_EXTERN MixRouteName const MixRouteNameActionShowHUD;
 
 UIKIT_EXTERN MixRouteName const MixRouteNameActionLog;
 
+UIKIT_EXTERN MixRouteName const MixRouteNameActionDelay;
+
 NS_ASSUME_NONNULL_BEGIN
+
+@interface MixRouteActionDelayParams : NSObject<MixRouteParams>
+
+@property (nonatomic, assign) CGFloat delay;
+
+@end
 
 @interface Action : NSObject<MixRouteModule>
 

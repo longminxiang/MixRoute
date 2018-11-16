@@ -8,19 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NSString *MixRouteName NS_EXTENSIBLE_STRING_ENUM;
+@class MixRouteDriver;
 
-FOUNDATION_STATIC_INLINE BOOL MixRouteNameEqual(MixRouteName name, MixRouteName aname) {
-    return [name isEqualToString:aname];
-}
+typedef NSString* MixRouteName NS_EXTENSIBLE_STRING_ENUM;
 
 @protocol MixRouteParams <NSObject>
 
 @end
 
-#define MixRouteConverParams(__protocol, __params, __originParams) \
+#define MIX_ROUTE_PROTOCOL_PARAMS(__protocol, __originParams, __params) \
 id<__protocol> __params = (id<__protocol>)__originParams; \
 if (![__params conformsToProtocol:@protocol(__protocol)]) __params = nil;
+
+#define MIX_ROUTE_PARAMS(__class, __originParams, __params) \
+__class *__params = (__class *)__originParams; \
+if (![__params isKindOfClass:[__class class]]) __params = nil;
+
+@protocol MixRouteModule
+
++ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver;
+
+@end
 
 @interface MixRoute : NSObject
 
@@ -34,7 +42,8 @@ if (![__params conformsToProtocol:@protocol(__protocol)]) __params = nil;
 
 @end
 
-typedef void (^MixRouteDriverBlock)(MixRoute *route, void (^completion)(void));
+typedef void (^MixRouteDriverBlock)(MixRoute *route);
+
 typedef void (^MixRouteDriverRegister)(MixRouteName name, MixRouteDriverBlock block);
 
 @interface MixRouteDriver : NSObject
@@ -43,22 +52,18 @@ typedef void (^MixRouteDriverRegister)(MixRouteName name, MixRouteDriverBlock bl
 
 @end
 
-@protocol MixRouteModule
-
-+ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver;
-
-@end
-
 @interface MixRouteManager : NSObject
 
-+ (instancetype)shared;
++ (void)lock;
 
-- (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name;
++ (void)unlock;
 
-- (void)route:(MixRoute *)route;
++ (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name;
 
-- (void)routeTo:(MixRouteName)name;
++ (void)route:(MixRoute *)route;
 
-- (void)routeTo:(MixRouteName)name params:(id<MixRouteParams>)params;
++ (void)to:(MixRouteName)name;
+
++ (void)to:(MixRouteName)name params:(id<MixRouteParams>)params;
 
 @end

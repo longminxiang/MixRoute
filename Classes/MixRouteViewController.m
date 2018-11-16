@@ -75,31 +75,6 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
 
 @end
 
-@interface UINavigationController (MixRouteViewControlelr)
-
-@end
-
-@implementation UINavigationController (MixRouteViewControlelr)
-
-+ (void)load
-{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(childViewControllerForStatusBarStyle), @selector(_mix_childViewControllerForStatusBarStyle));
-    });
-}
-
-- (UIViewController *)_mix_childViewControllerForStatusBarStyle
-{
-    UIViewController *vc = [self _mix_childViewControllerForStatusBarStyle];
-    if ([self isKindOfClass:[UINavigationController class]] && !vc) {
-        vc = [(UINavigationController *)self topViewController];
-    }
-    return vc;
-}
-
-@end
-
 @interface UIViewController ()<UIGestureRecognizerDelegate>
 
 @end
@@ -197,7 +172,70 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
 
 - (void)_mix_dismissViewController
 {
-    [[MixRouteManager shared] routeTo:MixRouteNameBack];
+    [MixRouteManager to:MixRouteNameBack];
+}
+
+@end
+
+@implementation UINavigationController (MixRouteViewControlelr)
+
++ (void)load
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mix_vc_route_hook_class_swizzleMethodAndStore(self, @selector(childViewControllerForStatusBarStyle), @selector(_mix_childViewControllerForStatusBarStyle));
+    });
+}
+
+- (UIViewController *)_mix_childViewControllerForStatusBarStyle
+{
+    UIViewController *vc = [self _mix_childViewControllerForStatusBarStyle];
+    if ([self isKindOfClass:[UINavigationController class]] && !vc) {
+        vc = [(UINavigationController *)self topViewController];
+    }
+    return vc;
+}
+
+- (void)mix_route_pushViewController:(UIViewController *)viewController animated:(BOOL)animated completion:(void (^)(void))completion
+{
+    [self pushViewController:viewController animated:animated];
+    [self mix_route_animated:animated forceCompletion:NO completion:completion];
+}
+
+- (UIViewController *)mix_route_popViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion
+{
+    BOOL forceCompletion = self.viewControllers.count <= 1;
+    UIViewController *vc = [self popViewControllerAnimated:animated];
+    [self mix_route_animated:animated forceCompletion:forceCompletion completion:completion];
+    return vc;
+}
+
+- (NSArray<__kindof UIViewController *> *)mix_route_popToViewController:(UIViewController *)viewController animated:(BOOL)animated completion:(void (^)(void))completion
+{
+    BOOL forceCompletion = self.viewControllers.count <= 1;
+    NSArray *vcs = [self popToViewController:viewController animated:animated];
+    [self mix_route_animated:animated forceCompletion:forceCompletion completion:completion];
+    return vcs;
+}
+
+- (NSArray<__kindof UIViewController *> *)mix_route_popToRootViewControllerAnimated:(BOOL)animated completion:(void (^)(void))completion
+{
+    BOOL forceCompletion = self.viewControllers.count <= 1;
+    NSArray *vcs = [self popToRootViewControllerAnimated:animated];
+    [self mix_route_animated:animated forceCompletion:forceCompletion completion:completion];
+    return vcs;
+}
+
+- (void)mix_route_animated:(BOOL)animated forceCompletion:(BOOL)force completion:(void (^)(void))completion
+{
+    if (!animated || force) {
+        if (completion) completion();
+    }
+    else {
+        [self.transitionCoordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+            if (completion) completion();
+        }];
+    }
 }
 
 @end

@@ -60,51 +60,52 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
 
-    NSMutableArray *routes = [NSMutableArray new];
-    NSArray *imageNames = @[@"tab_home", @"tab_video", @"tab_live", @"tab_circle"];
-    for (int i = 0; i < imageNames.count; i++) {
-        MixRoute *route = [[MixRoute alloc] initWithName:MixRouteNameVC1];
-        MixRouteViewControllerBaseParams *params = [MixRouteViewControllerBaseParams new];
-        params.navigationItem = [[UINavigationItem alloc] initWithTitle:[@(rand()) stringValue]];
-        NSString *name = imageNames[i];
-        UIImage *image = [[UIImage imageNamed:name] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *selImage = [[UIImage imageNamed:[name stringByAppendingString:@"_cur"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        if (!selImage) selImage = [[UIImage imageNamed:@"tab_reflash"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        params.tabBarItem = [[UITabBarItem alloc] initWithTitle:[@(rand()) stringValue] image:image selectedImage:selImage];
-        [params.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]} forState:UIControlStateNormal];
-        [params.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor orangeColor]} forState:UIControlStateSelected];
-        route.params = params;
-        [routes addObject:route];
-    }
-    MixRouteTabBarControllerBaseParams *params = [MixRouteTabBarControllerBaseParams new];
-    params.style = MixRouteStyleRoot;
-    params.tabRoutes = routes;
-    params.tabBarItem = [UITabBarItem new];
-    params.tabBarItem.mix.barTintColor = [UIColor redColor];
-
-    [MixRouteManager to:MixRouteNameTab params:params];
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        MixRouteViewControllerBaseParams *params = [MixRouteViewControllerBaseParams new];
-        params.navigationItem = [[UINavigationItem alloc] initWithTitle:[@(rand()) stringValue]];
-        params.style = MixRouteStyleRoot;
-        [MixRouteManager to:MixRouteNameVC1 params:params];
-    });
+//    NSMutableArray *routes = [NSMutableArray new];
+//    NSArray *imageNames = @[@"tab_home", @"tab_video", @"tab_live", @"tab_circle"];
+//    for (int i = 0; i < imageNames.count; i++) {
+//        MixRoute *route = [[MixRoute alloc] initWithName:MixRouteNameVC1];
+//        MixRouteViewControllerBaseParams *params = [MixRouteViewControllerBaseParams new];
+//        params.navigationItem = [[UINavigationItem alloc] initWithTitle:[@(rand()) stringValue]];
+//        NSString *name = imageNames[i];
+//        UIImage *image = [[UIImage imageNamed:name] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        UIImage *selImage = [[UIImage imageNamed:[name stringByAppendingString:@"_cur"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        if (!selImage) selImage = [[UIImage imageNamed:@"tab_reflash"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        params.tabBarItem = [[UITabBarItem alloc] initWithTitle:[@(rand()) stringValue] image:image selectedImage:selImage];
+//        [params.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]} forState:UIControlStateNormal];
+//        [params.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor orangeColor]} forState:UIControlStateSelected];
+//        route.params = params;
+//        [routes addObject:route];
+//    }
+//    MixRouteTabBarControllerBaseParams *params = [MixRouteTabBarControllerBaseParams new];
+//    params.style = MixRouteStyleRoot;
+//    params.tabRoutes = routes;
+//    params.tabBarItem = [UITabBarItem new];
+//    params.tabBarItem.mix.barTintColor = [UIColor redColor];
+//
+//    [MixRouteManager to:MixRouteNameTab params:params];
+//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        MixRouteViewControllerBaseParams *params = [MixRouteViewControllerBaseParams new];
+//        params.navigationItem = [[UINavigationItem alloc] initWithTitle:[@(rand()) stringValue]];
+//        params.style = MixRouteStyleRoot;
+//        [MixRouteManager to:MixRouteNameVC1 params:params];
+//    });
 
     NSDictionary *rootDict = @{
-                                @"name": @"Tab",
+                                @"name": @"MixRouteNameTab",
                                 @"style": @(MixRouteStyleRoot),
-                                @"tabs": @[
-                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"yy", @"selImage": @"zz", @"title": @"ss"}},
-                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"yy", @"selImage": @"zz", @"title": @"ss"}},
-                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"yy", @"selImage": @"zz", @"title": @"ss"}},
-                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"yy", @"selImage": @"zz", @"title": @"ss"}},
+                                @"tabRoutes": @[
+                                        @{@"name": @"MixRouteNameVC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_home", @"selImage": @"tab_reflash", @"title": @"ss"}},
+                                        @{@"name": @"MixRouteNameVC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_video", @"selImage": @"tab_reflash", @"title": @"ss"}},
+                                        @{@"name": @"MixRouteNameVC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_live", @"selImage": @"tab_live_cur", @"title": @"ss"}},
+                                        @{@"name": @"MixRouteNameVC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_circle", @"selImage": @"tab_circle_cur", @"title": @"ss"}},
                                         ],
                                 };
 //    Route *route = [[Route alloc] initWithDictionary:rootDict];
     Route *route = [Route routeWithDictionary:rootDict];
-    [MixRouteManager route:route.mix];
-
+    MixRoute *aroute = [route toVCRoute];
+    [MixRouteManager route:aroute];
+    NSLog(@"%@", route);
     return YES;
 }
 

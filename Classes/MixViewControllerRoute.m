@@ -16,7 +16,7 @@
     id obj = objc_getAssociatedObject(self, _cmd);
     if (!obj) {
         __weak typeof(self) weaks = self;
-        obj = ^(MixRouteName  _Nonnull name) {
+        obj = ^(MixRouteName name) {
             weaks.reg(name, [[self class] viewControllerDriverBlock]);
         };
         objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_COPY_NONATOMIC);

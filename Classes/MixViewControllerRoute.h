@@ -22,11 +22,11 @@ typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
 
 @property (nonatomic, assign) MixVCRouteStyle style;
 
-@property (nonatomic, strong) UINavigationItem *navigationItem;
+@property (nonatomic, strong, nullable) UINavigationItem *navigationItem;
 
 @optional
 
-@property (nonatomic, strong) UITabBarItem *tabBarItem;
+@property (nonatomic, strong, nullable) UITabBarItem *tabBarItem;
 
 @end
 

@@ -12,6 +12,10 @@
 
 typedef NSString* MixRouteName NS_EXTENSIBLE_STRING_ENUM;
 
+FOUNDATION_STATIC_INLINE MixRouteName MixRouteNameFrom(NSString *name) {
+    return name;
+}
+
 @protocol MixRouteParams <NSObject>
 
 @end

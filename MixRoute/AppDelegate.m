@@ -92,18 +92,17 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 //    });
 
     NSDictionary *rootDict = @{
-                                @"name": @"MixRouteNameTab",
-                                @"style": @(MixRouteStyleRoot),
+                                @"name": @"Tab",
+//                                @"style": @(MixRouteStyleRoot),
                                 @"tabRoutes": @[
-                                        @{@"name": @"MixRouteNameVC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_home", @"selImage": @"tab_reflash", @"title": @"ss"}},
-                                        @{@"name": @"MixRouteNameVC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_video", @"selImage": @"tab_reflash", @"title": @"ss"}},
-                                        @{@"name": @"MixRouteNameVC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_live", @"selImage": @"tab_live_cur", @"title": @"ss"}},
-                                        @{@"name": @"MixRouteNameVC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_circle", @"selImage": @"tab_circle_cur", @"title": @"ss"}},
+                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_home", @"selImage": @"tab_reflash", @"title": @"ss"}},
+                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_video", @"selImage": @"tab_reflash", @"title": @"ss"}},
+                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_live", @"selImage": @"tab_live_cur", @"title": @"ss"}},
+                                        @{@"name": @"VC1", @"nav": @{@"title": @"xx"}, @"tab": @{@"image": @"tab_circle", @"selImage": @"tab_circle_cur", @"title": @"ss"}},
                                         ],
                                 };
-//    Route *route = [[Route alloc] initWithDictionary:rootDict];
     Route *route = [Route routeWithDictionary:rootDict];
-    MixRoute *aroute = [route toVCRoute];
+    MixRoute *aroute = route.vcRoute;
     [MixRouteManager route:aroute];
     NSLog(@"%@", route);
     return YES;

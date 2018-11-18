@@ -57,12 +57,11 @@
         navClass = [UINavigationController class];
     }
 
-    MIX_ROUTE_PROTOCOL_PARAMS(MixRouteTabBarControllerParams, route.params, tabParams);
-    if ([vc isKindOfClass:[UITabBarController class]] && tabParams.tabRoutes.count) {
+    if ([vc isKindOfClass:[UITabBarController class]] && params.tabRoutes.count) {
 
         NSMutableArray *navs = [NSMutableArray new];
-        for (int i = 0; i < tabParams.tabRoutes.count; i++) {
-            MixRoute *aroute = tabParams.tabRoutes[i];
+        for (int i = 0; i < params.tabRoutes.count; i++) {
+            MixRoute *aroute = params.tabRoutes[i];
             Class<MixViewControllerRouteModule> acls = (Class<MixViewControllerRouteModule>)[MixRouteManager moduleClassWithName:aroute.name];
             UIViewController<MixRouteViewControlelr> *avc = [acls viewControllerWithRoute:aroute];
             avc.mix.route = aroute;
@@ -72,9 +71,10 @@
         ((UITabBarController *)vc).viewControllers = navs;
     }
 
-    if (params.style == MixRouteStyleRoot) {
+    UIWindow *keyWindow = [UIApplication sharedApplication].delegate.window;
+    if (params.style == MixRouteStyleRoot || !keyWindow.rootViewController) {
         UINavigationController *nav = [[navClass alloc] initWithRootViewController:vc];
-        [UIApplication sharedApplication].delegate.window.rootViewController = nav;
+        keyWindow.rootViewController = nav;
     }
     else if (params.style == MixRouteStylePresent) {
         UINavigationController *nav = [[navClass alloc] initWithRootViewController:vc];

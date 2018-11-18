@@ -17,7 +17,7 @@
 		0743B2C42174334F00F15570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2C32174334F00F15570 /* main.m */; };
 		0743B2CD217433B600F15570 /* MixRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2CC217433B600F15570 /* MixRoute.m */; };
 		077AE30B2199696800D9EC88 /* UITabBarItem+Mix.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AE30A2199696800D9EC88 /* UITabBarItem+Mix.m */; };
-		077AE31921998E6B00D9EC88 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077AE31821998E6B00D9EC88 /* Route.swift */; };
+		0798F47321A1498B00A1A528 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0798F47221A1498B00A1A528 /* Route.swift */; };
 		07BD20AF21779A17005BC428 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07BD20AE21779A17005BC428 /* ViewController.xib */; };
 		07D1315A218FF1620091CA9E /* UINavigationItem+Mix.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D13159218FF1610091CA9E /* UINavigationItem+Mix.m */; };
 		07F3D9AC218069AE00B2E923 /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F3D9AB218069AE00B2E923 /* BaseVC.m */; };
@@ -45,7 +45,7 @@
 		077AE3092199696800D9EC88 /* UITabBarItem+Mix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+Mix.h"; sourceTree = "<group>"; };
 		077AE30A2199696800D9EC88 /* UITabBarItem+Mix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+Mix.m"; sourceTree = "<group>"; };
 		077AE31721998E6200D9EC88 /* MixRoute-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MixRoute-Bridging-Header.h"; sourceTree = "<group>"; };
-		077AE31821998E6B00D9EC88 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Route.swift; path = ../../../.Trash/Route.swift; sourceTree = "<group>"; };
+		0798F47221A1498B00A1A528 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		07BD20AE21779A17005BC428 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		07D13158218FF1610091CA9E /* UINavigationItem+Mix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+Mix.h"; sourceTree = "<group>"; };
 		07D13159218FF1610091CA9E /* UINavigationItem+Mix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+Mix.m"; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 		0743B2B32174334D00F15570 /* MixRoute */ = {
 			isa = PBXGroup;
 			children = (
-				077AE31821998E6B00D9EC88 /* Route.swift */,
+				0798F47221A1498B00A1A528 /* Route.swift */,
 				0712073C2195997A009CD87B /* Action.h */,
 				0712073D2195997A009CD87B /* Action.m */,
 				07F3D9AA218069AE00B2E923 /* BaseVC.h */,
@@ -150,7 +150,7 @@
 		0743B2A92174334D00F15570 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = YOOEE;
 				TargetAttributes = {
 					0743B2B02174334D00F15570 = {
@@ -198,13 +198,13 @@
 				0712072E2195749D009CD87B /* MixViewControllerRouteBase.m in Sources */,
 				0743B2B92174334D00F15570 /* ViewController.m in Sources */,
 				0743B2C42174334F00F15570 /* main.m in Sources */,
-				077AE31921998E6B00D9EC88 /* Route.swift in Sources */,
 				07D1315A218FF1620091CA9E /* UINavigationItem+Mix.m in Sources */,
 				0743B2CD217433B600F15570 /* MixRoute.m in Sources */,
 				0743B2B62174334D00F15570 /* AppDelegate.m in Sources */,
 				0712073E2195997A009CD87B /* Action.m in Sources */,
 				0712072B21957358009CD87B /* MixViewControllerRoute.m in Sources */,
 				07F3D9AF21806AE800B2E923 /* MixRouteViewController.m in Sources */,
+				0798F47321A1498B00A1A528 /* Route.swift in Sources */,
 				07F3D9AC218069AE00B2E923 /* BaseVC.m in Sources */,
 				077AE30B2199696800D9EC88 /* UITabBarItem+Mix.m in Sources */,
 			);
@@ -330,6 +330,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

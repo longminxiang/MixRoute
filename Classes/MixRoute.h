@@ -13,6 +13,10 @@
 typedef NSString* MixRouteName NS_EXTENSIBLE_STRING_ENUM;
 
 FOUNDATION_STATIC_INLINE MixRouteName MixRouteNameFrom(NSString *name) {
+    if (!name || [[name stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet] isEqualToString:@""]) return nil;
+    if (![name hasPrefix:@"MixRouteName"]) {
+        name = [@"MixRouteName" stringByAppendingString:name];
+    }
     return name;
 }
 

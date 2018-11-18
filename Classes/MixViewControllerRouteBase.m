@@ -14,10 +14,6 @@ MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
 @synthesize style = _style;
 @synthesize navigationItem = _navigationItem;
 @synthesize tabBarItem = _tabBarItem;
-
-@end
-
-@implementation MixRouteTabBarControllerBaseParams
 @synthesize tabRoutes = _tabRoutes;
 
 @end

@@ -17,10 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MixRouteTabBarControllerBaseParams : MixRouteViewControllerBaseParams<MixRouteTabBarControllerParams>
-
-@end
-
 @interface MixRouteBackParams : NSObject<MixRouteParams>
 
 @property (nonatomic, assign) NSInteger delta;

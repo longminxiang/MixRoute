@@ -9,6 +9,7 @@
 #import "MixRouteViewController.h"
 #import <objc/runtime.h>
 #import "MixViewControllerRouteBase.h"
+#import "MixRouteManager.h"
 
 void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSelector, SEL swizzledSelector)
 {

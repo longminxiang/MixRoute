@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MixRoute.h"
+#import "MixRouteManager.h"
 #import "MixRouteViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -32,7 +32,9 @@ typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
 
 @end
 
-@protocol MixViewControllerRouteModule<MixRouteModule>
+@protocol MixViewControllerRouteModule
+
++ (NSArray<MixRouteName> *)mixRouteRegisterModules;
 
 + (UIViewController<MixRouteViewControlelr> *)viewControllerWithRoute:(MixRoute *)route;
 
@@ -42,11 +44,7 @@ typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
 
 @end
 
-typedef void (^MixRouteDriverViewControllerRegister)(MixRouteName name);
-
-@interface MixRouteDriver (MixViewControllerRoute)
-
-@property (nonatomic, readonly) MixRouteDriverViewControllerRegister regvc;
+@interface MixRouteViewControllerManager : NSObject<MixRouteModule>
 
 @end
 

@@ -9,9 +9,7 @@
 #import "ViewController.h"
 #import "UINavigationItem+Mix.h"
 #import "Action.h"
-
-MixRouteName const MixRouteNameVC1 = @"MixRouteNameVC1";
-MixRouteName const MixRouteNameVC2 = @"MixRouteNameVC2";
+#import "MixRouteManager+ViewController.h"
 
 @interface ViewController ()
 
@@ -22,20 +20,6 @@ MixRouteName const MixRouteNameVC2 = @"MixRouteNameVC2";
 @end
 
 @implementation ViewController
-
-+ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver
-{
-    driver.regvc(MixRouteNameVC1);
-    driver.reg(MixRouteNameVC2, ^(MixRoute *route) {
-        NSLog(@"xxxxx");
-    });
-}
-
-+ (UIViewController<MixRouteViewControlelr> *)viewControllerWithRoute:(MixRoute *)route
-{
-    ViewController *vc = [self new];
-    return vc;
-}
 
 - (BOOL)hidesBottomBarWhenPushed
 {
@@ -86,24 +70,7 @@ MixRouteName const MixRouteNameVC2 = @"MixRouteNameVC2";
 
 - (void)push
 {
-    UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:[@(rand() / 100) stringValue]];
-    NSDictionary *atts = @{NSForegroundColorAttributeName: [self randColor],
-                           NSFontAttributeName: [UIFont boldSystemFontOfSize:20],
-                           };
-    item.mix.barTitleTextAttributes = atts;
-    item.mix.barTintColor = [self randColor];
-    //    item.mix.barTintColor = [UIColor whiteColor];
-    item.mix.barHidden = rand() % 2;
-    //    item.mix.barHidden = NO;
-    item.mix.statusBarHidden = rand() % 2;
-    item.mix.statusBarStyle = rand() % 2;
-    //    item.mix.barBackgroundImage = [UIImage imageNamed:rand() % 2 ? @"nav1" : @"nav"];
-
-    MixRouteViewControllerBaseParams *params = [MixRouteViewControllerBaseParams new];
-    //    params.style = rand() % 2 ? MixRouteStylePresent : MixRouteStylePush;
-    params.navigationItem = item;
-
-    [MixRouteManager to:MixRouteNameVC1 params:params];
+    [MixRouteManager toViewController];
 }
 
 - (IBAction)action

@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseVC.h"
 
-UIKIT_EXTERN MixRouteName const MixRouteNameVC1;
-
-@interface ViewController : BaseVC<MixViewControllerRouteModule>
+@interface ViewController : BaseVC
 
 @end

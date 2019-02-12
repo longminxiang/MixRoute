@@ -24,14 +24,12 @@ MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
 
 @implementation MixViewControllerRouteBase
 
-+ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver
++ (NSArray<MixRouteName> *)mixRouteRegisterModules
 {
-    driver.reg(MixRouteNameBack, ^(MixRoute *route) {
-        [self drive:route];
-    });
+    return @[MixRouteNameBack];
 }
 
-+ (void)drive:(MixRoute *)route
++ (void)mixRouteFire:(MixRoute *)route
 {
     UIViewController<MixRouteViewControlelr> *topVC = MixViewController.topVC;
     MIX_ROUTE_PROTOCOL_PARAMS(MixRouteViewControllerParams, topVC.mix.route.params, topParams);

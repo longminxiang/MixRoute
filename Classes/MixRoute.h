@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MixRouteDriver;
+@class MixRoute;
 
 typedef NSString* MixRouteName NS_EXTENSIBLE_STRING_ENUM;
 
@@ -18,6 +18,10 @@ FOUNDATION_STATIC_INLINE MixRouteName MixRouteNameFrom(NSString *name) {
         name = [@"MixRouteName" stringByAppendingString:name];
     }
     return name;
+}
+
+FOUNDATION_STATIC_INLINE BOOL MixRouteNameEqual(MixRouteName name, MixRouteName aname) {
+    return [name isEqualToString:aname];
 }
 
 @protocol MixRouteParams <NSObject>
@@ -34,7 +38,9 @@ if (![__params isKindOfClass:[__class class]]) __params = nil;
 
 @protocol MixRouteModule
 
-+ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver;
++ (NSArray<MixRouteName> *)mixRouteRegisterModules;
+
++ (void)mixRouteFire:(MixRoute *)route;
 
 @end
 
@@ -47,31 +53,5 @@ if (![__params isKindOfClass:[__class class]]) __params = nil;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-
-@end
-
-typedef void (^MixRouteDriverBlock)(MixRoute *route);
-
-typedef void (^MixRouteDriverRegister)(MixRouteName name, MixRouteDriverBlock block);
-
-@interface MixRouteDriver : NSObject
-
-@property (nonatomic, readonly) MixRouteDriverRegister reg;
-
-@end
-
-@interface MixRouteManager : NSObject
-
-+ (void)lock;
-
-+ (void)unlock;
-
-+ (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name;
-
-+ (void)route:(MixRoute *)route;
-
-+ (void)to:(MixRouteName)name;
-
-+ (void)to:(MixRouteName)name params:(id<MixRouteParams>)params;
 
 @end

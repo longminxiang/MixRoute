@@ -18,15 +18,20 @@ MixRouteName const MixRouteNameActionDelay = @"MixRouteNameActionDelay";
 
 @implementation Action
 
-+ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver
++ (NSArray<MixRouteName> *)mixRouteRegisterModules
 {
-    driver.reg(MixRouteNameActionShowHUD, ^(MixRoute *route) {
+    return @[MixRouteNameActionShowHUD, MixRouteNameActionLog, MixRouteNameActionDelay];
+}
+
++ (void)mixRouteFire:(MixRoute *)route
+{
+    if (MixRouteNameEqual(route.name, MixRouteNameActionShowHUD)) {
         NSLog(@"hud");
-    });
-    driver.reg(MixRouteNameActionLog, ^(MixRoute *route) {
+    }
+    else if (MixRouteNameEqual(route.name, MixRouteNameActionLog)) {
         NSLog(@"log");
-    });
-    driver.reg(MixRouteNameActionDelay, ^(MixRoute *route) {
+    }
+    else if (MixRouteNameEqual(route.name, MixRouteNameActionDelay)) {
         MIX_ROUTE_PARAMS(MixRouteActionDelayParams, route.params, params);
         CGFloat delay = params.delay / 1000;
         if (delay <= 0) return;
@@ -34,7 +39,7 @@ MixRouteName const MixRouteNameActionDelay = @"MixRouteNameActionDelay";
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [MixRouteManager unlock];
         });
-    });
+    }
 }
 
 @end

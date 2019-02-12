@@ -9,34 +9,25 @@
 #import "MixViewControllerRoute.h"
 #import <objc/runtime.h>
 
-@implementation MixRouteDriver (MixViewControllerRoute)
+@implementation MixRouteViewControllerManager
 
-- (MixRouteDriverViewControllerRegister)regvc
++ (NSArray<MixRouteName> *)mixRouteRegisterModules
 {
-    id obj = objc_getAssociatedObject(self, _cmd);
-    if (!obj) {
-        __weak typeof(self) weaks = self;
-        obj = ^(MixRouteName name) {
-            weaks.reg(name, [[self class] viewControllerDriverBlock]);
-        };
-        objc_setAssociatedObject(self, _cmd, obj, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    NSMutableArray *mmodules = [NSMutableArray new];
+    unsigned int count;
+    Class *allClasse = objc_copyClassList(&count);
+    for (int i = 0; i < count; i++) {
+        Class class = allClasse[i];
+        if (class_conformsToProtocol(class, @protocol(MixViewControllerRouteModule))) {
+            NSArray<MixRouteName> *modules = [class mixRouteRegisterModules];
+            [mmodules addObjectsFromArray:modules];
+        }
     }
-    return obj;
+    free(allClasse);
+    return mmodules;
 }
 
-+ (MixRouteDriverBlock)viewControllerDriverBlock
-{
-    static MixRouteDriverBlock driver;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        driver = ^(MixRoute *route) {
-            [self viewControllerDriver:route];
-        };
-    });
-    return driver;
-}
-
-+ (void)viewControllerDriver:(MixRoute *)route
++ (void)mixRouteFire:(MixRoute *)route
 {
     Class moduleClass = [MixRouteManager moduleClassWithName:route.name];
     if (!moduleClass) return;

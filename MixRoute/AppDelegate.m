@@ -20,9 +20,14 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 
 @implementation TabBarController
 
-+ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver
+//+ (void)mixRouteRegisterDriver:(MixRouteDriver *)driver
+//{
+//    driver.regvc(MixRouteNameTab);
+//}
+
++ (NSArray<MixRouteName> *)mixRouteRegisterModules
 {
-    driver.regvc(MixRouteNameTab);
+    return @[MixRouteNameTab];
 }
 
 + (UIViewController<MixRouteViewControlelr> *)viewControllerWithRoute:(MixRoute *)route

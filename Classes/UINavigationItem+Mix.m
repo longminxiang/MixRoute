@@ -117,7 +117,7 @@
 
     UINavigationBar *bar = nav.navigationBar;
     if ([keyPath isEqualToString:@"disableInteractivePopGesture"]) {
-        BOOL lock = context;
+        BOOL lock = (BOOL)context;
         if (lock) return;
         BOOL isRoot = [nav.viewControllers firstObject] == self.vc;
         nav.interactivePopGestureRecognizer.enabled = !isRoot && !item.disableInteractivePopGesture;

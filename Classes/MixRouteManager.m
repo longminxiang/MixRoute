@@ -11,14 +11,8 @@
 
 @interface MixRouteManager ()
 
-//@property (nonatomic, readonly) NSArray<Class<MixRouteManagerModule>> *managerModules;
-
-//@property (nonatomic, readonly) MixRouteDriver *driver;
-@property (nonatomic, readonly) NSDictionary<MixRouteName, Class<MixRouteModule>> *moduleDict;
-//@property (nonatomic, readonly) NSMutableDictionary<MixRouteName, MixRouteDriverBlock> *drivers;
+@property (nonatomic, readonly) NSDictionary<MixRouteName, MixRouteModuleBlock> *moduleBlockDictionary;
 @property (nonatomic, readonly) NSMutableArray<MixRoute *> *routeQueue;
-
-//@property (nonatomic, assign) Class tmpClass;
 
 @property (nonatomic, assign) BOOL locked;
 
@@ -34,11 +28,6 @@
         obj = [self new];
     });
     return obj;
-}
-
-+ (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name
-{
-    return [self shared].moduleDict[name];
 }
 
 + (void)lock
@@ -72,36 +61,23 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-//        _modules = [NSDictionary new];
-//        _drivers = [NSMutableDictionary new];
-//        _routeQueue = [NSMutableArray new];
-//        _driver = [MixRouteDriver new];
-//        __weak typeof(self) weaks = self;
-//        _driver.reg = ^(MixRouteName name, MixRouteDriverBlock block) {
-//            weaks.drivers[name] = block;
-//            if (weaks.tmpClass) weaks.modules[name] = weaks.tmpClass;
-//        };
-        [self lookupAllClass];
-    }
-    return self;
-}
-
-- (void)lookupAllClass
-{
-    NSMutableDictionary *moduleDict = [NSMutableDictionary new];
-    unsigned int count;
-    Class *allClasse = objc_copyClassList(&count);
-    for (int i = 0; i < count; i++) {
-        Class class = allClasse[i];
-        if (class_conformsToProtocol(class, @protocol(MixRouteModule))) {
-            NSArray<MixRouteName> *modules = [class mixRouteRegisterModules];
-            for (MixRouteName name in modules) {
-                moduleDict[name] = class;
+        _routeQueue = [NSMutableArray new];
+        
+        NSMutableDictionary *moduleBlockDict = [NSMutableDictionary new];
+        unsigned int count;
+        Class *allClasse = objc_copyClassList(&count);
+        for (int i = 0; i < count; i++) {
+            Class class = allClasse[i];
+            if (class_conformsToProtocol(class, @protocol(MixRouteModule))) {
+                MixRouteModuleRegister *reg = [MixRouteModuleRegister new];
+                [class mixRouteRegisterModule:reg];
+                [moduleBlockDict addEntriesFromDictionary:reg.blockDictionary];
             }
         }
+        free(allClasse);
+        _moduleBlockDictionary = moduleBlockDict;
     }
-    free(allClasse);
-    _moduleDict = moduleDict;
+    return self;
 }
 
 - (void)lock
@@ -128,25 +104,8 @@
     if (self.locked) return;
     MixRoute *route = [self.routeQueue firstObject];
     if (!route) return;
-
-    Class<MixRouteModule> cls = self.moduleDict[route.name];
-    if (!cls) return;
-
-    [cls mixRouteFire:route];
-
-//    for (Class<MixRouteManagerModule> cls in self.managerModules) {
-//        if ([(id)cls respondsToSelector:@selector(mixRouteManagerPrepareForRoute:)]) {
-//            [cls mixRouteManagerPrepareForRoute:route];
-//        }
-//    }
-
-//    MixRouteDriverBlock driver = self.drivers[route.name];
-
-//    if (!driver) {
-//        NSLog(@"%@ no driver", route.name);
-//        return;
-//    }
-//    driver(route);
+    MixRouteModuleBlock block = self.moduleBlockDictionary[route.name];
+    block(route);
     if (!self.locked) {
         [self unlock];
     }

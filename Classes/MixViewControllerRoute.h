@@ -32,11 +32,31 @@ typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
 
 @end
 
+typedef UIViewController<MixRouteViewControlelr> * (^MixViewControllerRouteModuleBlock)(MixRoute *route);
+
+@interface MixViewControllerRouteModule : NSObject
+
+@property (nonatomic, copy) MixRouteName name;
+
+@property (nonatomic, copy) MixViewControllerRouteModuleBlock block;
+
+@property (nonatomic, assign) Class navigationControllerClass;
+
+- (void)setName:(MixRouteName)name block:(MixViewControllerRouteModuleBlock)block;
+
+@end
+
+@interface MixViewControllerRouteModuleRegister : NSObject
+
+- (void)add:(MixViewControllerRouteModule *)module;
+
+- (void)add:(MixRouteName)name block:(MixViewControllerRouteModuleBlock)block;
+
+@end
+
 @protocol MixViewControllerRouteModule
 
-+ (NSArray<MixRouteName> *)mixRouteRegisterModules;
-
-+ (UIViewController<MixRouteViewControlelr> *)viewControllerWithRoute:(MixRoute *)route;
++ (void)mixViewControllerRouteRegisterModule:(MixViewControllerRouteModule *)module;
 
 @optional
 

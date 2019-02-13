@@ -9,19 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "MixRoute.h"
 
-//@protocol MixRouteManagerModule <NSObject>
-//
-//+ (void)mixRouteManagerPrepareForRoute:(MixRoute *)route;
-//
-//@end
-
 @interface MixRouteManager : NSObject
 
 + (void)lock;
 
 + (void)unlock;
-
-+ (Class<MixRouteModule>)moduleClassWithName:(MixRouteName)name;
 
 + (void)route:(MixRoute *)route;
 

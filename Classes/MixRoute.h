@@ -20,10 +20,6 @@ FOUNDATION_STATIC_INLINE MixRouteName MixRouteNameFrom(NSString *name) {
     return name;
 }
 
-FOUNDATION_STATIC_INLINE BOOL MixRouteNameEqual(MixRouteName name, MixRouteName aname) {
-    return [name isEqualToString:aname];
-}
-
 @protocol MixRouteParams <NSObject>
 
 @end
@@ -36,11 +32,19 @@ if (![__params conformsToProtocol:@protocol(__protocol)]) __params = nil;
 __class *__params = (__class *)__originParams; \
 if (![__params isKindOfClass:[__class class]]) __params = nil;
 
+typedef void (^MixRouteModuleBlock)(MixRoute *route);
+
+@interface MixRouteModuleRegister : NSObject
+
+@property (nonatomic, readonly) NSDictionary<MixRouteName, MixRouteModuleBlock> *blockDictionary;
+
+- (void)add:(MixRouteName)name block:(MixRouteModuleBlock)block;
+
+@end
+
 @protocol MixRouteModule
 
-+ (NSArray<MixRouteName> *)mixRouteRegisterModules;
-
-+ (void)mixRouteFire:(MixRoute *)route;
++ (void)mixRouteRegisterModule:(MixRouteModuleRegister *)reg;
 
 @end
 

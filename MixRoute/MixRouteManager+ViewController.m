@@ -16,11 +16,11 @@ MixRouteName const MixRouteNameVC1 = @"MixRouteNameVC1";
 + (void)toViewController
 {
     UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:[@(rand() / 100) stringValue]];
-    NSDictionary *atts = @{NSForegroundColorAttributeName: [UIColor whiteColor],
+    NSDictionary *atts = @{NSForegroundColorAttributeName: [self randColor],
                            NSFontAttributeName: [UIFont boldSystemFontOfSize:20],
                            };
     item.mix.barTitleTextAttributes = atts;
-    item.mix.barTintColor = [UIColor whiteColor];
+    item.mix.barTintColor = [self randColor];
     //    item.mix.barTintColor = [UIColor whiteColor];
     item.mix.barHidden = rand() % 2;
     //    item.mix.barHidden = NO;
@@ -33,24 +33,20 @@ MixRouteName const MixRouteNameVC1 = @"MixRouteNameVC1";
     [MixRouteManager to:MixRouteNameVC1 params:params];
 }
 
++ (UIColor *)randColor
+{
+    return [UIColor colorWithRed:(float)(rand() % 10) / 10 green:(float)(rand() % 10) / 10 blue:(float)(rand() % 10) / 10 alpha:1];
+}
+
 @end
 
 @implementation MixRouteViewControllerModule
 
-+ (NSArray<MixRouteName> *)mixRouteRegisterModules
++ (void)mixViewControllerRouteRegisterModule:(MixViewControllerRouteModule *)module
 {
-    return @[MixRouteNameVC1];
-}
-
-//+ (void)mixRouteFire:(MixRoute *)route
-//{
-//
-//}
-
-+ (UIViewController<MixRouteViewControlelr> *)viewControllerWithRoute:(MixRoute *)route
-{
-    ViewController *vc = [ViewController new];
-    return vc;
+    [module setName:MixRouteNameVC1 block:^UIViewController<MixRouteViewControlelr> *(MixRoute * _Nonnull route) {
+        return [ViewController new];
+    }];
 }
 
 @end

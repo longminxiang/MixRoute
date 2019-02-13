@@ -18,20 +18,15 @@ MixRouteName const MixRouteNameActionDelay = @"MixRouteNameActionDelay";
 
 @implementation Action
 
-+ (NSArray<MixRouteName> *)mixRouteRegisterModules
++ (void)mixRouteRegisterModule:(MixRouteModuleRegister *)reg
 {
-    return @[MixRouteNameActionShowHUD, MixRouteNameActionLog, MixRouteNameActionDelay];
-}
-
-+ (void)mixRouteFire:(MixRoute *)route
-{
-    if (MixRouteNameEqual(route.name, MixRouteNameActionShowHUD)) {
+    [reg add:MixRouteNameActionShowHUD block:^(MixRoute *route) {
         NSLog(@"hud");
-    }
-    else if (MixRouteNameEqual(route.name, MixRouteNameActionLog)) {
+    }];
+    [reg add:MixRouteNameActionLog block:^(MixRoute *route) {
         NSLog(@"log");
-    }
-    else if (MixRouteNameEqual(route.name, MixRouteNameActionDelay)) {
+    }];
+    [reg add:MixRouteNameActionDelay block:^(MixRoute *route) {
         MIX_ROUTE_PARAMS(MixRouteActionDelayParams, route.params, params);
         CGFloat delay = params.delay / 1000;
         if (delay <= 0) return;
@@ -39,7 +34,7 @@ MixRouteName const MixRouteNameActionDelay = @"MixRouteNameActionDelay";
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [MixRouteManager unlock];
         });
-    }
+    }];
 }
 
 @end

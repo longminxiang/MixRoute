@@ -25,3 +25,32 @@
 }
 
 @end
+
+@interface MixRouteModuleRegister ()
+
+@property (nonatomic, readonly) NSMutableDictionary<MixRouteName, MixRouteModuleBlock> *blockMutableDictionary;
+
+@end
+
+@implementation MixRouteModuleRegister
+
+- (instancetype)init
+{
+    if (self = [super init]) {
+        _blockMutableDictionary = [NSMutableDictionary new];
+    }
+    return self;
+}
+
+- (NSDictionary<MixRouteName, MixRouteModuleBlock> *)blockDictionary
+{
+    return self.blockMutableDictionary;
+}
+
+- (void)add:(MixRouteName)name block:(MixRouteModuleBlock)block
+{
+    if (!name || !block) return;
+    _blockMutableDictionary[name] = block;
+}
+
+@end

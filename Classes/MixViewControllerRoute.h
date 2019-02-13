@@ -12,15 +12,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
-    MixRouteStylePush,
-    MixRouteStylePresent,
-    MixRouteStyleRoot,
+FOUNDATION_EXTERN MixRouteName const MixRouteNameBack;
+
+typedef NS_ENUM(NSUInteger, MixViewControllerRouteStyle) {
+    MixViewControllerRouteStylePush,
+    MixViewControllerRouteStylePresent,
+    MixViewControllerRouteStyleRoot,
 };
 
 @protocol MixRouteViewControllerParams <MixRouteParams>
 
-@property (nonatomic, assign) MixVCRouteStyle style;
+@property (nonatomic, assign) MixViewControllerRouteStyle style;
 
 @property (nonatomic, strong, nullable) UINavigationItem *navigationItem;
 
@@ -30,25 +32,18 @@ typedef NS_ENUM(NSUInteger, MixVCRouteStyle) {
 
 @property (nonatomic, strong, nullable) NSArray<MixRoute *> *tabRoutes;
 
+@property (nonatomic, assign, nullable) Class navigationControllerClass;
+
 @end
+
+@interface MixRouteViewControllerParams : NSObject<MixRouteViewControllerParams>
+
+@end
+
 
 typedef UIViewController<MixRouteViewControlelr> * (^MixViewControllerRouteModuleBlock)(MixRoute *route);
 
-@interface MixViewControllerRouteModule : NSObject
-
-@property (nonatomic, copy) MixRouteName name;
-
-@property (nonatomic, copy) MixViewControllerRouteModuleBlock block;
-
-@property (nonatomic, assign) Class navigationControllerClass;
-
-- (void)setName:(MixRouteName)name block:(MixViewControllerRouteModuleBlock)block;
-
-@end
-
 @interface MixViewControllerRouteModuleRegister : NSObject
-
-- (void)add:(MixViewControllerRouteModule *)module;
 
 - (void)add:(MixRouteName)name block:(MixViewControllerRouteModuleBlock)block;
 
@@ -56,15 +51,21 @@ typedef UIViewController<MixRouteViewControlelr> * (^MixViewControllerRouteModul
 
 @protocol MixViewControllerRouteModule
 
-+ (void)mixViewControllerRouteRegisterModule:(MixViewControllerRouteModule *)module;
-
-@optional
-
-+ (Class)routeNavigationControllerClass;
++ (void)mixViewControllerRouteRegisterModule:(MixViewControllerRouteModuleRegister *)reg;
 
 @end
 
-@interface MixRouteViewControllerManager : NSObject<MixRouteModule>
+@interface MixRouteBackParams : NSObject<MixRouteParams>
+
+@property (nonatomic, assign) NSInteger delta;
+@property (nonatomic, assign) BOOL toRoot;
+@property (nonatomic, assign) BOOL noAnimated;
+
+@end
+
+@interface MixRouteManager (MixViewController)
+
++ (void)toViewControllerBack:(MixRouteBackParams* _Nullable)params;
 
 @end
 

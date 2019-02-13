@@ -9,27 +9,20 @@
 #import "MixViewControllerRoute.h"
 #import <objc/runtime.h>
 
-@implementation MixViewControllerRouteModule
+MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
 
-- (void)setName:(MixRouteName)name block:(MixViewControllerRouteModuleBlock)block
-{
-    self.name = name;
-    self.block = block;
-}
-
-- (Class)navigationControllerClass
-{
-    if (!_navigationControllerClass || ![_navigationControllerClass isSubclassOfClass:[UINavigationController class]]) {
-        return [UINavigationController class];
-    }
-    return _navigationControllerClass;
-}
+@implementation MixRouteViewControllerParams
+@synthesize style = _style;
+@synthesize navigationItem = _navigationItem;
+@synthesize tabBarItem = _tabBarItem;
+@synthesize tabRoutes = _tabRoutes;
+@synthesize navigationControllerClass = _navigationControllerClass;
 
 @end
 
 @interface MixViewControllerRouteModuleRegister ()
 
-@property (nonatomic, readonly) NSMutableDictionary<MixRouteName, MixViewControllerRouteModule *> *moduleDictionary;
+@property (nonatomic, readonly) NSMutableDictionary<MixRouteName, MixViewControllerRouteModuleBlock> *blockDictionary;
 
 @end
 
@@ -45,20 +38,16 @@
     return obj;
 }
 
-- (void)add:(MixViewControllerRouteModule *)module
-{
-    if (!module || !module.name || !module.block) return;
-    if (!_moduleDictionary) _moduleDictionary = [NSMutableDictionary new];
-    _moduleDictionary[module.name] = module;
-}
-
 - (void)add:(MixRouteName)name block:(MixViewControllerRouteModuleBlock)block
 {
-    MixViewControllerRouteModule *module = [MixViewControllerRouteModule new];
-    module.name = name;
-    module.block = block;
-    [self add:module];
+    if (!name || !block) return;
+    if (!_blockDictionary) _blockDictionary = [NSMutableDictionary new];
+    self.blockDictionary[name] = block;
 }
+
+@end
+
+@interface MixRouteViewControllerManager : NSObject<MixRouteModule>
 
 @end
 
@@ -75,18 +64,41 @@
         }
     }
     free(allClasse);
-    [[MixViewControllerRouteModuleRegister shared].moduleDictionary enumerateKeysAndObjectsUsingBlock:^(MixRouteName name, MixViewControllerRouteModule *module, BOOL *stop) {
+    [[MixViewControllerRouteModuleRegister shared].blockDictionary enumerateKeysAndObjectsUsingBlock:^(MixRouteName name, MixViewControllerRouteModuleBlock block, BOOL *stop) {
         [reg add:name block:^(MixRoute *route) {
-            [self fire:route module:module];
+            [self fire:route block:block];
         }];
+    }];
+
+    [reg add:MixRouteNameBack block:^(MixRoute *route) {
+        UIViewController<MixRouteViewControlelr> *topVC = MixViewController.topVC;
+        MIX_ROUTE_PROTOCOL_PARAMS(MixRouteViewControllerParams, topVC.mix.route.params, topParams);
+        MIX_ROUTE_PARAMS(MixRouteBackParams, route.params, params);
+
+        if (topParams.style == MixViewControllerRouteStylePresent) {
+            [MixRouteManager lock:route.queue];
+            [topVC dismissViewControllerAnimated:!params.noAnimated completion:^{
+                [MixRouteManager unlock:route.queue];
+            }];
+        }
+        else {
+            int count = (int)topVC.navigationController.viewControllers.count;
+            if (count <= 1) return;
+            NSInteger delta = params.toRoot ? count - 1 : MIN(MAX(params.delta, 1), count - 1);
+            UIViewController *xvc = topVC.navigationController.viewControllers[count - delta - 1];
+            [MixRouteManager lock:route.queue];
+            [topVC.navigationController mix_route_popToViewController:xvc animated:!params.noAnimated completion:^{
+                [MixRouteManager unlock:route.queue];
+            }];
+        }
     }];
 }
 
-+ (void)fire:(MixRoute *)route module:(MixViewControllerRouteModule *)module
++ (void)fire:(MixRoute *)route block:(MixViewControllerRouteModuleBlock)block
 {
     MIX_ROUTE_PROTOCOL_PARAMS(MixRouteViewControllerParams, route.params, params);
 
-    UIViewController<MixRouteViewControlelr> *vc = module.block(route);
+    UIViewController<MixRouteViewControlelr> *vc = block(route);
     if (!vc) {
         return;
     }
@@ -97,33 +109,59 @@
         NSMutableArray *navs = [NSMutableArray new];
         for (int i = 0; i < params.tabRoutes.count; i++) {
             MixRoute *aroute = params.tabRoutes[i];
-            MixViewControllerRouteModule *amodule = [MixViewControllerRouteModuleRegister shared].moduleDictionary[aroute.name];
-            UIViewController<MixRouteViewControlelr> *avc = amodule.block(aroute);
+            MixViewControllerRouteModuleBlock ablock = [MixViewControllerRouteModuleRegister shared].blockDictionary[aroute.name];
+            UIViewController<MixRouteViewControlelr> *avc = ablock(aroute);
             avc.mix.route = aroute;
-            UINavigationController *nav = [[module.navigationControllerClass alloc] initWithRootViewController:avc];
+            MIX_ROUTE_PROTOCOL_PARAMS(MixRouteViewControllerParams, aroute.params, aparams);
+            Class navClass = [self navigationControllerClassWithRouteParams:aparams otherParams:params];
+            UINavigationController *nav = [[navClass alloc] initWithRootViewController:avc];
             [navs addObject:nav];
         }
         ((UITabBarController *)vc).viewControllers = navs;
     }
 
     UIWindow *keyWindow = [UIApplication sharedApplication].delegate.window;
-    if (params.style == MixRouteStyleRoot || !keyWindow.rootViewController) {
-        UINavigationController *nav = [[module.navigationControllerClass alloc] initWithRootViewController:vc];
+    if (params.style == MixViewControllerRouteStyleRoot || !keyWindow.rootViewController) {
+        Class navClass = [self navigationControllerClassWithRouteParams:params otherParams:nil];
+        UINavigationController *nav = [[navClass alloc] initWithRootViewController:vc];
         keyWindow.rootViewController = nav;
     }
-    else if (params.style == MixRouteStylePresent) {
-        UINavigationController *nav = [[module.navigationControllerClass alloc] initWithRootViewController:vc];
-        [MixRouteManager lock];
+    else if (params.style == MixViewControllerRouteStylePresent) {
+        Class navClass = [self navigationControllerClassWithRouteParams:params otherParams:nil];
+        UINavigationController *nav = [[navClass alloc] initWithRootViewController:vc];
+        [MixRouteManager lock:route.queue];
         [MixViewController.topVC presentViewController:nav animated:YES completion:^{
-            [MixRouteManager unlock];
+            [MixRouteManager unlock:route.queue];
         }];
     }
     else {
-        [MixRouteManager lock];
+        [MixRouteManager lock:route.queue];
         [MixViewController.topVC.navigationController mix_route_pushViewController:vc animated:YES completion:^{
-            [MixRouteManager unlock];
+            [MixRouteManager unlock:route.queue];
         }];
     }
+}
+
++ (Class)navigationControllerClassWithRouteParams:(id<MixRouteViewControllerParams>)params otherParams:(id<MixRouteViewControllerParams>)aparams
+{
+    if ([params.navigationControllerClass isSubclassOfClass:[UINavigationController class]]) return params.navigationControllerClass;
+    if ([aparams.navigationControllerClass isSubclassOfClass:[UINavigationController class]]) return aparams.navigationControllerClass;
+    return [UINavigationController class];
+}
+
+@end
+
+@implementation MixRouteBackParams
+
+@end
+
+@implementation MixRouteManager (MixViewController)
+
++ (void)toViewControllerBack:(MixRouteBackParams *)params
+{
+    MixRoute *route = [[MixRoute alloc] initWithName:MixRouteNameBack];
+    route.params = params;
+    [MixRouteManager route:route];
 }
 
 @end

@@ -46,12 +46,12 @@ import Foundation
     @objc public let name: String
     
     private var _style: UInt?
-    @objc public var style: MixVCRouteStyle {
+    @objc public var style: MixViewControllerRouteStyle {
         set {
             self._style = newValue.rawValue
         }
         get {
-            return MixVCRouteStyle(rawValue: self._style ?? 0) ?? .routeStylePush
+            return MixViewControllerRouteStyle(rawValue: self._style ?? 0) ?? .push
         }
     }
     
@@ -60,13 +60,18 @@ import Foundation
     @objc public var tab: TabItem?
     
     @objc public var tabRoutes: [Route]?
+
+    @objc public var navigationClass: String?
     
     @objc public var vcRoute: MixRoute? {
         guard let route = MixRoute(name: MixRouteNameFrom(self.name)) else { return nil }
-        let params = MixRouteViewControllerBaseParams()
+        let params = MixRouteViewControllerParams()
         params.style = self.style
         params.navigationItem = self.nav?.navigationItem
         params.tabBarItem = self.tab?.tabBarItem
+        if let navClass = self.navigationClass {
+            params.navigationControllerClass = NSClassFromString(navClass)
+        }
         if let tabRoutes = self.tabRoutes {
             var routes: [MixRoute] = []
             tabRoutes.forEach({ (route) in
@@ -86,6 +91,7 @@ import Foundation
         case nav
         case tab
         case tabRoutes
+        case navigationClass
     }
     
     @objc public class func route(dictionary: NSDictionary) -> Route? {

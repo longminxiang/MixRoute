@@ -7,9 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "UINavigationItem+Mix.h"
 #import "Action.h"
 #import "MixRouteManager+ViewController.h"
+#import "MixRoute.h"
 
 @interface ViewController ()
 
@@ -54,7 +54,7 @@
     [self push];
     MixRouteActionDelayParams *params = [MixRouteActionDelayParams new];
     params.delay = 3000;
-    [MixRouteManager to:MixRouteNameActionDelay params:params];
+    [MixRouteManager toActionDelay:params queue:MixRouteGlobalQueue];
     [self push];
     [self push];
     [self push];
@@ -75,25 +75,14 @@
 
 - (IBAction)action
 {
-    [MixRouteManager to:MixRouteNameActionShowHUD];
+    [MixRouteManager toActionShowHUD];
 }
 
 - (IBAction)dismiss
 {
     MixRouteBackParams *params = [MixRouteBackParams new];
     params.delta = 10;
-    [MixRouteManager to:MixRouteNameBack params:params];
-//    [MixRouteManager to:MixRouteNameBack];
-//    [MixRouteManager to:MixRouteNameBack];
-//    [MixRouteManager to:MixRouteNameBack];
-//    [MixRouteManager to:MixRouteNameBack];
-//    [MixRouteManager to:MixRouteNameBack];
-//    [MixRouteManager to:MixRouteNameBack];
-//    [MixRouteManager to:MixRouteNameBack];
-//    [MixRouteManager to:MixRouteNameBack];
-//    [MixRouteManager to:MixRouteNameBack];
-//    [MixRouteManager to:MixRouteNameBack];
-
+    [MixRouteManager toViewControllerBack:params];
 }
 
 - (UIColor *)randColor

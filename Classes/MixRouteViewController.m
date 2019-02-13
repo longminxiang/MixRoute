@@ -8,8 +8,7 @@
 
 #import "MixRouteViewController.h"
 #import <objc/runtime.h>
-#import "MixViewControllerRouteBase.h"
-#import "MixRouteManager.h"
+#import "MixViewControllerRoute.h"
 
 void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSelector, SEL swizzledSelector)
 {
@@ -111,13 +110,7 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
 {
     [self _mix_vc_route_viewDidLoad];
     if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return;
-
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
-
-    if (self.navigationController.isBeingPresented) {
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(_mix_dismissViewController)];
-        self.navigationItem.leftBarButtonItem = item;
-    }
 }
 
 - (UINavigationItem *)_mix_vc_route_navigationItem
@@ -169,11 +162,6 @@ void mix_vc_route_hook_class_swizzleMethodAndStore(Class class, SEL originalSele
     [self _mix_vc_route_viewDidAppear:animated];
     if (![self conformsToProtocol:@protocol(MixRouteViewControlelr)]) return;
     [self.mix.navigationItemManager viewDidAppear:animated];
-}
-
-- (void)_mix_dismissViewController
-{
-    [MixRouteManager to:MixRouteNameBack];
 }
 
 @end

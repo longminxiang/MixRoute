@@ -7,19 +7,31 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MixRouteManager.h"
-
-UIKIT_EXTERN MixRouteName const MixRouteNameActionShowHUD;
-
-UIKIT_EXTERN MixRouteName const MixRouteNameActionLog;
-
-UIKIT_EXTERN MixRouteName const MixRouteNameActionDelay;
+#import "MixRoute.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+FOUNDATION_EXTERN MixRouteName const MixRouteNameActionShowHUD;
+
+FOUNDATION_EXTERN MixRouteName const MixRouteNameActionLog;
+
+FOUNDATION_EXTERN MixRouteName const MixRouteNameActionDelay;
+
+FOUNDATION_EXTERN MixRouteQueue const MixRouteActionQueue;
 
 @interface MixRouteActionDelayParams : NSObject<MixRouteParams>
 
 @property (nonatomic, assign) CGFloat delay;
+
+@end
+
+@interface MixRouteManager (Action)
+
++ (void)toActionShowHUD;
+
++ (void)toActionLog;
+
++ (void)toActionDelay:(MixRouteActionDelayParams *)params queue:(MixRouteQueue)queue;
 
 @end
 

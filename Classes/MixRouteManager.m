@@ -9,12 +9,113 @@
 #import "MixRouteManager.h"
 #import <objc/runtime.h>
 
-@interface MixRouteManager ()
+MixRouteQueue const MixRouteGlobalQueue = @"MixRouteGlobalQueue";
 
-@property (nonatomic, readonly) NSDictionary<MixRouteName, MixRouteModuleBlock> *moduleBlockDictionary;
-@property (nonatomic, readonly) NSMutableArray<MixRoute *> *routeQueue;
+@implementation MixRouteParams
+
+@end
+
+@implementation MixRoute
+
+- (instancetype)initWithName:(MixRouteName)name
+{
+    if (self = [super init]) {
+        _name = name;
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    NSLog(@"%@ delloc", NSStringFromClass([self class]));
+}
+
+@end
+
+@interface MixRouteModuleRegister ()
+
+@property (nonatomic, readonly) NSMutableDictionary<MixRouteName, MixRouteModuleBlock> *blockDictionary;
+
+@end
+
+@implementation MixRouteModuleRegister
+
++ (instancetype)shared
+{
+    static id obj;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        obj = [self new];
+    });
+    return obj;
+}
+
+- (void)add:(MixRouteName)name block:(MixRouteModuleBlock)block
+{
+    if (!name || !block) return;
+    if (!_blockDictionary) _blockDictionary = [NSMutableDictionary new];
+    _blockDictionary[name] = block;
+}
+
+@end
+
+@interface MixRouteQueueManager : NSObject
+
+@property (nonatomic, readonly) NSMutableArray<MixRoute *> *routes;
+
+@property (nonatomic, readonly) MixRouteQueue queue;
 
 @property (nonatomic, assign) BOOL locked;
+
+@end
+
+@implementation MixRouteQueueManager
+
+- (instancetype)initWithQueue:(MixRouteQueue)queue
+{
+    if (self = [super init]) {
+        _queue = queue;
+        _routes = [NSMutableArray new];
+    }
+    return self;
+}
+
+- (void)lock
+{
+    self.locked = YES;
+}
+
+- (void)unlock
+{
+    self.locked = NO;
+    [self.routes removeObjectAtIndex:0];
+    [self start];
+}
+
+- (void)addRoute:(MixRoute *)route
+{
+    if (!route) return;
+    [self.routes addObject:route];
+    [self start];
+}
+
+- (void)start
+{
+    MixRoute *route = [self.routes firstObject];
+    if (!route) return;
+    if (self.locked) return;
+    MixRouteModuleBlock block = [MixRouteModuleRegister shared].blockDictionary[route.name];
+    block(route);
+    if (!self.locked) {
+        [self unlock];
+    }
+}
+
+@end
+
+@interface MixRouteManager ()
+
+@property (nonatomic, readonly) NSMutableDictionary<MixRouteQueue, MixRouteQueueManager *> *queueManagers;
 
 @end
 
@@ -30,85 +131,52 @@
     return obj;
 }
 
-+ (void)lock
++ (void)lock:(MixRouteQueue)queue
 {
-    [[self shared] lock];
+    MixRouteQueueManager *manager = [[self shared] queueManager:queue];
+    [manager lock];
 }
 
-+ (void)unlock
++ (void)unlock:(MixRouteQueue)queue
 {
-    [[self shared] unlock];
-}
-
-+ (void)to:(MixRouteName)name
-{
-    [self to:name params:nil];
-}
-
-+ (void)to:(MixRouteName)name params:(id<MixRouteParams>)params
-{
-    if (!name) return;
-    MixRoute *route = [[MixRoute alloc] initWithName:name];
-    route.params = params;
-    [self route:route];
+    MixRouteQueueManager *manager = [[self shared] queueManager:queue];
+    [manager unlock];
 }
 
 + (void)route:(MixRoute *)route
 {
-    [[self shared] route:route];
+    if (!route) return;
+    MixRouteQueueManager *manager = [[self shared] queueManager:route.queue];
+    [manager addRoute:route];
 }
 
 - (instancetype)init
 {
     if (self = [super init]) {
-        _routeQueue = [NSMutableArray new];
+        _queueManagers = [NSMutableDictionary new];
         
-        NSMutableDictionary *moduleBlockDict = [NSMutableDictionary new];
         unsigned int count;
         Class *allClasse = objc_copyClassList(&count);
         for (int i = 0; i < count; i++) {
             Class class = allClasse[i];
             if (class_conformsToProtocol(class, @protocol(MixRouteModule))) {
-                MixRouteModuleRegister *reg = [MixRouteModuleRegister new];
-                [class mixRouteRegisterModule:reg];
-                [moduleBlockDict addEntriesFromDictionary:reg.blockDictionary];
+                [class mixRouteRegisterModule:[MixRouteModuleRegister shared]];
             }
         }
         free(allClasse);
-        _moduleBlockDictionary = moduleBlockDict;
     }
     return self;
 }
 
-- (void)lock
+- (MixRouteQueueManager *)queueManager:(MixRouteQueue)queue
 {
-    self.locked = YES;
-}
-
-- (void)unlock
-{
-    self.locked = NO;
-    if (self.routeQueue.count) [self.routeQueue removeObjectAtIndex:0];
-    [self startRouteQueue];
-}
-
-- (void)route:(MixRoute *)route
-{
-    if (!route) return;
-    [self.routeQueue addObject:route];
-    [self startRouteQueue];
-}
-
-- (void)startRouteQueue
-{
-    if (self.locked) return;
-    MixRoute *route = [self.routeQueue firstObject];
-    if (!route) return;
-    MixRouteModuleBlock block = self.moduleBlockDictionary[route.name];
-    block(route);
-    if (!self.locked) {
-        [self unlock];
+    if (!queue) queue = MixRouteGlobalQueue;
+    MixRouteQueueManager *manager = self.queueManagers[queue];
+    if (!manager) {
+        manager = [[MixRouteQueueManager alloc] initWithQueue:queue];
+        self.queueManagers[queue] = manager;
     }
+    return manager;
 }
 
 @end

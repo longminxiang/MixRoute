@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) UIColor *barTintColor;
 
+@property (nonatomic, copy) UIColor *tintColor;
+
 @end
 
 @interface UITabBarItem (MixTabBarItem)

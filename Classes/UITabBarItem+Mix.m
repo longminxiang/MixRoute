@@ -58,7 +58,7 @@
 
 - (NSArray *)mixItemKeyPaths
 {
-    NSArray *keyPaths = @[@"barTintColor"];
+    NSArray *keyPaths = @[@"barTintColor", @"tintColor"];
     return keyPaths;
 }
 
@@ -80,6 +80,11 @@
         UIColor *color = item.barTintColor;
         if (!color) color = titem.barTintColor;
         tabBar.barTintColor = color;
+    }
+    else if ([keyPath isEqualToString:@"tintColor"]) {
+        UIColor *color = item.tintColor;
+        if (!color) color = titem.tintColor;
+        tabBar.tintColor = color;
     }
 }
 

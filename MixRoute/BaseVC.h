@@ -13,6 +13,6 @@
 
 @end
 
-@interface BaseVC : UIViewController<MixRouteViewControlelr>
+@interface BaseVC : UIViewController<MixRouteViewController>
 
 @end

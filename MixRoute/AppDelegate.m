@@ -12,7 +12,7 @@
 
 MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 
-@interface TabBarController : UITabBarController<MixRouteViewControlelr, MixViewControllerRouteModule>
+@interface TabBarController : UITabBarController<MixRouteViewController, MixViewControllerRouteModule>
 
 @end
 
@@ -20,7 +20,7 @@ MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
 
 + (void)mixViewControllerRouteRegisterModule:(MixViewControllerRouteModuleRegister *)reg
 {
-    [reg add:MixRouteNameTab block:^UIViewController<MixRouteViewControlelr> *(MixRoute * _Nonnull route) {
+    [reg add:MixRouteNameTab block:^UIViewController<MixRouteViewController> *(MixRoute * _Nonnull route) {
         return [TabBarController new];
     }];
 }

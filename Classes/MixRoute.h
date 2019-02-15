@@ -11,8 +11,5 @@
 
 #import "MixRouteManager.h"
 #import "MixViewControllerRoute.h"
-#import "MixRouteViewController.h"
-#import "UINavigationItem+Mix.h"
-#import "UITabBarItem+Mix.h"
 
 #endif /* MixRoute_h */

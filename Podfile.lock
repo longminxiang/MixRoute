@@ -1,0 +1,16 @@
+PODS:
+  - MixExtention (1.0.2)
+
+DEPENDENCIES:
+  - MixExtention (~> 1.0.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MixExtention
+
+SPEC CHECKSUMS:
+  MixExtention: fffabf948cc9b1294e39b65ffb42350504e9caa5
+
+PODFILE CHECKSUM: fd08448e57e6bcff26818218b3602c33cf1a4a0a
+
+COCOAPODS: 1.6.0

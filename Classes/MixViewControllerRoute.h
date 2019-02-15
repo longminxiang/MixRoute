@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MixRouteManager.h"
-#import "MixRouteViewController.h"
+#import <MixExtention/MixExtention.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,9 +24,11 @@ typedef NS_ENUM(NSUInteger, MixViewControllerRouteStyle) {
 
 @property (nonatomic, assign) MixViewControllerRouteStyle style;
 
-@property (nonatomic, strong, nullable) UINavigationItem *navigationItem;
-
 @optional
+
+@property (nonatomic, strong, nullable) UIViewControllerMixExtentionAttributes *attributes;
+
+@property (nonatomic, strong, nullable) UINavigationItem *navigationItem;
 
 @property (nonatomic, strong, nullable) UITabBarItem *tabBarItem;
 
@@ -41,7 +43,17 @@ typedef NS_ENUM(NSUInteger, MixViewControllerRouteStyle) {
 @end
 
 
-typedef UIViewController<MixRouteViewControlelr> * (^MixViewControllerRouteModuleBlock)(MixRoute *route);
+@protocol MixRouteViewController<UIViewControllerMixExtention>
+
+@end
+
+@interface UIViewController (MixRouteViewController)
+
+@property (nonatomic, strong) MixRoute *mix_route;
+
+@end
+
+typedef UIViewController<MixRouteViewController> * (^MixViewControllerRouteModuleBlock)(MixRoute *route);
 
 @interface MixViewControllerRouteModuleRegister : NSObject
 

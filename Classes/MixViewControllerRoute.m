@@ -13,12 +13,68 @@ MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
 
 @implementation MixRouteViewControllerParams
 @synthesize style = _style;
-@synthesize navigationItem = _navigationItem;
-@synthesize tabBarItem = _tabBarItem;
 @synthesize tabRoutes = _tabRoutes;
 @synthesize navigationControllerClass = _navigationControllerClass;
+@synthesize attributes = _attributes;
+@synthesize navigationItem = _navigationItem;
+@synthesize tabBarItem = _tabBarItem;
 
 @end
+
+@implementation UIViewController (MixViewController)
+
++ (void)load
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mix_extention_hook_class_swizzleMethodAndStore(self, @selector(navigationItem), @selector(_mix_vc_route_navigationItem));
+        mix_extention_hook_class_swizzleMethodAndStore(self, @selector(tabBarItem), @selector(_mix_vc_route_tabBarItem));
+    });
+}
+
+- (MixRoute *)mix_route
+{
+    if (![self conformsToProtocol:@protocol(MixRouteViewController)]) return nil;
+    id obj = objc_getAssociatedObject(self, _cmd);
+    return obj;
+}
+
+- (void)setMix_route:(MixRoute *)mix_route
+{
+    if (![self conformsToProtocol:@protocol(MixRouteViewController)]) return;
+    objc_setAssociatedObject(self, @selector(mix_route), mix_route, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UINavigationItem *)_mix_vc_route_navigationItem
+{
+    UINavigationItem *item;
+    if ([self conformsToProtocol:@protocol(MixRouteViewController)]) {
+        UINavigationItem *aitem = ((id<MixRouteViewControllerParams>)self.mix_route.params).navigationItem;
+        if (aitem) item = aitem;
+        else aitem = item = [self _mix_vc_route_navigationItem];
+    }
+    else {
+        item = [self _mix_vc_route_navigationItem];
+    }
+    return item;
+}
+
+- (UITabBarItem *)_mix_vc_route_tabBarItem
+{
+    UITabBarItem *item;
+    if ([self conformsToProtocol:@protocol(MixRouteViewController)]) {
+        UITabBarItem *aitem = ((id<MixRouteViewControllerParams>)self.mix_route.params).tabBarItem;
+        if (aitem) item = aitem;
+        else aitem = item = [self _mix_vc_route_tabBarItem];
+    }
+    else {
+        item = [self _mix_vc_route_tabBarItem];
+    }
+    return item;
+}
+
+@end
+
 
 @interface MixViewControllerRouteModuleRegister ()
 
@@ -71,8 +127,8 @@ MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
     }];
 
     [reg add:MixRouteNameBack block:^(MixRoute *route) {
-        UIViewController<MixRouteViewControlelr> *topVC = MixViewController.topVC;
-        MIX_ROUTE_PROTOCOL_PARAMS(MixRouteViewControllerParams, topVC.mix.route.params, topParams);
+        UIViewController<MixRouteViewController> *topVC = (UIViewController<MixRouteViewController> *)[UIViewControllerMixExtention topViewController];
+        MIX_ROUTE_PROTOCOL_PARAMS(MixRouteViewControllerParams, topVC.mix_route.params, topParams);
         MIX_ROUTE_PARAMS(MixRouteBackParams, route.params, params);
 
         if (topParams.style == MixViewControllerRouteStylePresent) {
@@ -87,7 +143,7 @@ MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
             NSInteger delta = params.toRoot ? count - 1 : MIN(MAX(params.delta, 1), count - 1);
             UIViewController *xvc = topVC.navigationController.viewControllers[count - delta - 1];
             [MixRouteManager lock:route.queue];
-            [topVC.navigationController mix_route_popToViewController:xvc animated:!params.noAnimated completion:^{
+            [topVC.navigationController.mix_extention popToViewController:xvc animated:!params.noAnimated completion:^{
                 [MixRouteManager unlock:route.queue];
             }];
         }
@@ -98,11 +154,12 @@ MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
 {
     MIX_ROUTE_PROTOCOL_PARAMS(MixRouteViewControllerParams, route.params, params);
 
-    UIViewController<MixRouteViewControlelr> *vc = block(route);
+    UIViewController<MixRouteViewController> *vc = block(route);
     if (!vc) {
         return;
     }
-    vc.mix.route = route;
+    vc.mix_extention.attributes = params.attributes;
+    vc.mix_route = route;
 
     if ([vc isKindOfClass:[UITabBarController class]] && params.tabRoutes.count) {
 
@@ -110,8 +167,8 @@ MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
         for (int i = 0; i < params.tabRoutes.count; i++) {
             MixRoute *aroute = params.tabRoutes[i];
             MixViewControllerRouteModuleBlock ablock = [MixViewControllerRouteModuleRegister shared].blockDictionary[aroute.name];
-            UIViewController<MixRouteViewControlelr> *avc = ablock(aroute);
-            avc.mix.route = aroute;
+            UIViewController<MixRouteViewController> *avc = ablock(aroute);
+            avc.mix_route = aroute;
             MIX_ROUTE_PROTOCOL_PARAMS(MixRouteViewControllerParams, aroute.params, aparams);
             Class navClass = [self navigationControllerClassWithRouteParams:aparams otherParams:params];
             UINavigationController *nav = [[navClass alloc] initWithRootViewController:avc];
@@ -130,13 +187,13 @@ MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
         Class navClass = [self navigationControllerClassWithRouteParams:params otherParams:nil];
         UINavigationController *nav = [[navClass alloc] initWithRootViewController:vc];
         [MixRouteManager lock:route.queue];
-        [MixViewController.topVC presentViewController:nav animated:YES completion:^{
+        [[UIViewControllerMixExtention topViewController] presentViewController:nav animated:YES completion:^{
             [MixRouteManager unlock:route.queue];
         }];
     }
     else {
         [MixRouteManager lock:route.queue];
-        [MixViewController.topVC.navigationController mix_route_pushViewController:vc animated:YES completion:^{
+        [[UIViewControllerMixExtention topViewController].navigationController.mix_extention pushViewController:vc animated:YES completion:^{
             [MixRouteManager unlock:route.queue];
         }];
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		008F2717302076FC748F7741 /* libPods-MixRoute.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88D00B0F77B8F53BAD77C65 /* libPods-MixRoute.a */; };
 		0712072B21957358009CD87B /* MixViewControllerRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712072A21957358009CD87B /* MixViewControllerRoute.m */; };
 		073CEE1C2212B2D000CED6ED /* MixRouteManager+ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 073CEE1B2212B2D000CED6ED /* MixRouteManager+ViewController.m */; };
 		073CEE1F2212C15200CED6ED /* MixRouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 073CEE1E2212C15200CED6ED /* MixRouteManager.m */; };
@@ -16,13 +17,10 @@
 		0743B2BE2174334F00F15570 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0743B2BD2174334F00F15570 /* Assets.xcassets */; };
 		0743B2C12174334F00F15570 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0743B2BF2174334F00F15570 /* LaunchScreen.storyboard */; };
 		0743B2C42174334F00F15570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2C32174334F00F15570 /* main.m */; };
-		077AE30B2199696800D9EC88 /* UITabBarItem+Mix.m in Sources */ = {isa = PBXBuildFile; fileRef = 077AE30A2199696800D9EC88 /* UITabBarItem+Mix.m */; };
 		0798F47321A1498B00A1A528 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0798F47221A1498B00A1A528 /* Route.swift */; };
 		07BD20AF21779A17005BC428 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07BD20AE21779A17005BC428 /* ViewController.xib */; };
-		07D1315A218FF1620091CA9E /* UINavigationItem+Mix.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D13159218FF1610091CA9E /* UINavigationItem+Mix.m */; };
 		07E469C32214002700E8A885 /* UITabBar+BugFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E469C12214002700E8A885 /* UITabBar+BugFix.m */; };
 		07F3D9AC218069AE00B2E923 /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F3D9AB218069AE00B2E923 /* BaseVC.m */; };
-		07F3D9AF21806AE800B2E923 /* MixRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F3D9AE21806AE800B2E923 /* MixRouteViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,21 +41,18 @@
 		0743B2C02174334F00F15570 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0743B2C22174334F00F15570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0743B2C32174334F00F15570 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		077AE3092199696800D9EC88 /* UITabBarItem+Mix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+Mix.h"; sourceTree = "<group>"; };
-		077AE30A2199696800D9EC88 /* UITabBarItem+Mix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+Mix.m"; sourceTree = "<group>"; };
 		077AE31721998E6200D9EC88 /* MixRoute-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MixRoute-Bridging-Header.h"; sourceTree = "<group>"; };
 		0798F47221A1498B00A1A528 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		07BD20AE21779A17005BC428 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
-		07D13158218FF1610091CA9E /* UINavigationItem+Mix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+Mix.h"; sourceTree = "<group>"; };
-		07D13159218FF1610091CA9E /* UINavigationItem+Mix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+Mix.m"; sourceTree = "<group>"; };
 		07E469BF2213F1BB00E8A885 /* MixRoute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRoute.h; sourceTree = "<group>"; };
 		07E469C02213FFC100E8A885 /* MixRoute.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = MixRoute.podspec; sourceTree = "<group>"; };
 		07E469C12214002700E8A885 /* UITabBar+BugFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+BugFix.m"; sourceTree = "<group>"; };
 		07E469C22214002700E8A885 /* UITabBar+BugFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+BugFix.h"; sourceTree = "<group>"; };
 		07F3D9AA218069AE00B2E923 /* BaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseVC.h; sourceTree = "<group>"; };
 		07F3D9AB218069AE00B2E923 /* BaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseVC.m; sourceTree = "<group>"; };
-		07F3D9AD21806AE800B2E923 /* MixRouteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRouteViewController.h; sourceTree = "<group>"; };
-		07F3D9AE21806AE800B2E923 /* MixRouteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRouteViewController.m; sourceTree = "<group>"; };
+		8AA22899CB52337F8CCC1EBA /* Pods-MixRoute.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MixRoute.debug.xcconfig"; path = "Target Support Files/Pods-MixRoute/Pods-MixRoute.debug.xcconfig"; sourceTree = "<group>"; };
+		A2DE9DD6EE7695CF77BE5A27 /* Pods-MixRoute.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MixRoute.release.xcconfig"; path = "Target Support Files/Pods-MixRoute/Pods-MixRoute.release.xcconfig"; sourceTree = "<group>"; };
+		B88D00B0F77B8F53BAD77C65 /* libPods-MixRoute.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MixRoute.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				008F2717302076FC748F7741 /* libPods-MixRoute.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +74,8 @@
 				0743B2CA217433A600F15570 /* Classes */,
 				0743B2B32174334D00F15570 /* MixRoute */,
 				0743B2B22174334D00F15570 /* Products */,
+				C6137C0FB8DB43C980A555C0 /* Pods */,
+				0F9FA99832A1C66A148DBF4B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,14 +121,25 @@
 				073CEE1E2212C15200CED6ED /* MixRouteManager.m */,
 				0712072921957358009CD87B /* MixViewControllerRoute.h */,
 				0712072A21957358009CD87B /* MixViewControllerRoute.m */,
-				07F3D9AD21806AE800B2E923 /* MixRouteViewController.h */,
-				07F3D9AE21806AE800B2E923 /* MixRouteViewController.m */,
-				07D13158218FF1610091CA9E /* UINavigationItem+Mix.h */,
-				07D13159218FF1610091CA9E /* UINavigationItem+Mix.m */,
-				077AE3092199696800D9EC88 /* UITabBarItem+Mix.h */,
-				077AE30A2199696800D9EC88 /* UITabBarItem+Mix.m */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		0F9FA99832A1C66A148DBF4B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B88D00B0F77B8F53BAD77C65 /* libPods-MixRoute.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C6137C0FB8DB43C980A555C0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8AA22899CB52337F8CCC1EBA /* Pods-MixRoute.debug.xcconfig */,
+				A2DE9DD6EE7695CF77BE5A27 /* Pods-MixRoute.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +149,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0743B2C72174334F00F15570 /* Build configuration list for PBXNativeTarget "MixRoute" */;
 			buildPhases = (
+				7334E24780712F0FB0F0ECB4 /* [CP] Check Pods Manifest.lock */,
 				0743B2AD2174334D00F15570 /* Sources */,
 				0743B2AE2174334D00F15570 /* Frameworks */,
 				0743B2AF2174334D00F15570 /* Resources */,
@@ -199,6 +209,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7334E24780712F0FB0F0ECB4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MixRoute-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0743B2AD2174334D00F15570 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -209,14 +244,11 @@
 				0743B2B92174334D00F15570 /* ViewController.m in Sources */,
 				073CEE1C2212B2D000CED6ED /* MixRouteManager+ViewController.m in Sources */,
 				0743B2C42174334F00F15570 /* main.m in Sources */,
-				07D1315A218FF1620091CA9E /* UINavigationItem+Mix.m in Sources */,
 				0743B2B62174334D00F15570 /* AppDelegate.m in Sources */,
 				0712072B21957358009CD87B /* MixViewControllerRoute.m in Sources */,
-				07F3D9AF21806AE800B2E923 /* MixRouteViewController.m in Sources */,
 				0798F47321A1498B00A1A528 /* Route.swift in Sources */,
 				073CEE222212C1C300CED6ED /* Action.m in Sources */,
 				07F3D9AC218069AE00B2E923 /* BaseVC.m in Sources */,
-				077AE30B2199696800D9EC88 /* UITabBarItem+Mix.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +379,7 @@
 		};
 		0743B2C82174334F00F15570 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8AA22899CB52337F8CCC1EBA /* Pods-MixRoute.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -369,6 +402,7 @@
 		};
 		0743B2C92174334F00F15570 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2DE9DD6EE7695CF77BE5A27 /* Pods-MixRoute.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

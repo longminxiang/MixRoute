@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		008F2717302076FC748F7741 /* libPods-MixRoute.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B88D00B0F77B8F53BAD77C65 /* libPods-MixRoute.a */; };
 		0712072B21957358009CD87B /* MixViewControllerRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0712072A21957358009CD87B /* MixViewControllerRoute.m */; };
-		073CEE1C2212B2D000CED6ED /* MixRouteManager+ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 073CEE1B2212B2D000CED6ED /* MixRouteManager+ViewController.m */; };
 		073CEE1F2212C15200CED6ED /* MixRouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 073CEE1E2212C15200CED6ED /* MixRouteManager.m */; };
 		073CEE222212C1C300CED6ED /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 073CEE202212C1C300CED6ED /* Action.m */; };
 		0743B2B62174334D00F15570 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2B52174334D00F15570 /* AppDelegate.m */; };
@@ -26,8 +25,6 @@
 /* Begin PBXFileReference section */
 		0712072921957358009CD87B /* MixViewControllerRoute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixViewControllerRoute.h; sourceTree = "<group>"; };
 		0712072A21957358009CD87B /* MixViewControllerRoute.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixViewControllerRoute.m; sourceTree = "<group>"; };
-		073CEE1A2212B2D000CED6ED /* MixRouteManager+ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MixRouteManager+ViewController.h"; sourceTree = "<group>"; };
-		073CEE1B2212B2D000CED6ED /* MixRouteManager+ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MixRouteManager+ViewController.m"; sourceTree = "<group>"; };
 		073CEE1D2212C15200CED6ED /* MixRouteManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRouteManager.h; sourceTree = "<group>"; };
 		073CEE1E2212C15200CED6ED /* MixRouteManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MixRouteManager.m; sourceTree = "<group>"; };
 		073CEE202212C1C300CED6ED /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
@@ -99,8 +96,6 @@
 				073CEE202212C1C300CED6ED /* Action.m */,
 				0743B2B42174334D00F15570 /* AppDelegate.h */,
 				0743B2B52174334D00F15570 /* AppDelegate.m */,
-				073CEE1A2212B2D000CED6ED /* MixRouteManager+ViewController.h */,
-				073CEE1B2212B2D000CED6ED /* MixRouteManager+ViewController.m */,
 				0743B2B72174334D00F15570 /* ViewController.h */,
 				0743B2B82174334D00F15570 /* ViewController.m */,
 				07BD20AE21779A17005BC428 /* ViewController.xib */,
@@ -242,7 +237,6 @@
 				07E469C32214002700E8A885 /* UITabBar+BugFix.m in Sources */,
 				073CEE1F2212C15200CED6ED /* MixRouteManager.m in Sources */,
 				0743B2B92174334D00F15570 /* ViewController.m in Sources */,
-				073CEE1C2212B2D000CED6ED /* MixRouteManager+ViewController.m in Sources */,
 				0743B2C42174334F00F15570 /* main.m in Sources */,
 				0743B2B62174334D00F15570 /* AppDelegate.m in Sources */,
 				0712072B21957358009CD87B /* MixViewControllerRoute.m in Sources */,

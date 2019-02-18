@@ -8,39 +8,7 @@
 
 #import "Action.h"
 
-MixRouteName const MixRouteNameActionShowHUD = @"MixRouteNameActionShowHUD";
-MixRouteName const MixRouteNameActionLog = @"MixRouteNameActionLog";
-MixRouteName const MixRouteNameActionDelay = @"MixRouteNameActionDelay";
-
-MixRouteQueue const MixRouteActionQueue = @"MixRouteActionQueue";
-
 @implementation MixRouteActionDelayParams
-
-@end
-
-@implementation MixRouteManager (Action)
-
-+ (void)toActionShowHUD
-{
-    MixRoute *route = [[MixRoute alloc] initWithName:MixRouteNameActionShowHUD];
-    route.queue = MixRouteActionQueue;
-    [MixRouteManager route:route];
-}
-
-+ (void)toActionLog
-{
-    MixRoute *route = [[MixRoute alloc] initWithName:MixRouteNameActionLog];
-    route.queue = MixRouteActionQueue;
-    [MixRouteManager route:route];
-}
-
-+ (void)toActionDelay:(MixRouteActionDelayParams *)params queue:(MixRouteQueue)queue
-{
-    MixRoute *route = [[MixRoute alloc] initWithName:MixRouteNameActionDelay];
-    route.queue = queue;
-    route.params = params;
-    [MixRouteManager route:route];
-}
 
 @end
 

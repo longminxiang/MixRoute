@@ -9,8 +9,6 @@
 #import "MixViewControllerRoute.h"
 #import <objc/runtime.h>
 
-MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
-
 @implementation MixRouteViewControllerParams
 @synthesize style = _style;
 @synthesize tabRoutes = _tabRoutes;
@@ -209,16 +207,5 @@ MixRouteName const MixRouteNameBack = @"MixRouteNameBack";
 @end
 
 @implementation MixRouteBackParams
-
-@end
-
-@implementation MixRouteManager (MixViewController)
-
-+ (void)toViewControllerBack:(MixRouteBackParams *)params
-{
-    MixRoute *route = [[MixRoute alloc] initWithName:MixRouteNameBack];
-    route.params = params;
-    [MixRouteManager route:route];
-}
 
 @end

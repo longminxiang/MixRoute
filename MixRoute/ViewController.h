@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "BaseVC.h"
 
-@interface ViewController : BaseVC
+MIX_VC_ROUTE_MAKE(VC1)
+
+@interface ViewController : BaseVC<MixViewControllerRouteModule>
 
 @end

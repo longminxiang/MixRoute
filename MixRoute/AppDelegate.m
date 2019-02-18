@@ -10,7 +10,7 @@
 #import "MixRoute.h"
 #import "MixRoute-Swift.h"
 
-MixRouteName const MixRouteNameTab = @"MixRouteNameTab";
+MIX_ROUTE_NAME(Tab)
 
 @interface TabBarController : UITabBarController<MixRouteViewController, MixViewControllerRouteModule>
 

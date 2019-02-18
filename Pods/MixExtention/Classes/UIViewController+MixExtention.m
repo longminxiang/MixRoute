@@ -9,14 +9,19 @@
 #import "UIViewController+MixExtention.h"
 #import "MixExtentionHooker.h"
 
-@implementation UIViewControllerMixExtentionAttributes
+MixExtViewControllerAttribute const MixExtAttributeDisableInteractivePopGesture = @"disableInteractivePopGesture";
+MixExtViewControllerAttribute const MixExtAttributeStatusBarHidden = @"statusBarHidden";
+MixExtViewControllerAttribute const MixExtAttributeStatusBarStyle = @"statusBarStyle";
+MixExtViewControllerAttribute const MixExtAttributeNavigationBarHidden = @"navigationBarHidden";
+MixExtViewControllerAttribute const MixExtAttributeNavigationBarTintColor = @"navigationBarTintColor";
+MixExtViewControllerAttribute const MixExtAttributeNavigationBarBarTintColor = @"navigationBarBarTintColor";
+MixExtViewControllerAttribute const MixExtAttributeNavigationBarTitleTextAttributes = @"navigationBarTitleTextAttributes";
+MixExtViewControllerAttribute const MixExtAttributeNavigationBarBackImage = @"navigationBarBackImage";
+MixExtViewControllerAttribute const MixExtAttributeNavigationBarBackgroundImage = @"navigationBarBackgroundImage";
+MixExtViewControllerAttribute const MixExtAttributeTabBarTintColor = @"tabBarTintColor";
+MixExtViewControllerAttribute const MixExtAttributeTabBarBarTintColor = @"tabBarBarTintColor";
 
-+ (NSArray<NSString *> *)keyPaths
-{
-    return @[@"disableInteractivePopGesture", @"statusBarHidden", @"statusBarStyle", @"navigationBarHidden",
-             @"navigationBarTintColor", @"navigationBarBarTintColor", @"navigationBarTitleTextAttributes",
-             @"navigationBarBackImage", @"navigationBarBackgroundImage", @"tabBarTintColor", @"tabBarBarTintColor"];
-}
+@implementation UIViewControllerMixExtentionAttributes
 
 @end
 
@@ -72,15 +77,23 @@
     _viewDidAppear = viewDidAppear;
 }
 
+- (NSArray<NSString *> *)attributesKeyPaths
+{
+    return @[MixExtAttributeDisableInteractivePopGesture, MixExtAttributeStatusBarHidden, MixExtAttributeStatusBarStyle,
+             MixExtAttributeNavigationBarHidden, MixExtAttributeNavigationBarTintColor, MixExtAttributeNavigationBarBarTintColor,
+             MixExtAttributeNavigationBarTitleTextAttributes, MixExtAttributeNavigationBarBackImage, MixExtAttributeNavigationBarBackgroundImage,
+             MixExtAttributeTabBarTintColor, MixExtAttributeTabBarBarTintColor];
+}
+
 - (void)setAttributes:(UIViewControllerMixExtentionAttributes *)attributes
 {
     if (_attributes) {
-        for (NSString *keyPath in [UIViewControllerMixExtentionAttributes keyPaths]) {
+        for (NSString *keyPath in [self attributesKeyPaths]) {
             [_attributes removeObserver:self forKeyPath:keyPath];
         }
     }
     _attributes = attributes;
-    for (NSString *keyPath in [UIViewControllerMixExtentionAttributes keyPaths]) {
+    for (NSString *keyPath in [self attributesKeyPaths]) {
         [_attributes addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:nil];
     }
 }
@@ -229,23 +242,23 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
     if (object == self.attributes) {
-        if ([keyPath isEqualToString:@"disableInteractivePopGesture"]) [self setupDisableInteractivePopGesture];
-        else if ([keyPath isEqualToString:@"statusBarHidden"]) [self setupStatusBarHidden];
-        else if ([keyPath isEqualToString:@"statusBarStyle"]) [self setupStatusBarStyle];
-        else if ([keyPath isEqualToString:@"navigationBarHidden"]) [self setupNavigationBarHidden];
-        else if ([keyPath isEqualToString:@"navigationBarTitleTextAttributes"]) [self setupNavigationBarTitleTextAttributes];
-        else if ([keyPath isEqualToString:@"navigationBarTintColor"]) [self setupNavigationBarTintColor];
-        else if ([keyPath isEqualToString:@"navigationBarBarTintColor"]) [self setupNavigationBarBarTintColor];
-        else if ([keyPath isEqualToString:@"navigationBarBackgroundImage"]) [self setupNavigationBarBackgroundImage];
-        else if ([keyPath isEqualToString:@"navigationBarBackImage"]) [self setupNavigationBarBackImage];
-        else if ([keyPath isEqualToString:@"tabBarTintColor"]) [self setupTabBarTintColor];
-        else if ([keyPath isEqualToString:@"tabBarBarTintColor"]) [self setupTabBarBarTintColor];
+        if ([keyPath isEqualToString:MixExtAttributeDisableInteractivePopGesture]) [self setupDisableInteractivePopGesture];
+        else if ([keyPath isEqualToString:MixExtAttributeStatusBarHidden]) [self setupStatusBarHidden];
+        else if ([keyPath isEqualToString:MixExtAttributeStatusBarStyle]) [self setupStatusBarStyle];
+        else if ([keyPath isEqualToString:MixExtAttributeNavigationBarHidden]) [self setupNavigationBarHidden];
+        else if ([keyPath isEqualToString:MixExtAttributeNavigationBarTitleTextAttributes]) [self setupNavigationBarTitleTextAttributes];
+        else if ([keyPath isEqualToString:MixExtAttributeNavigationBarTintColor]) [self setupNavigationBarTintColor];
+        else if ([keyPath isEqualToString:MixExtAttributeNavigationBarBarTintColor]) [self setupNavigationBarBarTintColor];
+        else if ([keyPath isEqualToString:MixExtAttributeNavigationBarBackgroundImage]) [self setupNavigationBarBackgroundImage];
+        else if ([keyPath isEqualToString:MixExtAttributeNavigationBarBackImage]) [self setupNavigationBarBackImage];
+        else if ([keyPath isEqualToString:MixExtAttributeTabBarTintColor]) [self setupTabBarTintColor];
+        else if ([keyPath isEqualToString:MixExtAttributeTabBarBarTintColor]) [self setupTabBarBarTintColor];
     }
 }
 
 - (void)dealloc
 {
-    for (NSString *keyPath in [UIViewControllerMixExtentionAttributes keyPaths]) {
+    for (NSString *keyPath in [self attributesKeyPaths]) {
         [self.attributes removeObserver:self forKeyPath:keyPath];
     }
 }

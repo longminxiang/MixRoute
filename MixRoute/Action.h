@@ -11,13 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXTERN MixRouteName const MixRouteNameActionShowHUD;
+static MixRouteQueue const MixRouteActionQueue = @"MixRouteActionQueue";
 
-FOUNDATION_EXTERN MixRouteName const MixRouteNameActionLog;
+MIX_ROUTE_MAKE(ActionShowHUD)
 
-FOUNDATION_EXTERN MixRouteName const MixRouteNameActionDelay;
-
-FOUNDATION_EXTERN MixRouteQueue const MixRouteActionQueue;
+MIX_ROUTE_MAKE(ActionLog)
 
 @interface MixRouteActionDelayParams : NSObject<MixRouteParams>
 
@@ -25,15 +23,7 @@ FOUNDATION_EXTERN MixRouteQueue const MixRouteActionQueue;
 
 @end
 
-@interface MixRouteManager (Action)
-
-+ (void)toActionShowHUD;
-
-+ (void)toActionLog;
-
-+ (void)toActionDelay:(MixRouteActionDelayParams *)params queue:(MixRouteQueue)queue;
-
-@end
+MIX_ROUTE_MAKE_WITH_PARAMS(ActionDelay, MixRouteActionDelayParams)
 
 @interface Action : NSObject<MixRouteModule>
 

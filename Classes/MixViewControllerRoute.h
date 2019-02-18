@@ -12,7 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXTERN MixRouteName const MixRouteNameBack;
+#define MIX_VC_ROUTE_MAKE(__name) MIX_ROUTE_MAKE_WITH_PARAMS(__name, MixRouteViewControllerParams)
+
+#define MIX_VC_ROUTE_MAKE_WITH_PARAMS(__name, __params_type) MIX_ROUTE_MAKE_WITH_PARAMS(__name, __params_type)
 
 typedef NS_ENUM(NSUInteger, MixViewControllerRouteStyle) {
     MixViewControllerRouteStylePush,
@@ -75,10 +77,6 @@ typedef UIViewController<MixRouteViewController> * (^MixViewControllerRouteModul
 
 @end
 
-@interface MixRouteManager (MixViewController)
-
-+ (void)toViewControllerBack:(MixRouteBackParams* _Nullable)params;
-
-@end
+MIX_VC_ROUTE_MAKE_WITH_PARAMS(Back, MixRouteBackParams);
 
 NS_ASSUME_NONNULL_END

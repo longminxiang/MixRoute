@@ -48,7 +48,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"%@ dealloc", [self class]);
+    NSLog(@"%@:%@ dealloc", [self class], self.navigationItem.title);
 }
 
 @end

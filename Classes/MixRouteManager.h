@@ -53,6 +53,14 @@ FOUNDATION_STATIC_INLINE MixRouteName MixRouteNameFrom(NSString *name) {
     return name;
 }
 
+FOUNDATION_STATIC_INLINE MixRouteQueue MixRouteQueueFrom(NSString *name) {
+    if (!name || [[name stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet] isEqualToString:@""]) return nil;
+    if (![name hasPrefix:@"MixRouteQueue"]) {
+        name = [@"MixRouteQueue" stringByAppendingString:name];
+    }
+    return name;
+}
+
 @protocol MixRouteParams <NSObject>
 
 @end

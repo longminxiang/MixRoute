@@ -89,7 +89,7 @@
 
 - (void)dismiss1
 {
-    MixRouteBack(nil);
+    MixRouteBack1(nil, MixRouteQueueFrom(@"Back"));
 }
 
 - (IBAction)action

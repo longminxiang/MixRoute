@@ -1,5 +1,5 @@
 PODS:
-  - MixExtention (1.0.3)
+  - MixExtention (1.0.8)
 
 DEPENDENCIES:
   - MixExtention (~> 1.0.1)
@@ -9,7 +9,7 @@ SPEC REPOS:
     - MixExtention
 
 SPEC CHECKSUMS:
-  MixExtention: b56d402a27fd178439fffa6eb2ccedaf6ad07591
+  MixExtention: 0df8d82ef77840ab8b150dfb496a3b437a7b4fe0
 
 PODFILE CHECKSUM: fd08448e57e6bcff26818218b3602c33cf1a4a0a
 

@@ -7,14 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5478CF86456CDC0FCF9FF1E7D2673313 /* MixExtention.h in Headers */ = {isa = PBXBuildFile; fileRef = 918884D39F4A937016199524748033DA /* MixExtention.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		5E3DFAE3D582CAEFE574A36FD8E519F6 /* UINavigationController+MixExtention.h in Headers */ = {isa = PBXBuildFile; fileRef = 1333CB0E5440B42AD0772058F7E1FD5A /* UINavigationController+MixExtention.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		6412D237F5C854D232B790A10A729609 /* UIViewController+MixExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA7B42B46BE880F83D2F0802FEEF4AF /* UIViewController+MixExtention.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		08DF215B9C47438D27D7EC1D14A5B554 /* UITabBar+MixE.h in Headers */ = {isa = PBXBuildFile; fileRef = 176027EF8B68EF3F016AF1E1B0342B1B /* UITabBar+MixE.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		12845E0D956B567A2A914595DED4BA5E /* UINavigationBar+MixE.h in Headers */ = {isa = PBXBuildFile; fileRef = 67833ECE32DDFB8323BA01BE296C2F0E /* UINavigationBar+MixE.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2346949763602D50A3907DBECBCC2F38 /* NSTimer+MixE.m in Sources */ = {isa = PBXBuildFile; fileRef = 9034298C0C7FA7DF196817149A18BC82 /* NSTimer+MixE.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		76F0690207110DCA13AFB7102B8617FB /* UIViewController+MixE.h in Headers */ = {isa = PBXBuildFile; fileRef = 2776D33174DF3C7D61D7E2F5270121E1 /* UIViewController+MixE.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		799C538F5666391F02FCE58A8190D031 /* UITabBar+MixE.m in Sources */ = {isa = PBXBuildFile; fileRef = 94879ECAC71DFBD01B3BDDFE7F18F3CA /* UITabBar+MixE.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		9287EA2BE15E89BF048A82525F295334 /* NSTimer+MixE.h in Headers */ = {isa = PBXBuildFile; fileRef = ADFAF7D8B025F09069A8A899015EB81B /* NSTimer+MixE.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		99DDC0B3656C7E83806DDA3814969593 /* MixExtentionHooker.h in Headers */ = {isa = PBXBuildFile; fileRef = 2529F6ACCC46665B8C65DF5F173DBB72 /* MixExtentionHooker.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A2E1D8B3CED9D032F9D02C6E94B54117 /* MixExtention.h in Headers */ = {isa = PBXBuildFile; fileRef = 7922F2828369EC46745382E0CBBFC327 /* MixExtention.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A8FB43083F4BE373763AF9F3F6CC7236 /* Pods-MixRoute-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C3F3BA95E2B0137A8A8F4D0566E4E /* Pods-MixRoute-dummy.m */; };
-		B4D314A9E376B4D02748568C3E4C817C /* MixExtention-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF0F47F79E43D5343A02FC1E8F6B248 /* MixExtention-dummy.m */; };
-		BE5274242EDAB0D947E5858E116E7114 /* MixExtentionHooker.h in Headers */ = {isa = PBXBuildFile; fileRef = 22CDCA36487C6D3ED61CF04666FD810E /* MixExtentionHooker.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		EA9F7DEC15218552D016AFCEE634A06F /* UIViewController+MixExtention.h in Headers */ = {isa = PBXBuildFile; fileRef = D4751008D52515903114BE29816C1ABC /* UIViewController+MixExtention.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		ECC5D38869EDC50BE80CC611006F2666 /* UINavigationController+MixExtention.m in Sources */ = {isa = PBXBuildFile; fileRef = A8B4BF84F8B72D96AAD6D02FAA4A273B /* UINavigationController+MixExtention.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		AF0EF88E1A61228A0CFEC9D068D5CF55 /* UINavigationController+MixE.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E378B5F2AD971293D9BE48FE8787F /* UINavigationController+MixE.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		B6ED33A6F3FDE2C72E556506BBAAF75E /* MixExtention-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E7BF240ACE1CADC4703090C7235B6E9F /* MixExtention-dummy.m */; };
+		BF77A1D100767F13F4D987BCE49BF4E4 /* UINavigationBar+MixE.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BD372D07C1B4C9A66DD769145DAB38 /* UINavigationBar+MixE.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C8D339568A7FF2A9078E5A9AF923AEC7 /* MixExtentionHooker.m in Sources */ = {isa = PBXBuildFile; fileRef = 862824EB157860010B1C938A5844A2CA /* MixExtentionHooker.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D18A9C6C37D6BC7EBE1F81435B5879B4 /* UINavigationController+MixE.h in Headers */ = {isa = PBXBuildFile; fileRef = 13641A0AA36D5AC77E9C7A597752D51A /* UINavigationController+MixE.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		F847F749F76A871B486248144C0F1FF8 /* UIViewController+MixE.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA11D213E8EBC8AD2A24EE45552F8C6 /* UIViewController+MixE.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,40 +29,47 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 95028F1D987D2B01546127F3199BF9E4;
+			remoteGlobalIDString = 00EB222D00AD672BA5B0CFF3C9290F72;
 			remoteInfo = MixExtention;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		007A1D51362543E724A27E804397171D /* Pods-MixRoute-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MixRoute-acknowledgements.plist"; sourceTree = "<group>"; };
-		0BA7B42B46BE880F83D2F0802FEEF4AF /* UIViewController+MixExtention.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+MixExtention.m"; path = "Classes/UIViewController+MixExtention.m"; sourceTree = "<group>"; };
-		1333CB0E5440B42AD0772058F7E1FD5A /* UINavigationController+MixExtention.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+MixExtention.h"; path = "Classes/UINavigationController+MixExtention.h"; sourceTree = "<group>"; };
+		13641A0AA36D5AC77E9C7A597752D51A /* UINavigationController+MixE.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+MixE.h"; path = "Classes/UINavigationController+MixE.h"; sourceTree = "<group>"; };
 		1522D1E59CE18E36849426474BE80F1A /* Pods-MixRoute.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MixRoute.debug.xcconfig"; sourceTree = "<group>"; };
-		22CDCA36487C6D3ED61CF04666FD810E /* MixExtentionHooker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MixExtentionHooker.h; path = Classes/MixExtentionHooker.h; sourceTree = "<group>"; };
-		274978EDB5251BA4BE19DAE0F749E3E7 /* MixExtention-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MixExtention-prefix.pch"; sourceTree = "<group>"; };
-		2DF0F47F79E43D5343A02FC1E8F6B248 /* MixExtention-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MixExtention-dummy.m"; sourceTree = "<group>"; };
+		176027EF8B68EF3F016AF1E1B0342B1B /* UITabBar+MixE.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UITabBar+MixE.h"; path = "Classes/UITabBar+MixE.h"; sourceTree = "<group>"; };
+		2529F6ACCC46665B8C65DF5F173DBB72 /* MixExtentionHooker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MixExtentionHooker.h; path = Classes/MixExtentionHooker.h; sourceTree = "<group>"; };
+		2776D33174DF3C7D61D7E2F5270121E1 /* UIViewController+MixE.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+MixE.h"; path = "Classes/UIViewController+MixE.h"; sourceTree = "<group>"; };
 		36DCEFC8C6E7646381C31C7400A10893 /* Pods-MixRoute-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MixRoute-acknowledgements.markdown"; sourceTree = "<group>"; };
-		43A58B8187579E7592C4F3714E31E601 /* MixExtention.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MixExtention.xcconfig; sourceTree = "<group>"; };
+		526E378B5F2AD971293D9BE48FE8787F /* UINavigationController+MixE.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+MixE.m"; path = "Classes/UINavigationController+MixE.m"; sourceTree = "<group>"; };
 		5C68EEA659887210AA11BBDE9DFA1DAE /* Pods-MixRoute.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MixRoute.release.xcconfig"; sourceTree = "<group>"; };
-		918884D39F4A937016199524748033DA /* MixExtention.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MixExtention.h; path = Classes/MixExtention.h; sourceTree = "<group>"; };
+		67833ECE32DDFB8323BA01BE296C2F0E /* UINavigationBar+MixE.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UINavigationBar+MixE.h"; path = "Classes/UINavigationBar+MixE.h"; sourceTree = "<group>"; };
+		7922F2828369EC46745382E0CBBFC327 /* MixExtention.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MixExtention.h; path = Classes/MixExtention.h; sourceTree = "<group>"; };
+		862824EB157860010B1C938A5844A2CA /* MixExtentionHooker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MixExtentionHooker.m; path = Classes/MixExtentionHooker.m; sourceTree = "<group>"; };
+		8AA11D213E8EBC8AD2A24EE45552F8C6 /* UIViewController+MixE.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+MixE.m"; path = "Classes/UIViewController+MixE.m"; sourceTree = "<group>"; };
+		8B1AA655C58D05C6F0DA2D249CCC60EB /* MixExtention-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MixExtention-prefix.pch"; sourceTree = "<group>"; };
+		9034298C0C7FA7DF196817149A18BC82 /* NSTimer+MixE.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+MixE.m"; path = "Classes/NSTimer+MixE.m"; sourceTree = "<group>"; };
+		94879ECAC71DFBD01B3BDDFE7F18F3CA /* UITabBar+MixE.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UITabBar+MixE.m"; path = "Classes/UITabBar+MixE.m"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A8B4BF84F8B72D96AAD6D02FAA4A273B /* UINavigationController+MixExtention.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+MixExtention.m"; path = "Classes/UINavigationController+MixExtention.m"; sourceTree = "<group>"; };
+		ADFAF7D8B025F09069A8A899015EB81B /* NSTimer+MixE.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSTimer+MixE.h"; path = "Classes/NSTimer+MixE.h"; sourceTree = "<group>"; };
 		AE0C3F3BA95E2B0137A8A8F4D0566E4E /* Pods-MixRoute-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MixRoute-dummy.m"; sourceTree = "<group>"; };
-		D4751008D52515903114BE29816C1ABC /* UIViewController+MixExtention.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+MixExtention.h"; path = "Classes/UIViewController+MixExtention.h"; sourceTree = "<group>"; };
+		B8BD372D07C1B4C9A66DD769145DAB38 /* UINavigationBar+MixE.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UINavigationBar+MixE.m"; path = "Classes/UINavigationBar+MixE.m"; sourceTree = "<group>"; };
+		CCA737CF7E8E73C0B7D3B48A16CDE870 /* MixExtention.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MixExtention.xcconfig; sourceTree = "<group>"; };
+		E7BF240ACE1CADC4703090C7235B6E9F /* MixExtention-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MixExtention-dummy.m"; sourceTree = "<group>"; };
 		ECBDF55C4EB84235D95E90404AFD25F1 /* libMixExtention.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMixExtention.a; path = libMixExtention.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3EEDB14700F431B58553D8F38B6804F /* libPods-MixRoute.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-MixRoute.a"; path = "libPods-MixRoute.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		729A423A7DB0FAFE645D81F7618E331A /* Frameworks */ = {
+		21F9BF8F2047CBA2F3BDCFC8F0E80D53 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FF7C908D704AC3D2395477E1CE2DD4B2 /* Frameworks */ = {
+		729A423A7DB0FAFE645D81F7618E331A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -74,19 +88,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		19188312F831038F23DF6310D1A2AC16 /* MixExtention */ = {
+		353EA9E32FA065F9E242D250BBBEECD3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				918884D39F4A937016199524748033DA /* MixExtention.h */,
-				22CDCA36487C6D3ED61CF04666FD810E /* MixExtentionHooker.h */,
-				1333CB0E5440B42AD0772058F7E1FD5A /* UINavigationController+MixExtention.h */,
-				A8B4BF84F8B72D96AAD6D02FAA4A273B /* UINavigationController+MixExtention.m */,
-				D4751008D52515903114BE29816C1ABC /* UIViewController+MixExtention.h */,
-				0BA7B42B46BE880F83D2F0802FEEF4AF /* UIViewController+MixExtention.m */,
-				EA6E43A5B4862AF24FCC60FB9BB14851 /* Support Files */,
+				94B0B94F5FAEFE80E9369B181A2A18F7 /* MixExtention */,
 			);
-			name = MixExtention;
-			path = MixExtention;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		5F1336A01739EE250F5AB6ACDB8F766D /* Targets Support Files */ = {
@@ -95,14 +102,6 @@
 				8E4955DCD0613DD68D562400EA171BD2 /* Pods-MixRoute */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		611013F24BA3D096BEEBE22395D7821D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				19188312F831038F23DF6310D1A2AC16 /* MixExtention */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		8E4955DCD0613DD68D562400EA171BD2 /* Pods-MixRoute */ = {
@@ -118,12 +117,45 @@
 			path = "Target Support Files/Pods-MixRoute";
 			sourceTree = "<group>";
 		};
+		94B0B94F5FAEFE80E9369B181A2A18F7 /* MixExtention */ = {
+			isa = PBXGroup;
+			children = (
+				7922F2828369EC46745382E0CBBFC327 /* MixExtention.h */,
+				2529F6ACCC46665B8C65DF5F173DBB72 /* MixExtentionHooker.h */,
+				862824EB157860010B1C938A5844A2CA /* MixExtentionHooker.m */,
+				ADFAF7D8B025F09069A8A899015EB81B /* NSTimer+MixE.h */,
+				9034298C0C7FA7DF196817149A18BC82 /* NSTimer+MixE.m */,
+				67833ECE32DDFB8323BA01BE296C2F0E /* UINavigationBar+MixE.h */,
+				B8BD372D07C1B4C9A66DD769145DAB38 /* UINavigationBar+MixE.m */,
+				13641A0AA36D5AC77E9C7A597752D51A /* UINavigationController+MixE.h */,
+				526E378B5F2AD971293D9BE48FE8787F /* UINavigationController+MixE.m */,
+				176027EF8B68EF3F016AF1E1B0342B1B /* UITabBar+MixE.h */,
+				94879ECAC71DFBD01B3BDDFE7F18F3CA /* UITabBar+MixE.m */,
+				2776D33174DF3C7D61D7E2F5270121E1 /* UIViewController+MixE.h */,
+				8AA11D213E8EBC8AD2A24EE45552F8C6 /* UIViewController+MixE.m */,
+				9A928B525E6239DC1726DC4BAEC4C46C /* Support Files */,
+			);
+			name = MixExtention;
+			path = MixExtention;
+			sourceTree = "<group>";
+		};
+		9A928B525E6239DC1726DC4BAEC4C46C /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				CCA737CF7E8E73C0B7D3B48A16CDE870 /* MixExtention.xcconfig */,
+				E7BF240ACE1CADC4703090C7235B6E9F /* MixExtention-dummy.m */,
+				8B1AA655C58D05C6F0DA2D249CCC60EB /* MixExtention-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/MixExtention";
+			sourceTree = "<group>";
+		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D89477F20FB1DE18A04690586D7808C4 /* Frameworks */,
-				611013F24BA3D096BEEBE22395D7821D /* Pods */,
+				353EA9E32FA065F9E242D250BBBEECD3 /* Pods */,
 				18F188FC0C0A27D5BDDB4848398F99B6 /* Products */,
 				5F1336A01739EE250F5AB6ACDB8F766D /* Targets Support Files */,
 			);
@@ -136,20 +168,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		EA6E43A5B4862AF24FCC60FB9BB14851 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				43A58B8187579E7592C4F3714E31E601 /* MixExtention.xcconfig */,
-				2DF0F47F79E43D5343A02FC1E8F6B248 /* MixExtention-dummy.m */,
-				274978EDB5251BA4BE19DAE0F749E3E7 /* MixExtention-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/MixExtention";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		155F36FCDF2E68064E518C0A840C899B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2E1D8B3CED9D032F9D02C6E94B54117 /* MixExtention.h in Headers */,
+				99DDC0B3656C7E83806DDA3814969593 /* MixExtentionHooker.h in Headers */,
+				9287EA2BE15E89BF048A82525F295334 /* NSTimer+MixE.h in Headers */,
+				12845E0D956B567A2A914595DED4BA5E /* UINavigationBar+MixE.h in Headers */,
+				D18A9C6C37D6BC7EBE1F81435B5879B4 /* UINavigationController+MixE.h in Headers */,
+				08DF215B9C47438D27D7EC1D14A5B554 /* UITabBar+MixE.h in Headers */,
+				76F0690207110DCA13AFB7102B8617FB /* UIViewController+MixE.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A75E0517787E0755237109030D0F5FC8 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -157,20 +192,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BDBD17699597D57071C0FE257F09D5D7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5478CF86456CDC0FCF9FF1E7D2673313 /* MixExtention.h in Headers */,
-				BE5274242EDAB0D947E5858E116E7114 /* MixExtentionHooker.h in Headers */,
-				5E3DFAE3D582CAEFE574A36FD8E519F6 /* UINavigationController+MixExtention.h in Headers */,
-				EA9F7DEC15218552D016AFCEE634A06F /* UIViewController+MixExtention.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		00EB222D00AD672BA5B0CFF3C9290F72 /* MixExtention */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 749C0F72C2DE5FF581AB246B267017E2 /* Build configuration list for PBXNativeTarget "MixExtention" */;
+			buildPhases = (
+				155F36FCDF2E68064E518C0A840C899B /* Headers */,
+				2CAA805DCB7392F5A3961717462B2587 /* Sources */,
+				21F9BF8F2047CBA2F3BDCFC8F0E80D53 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MixExtention;
+			productName = MixExtention;
+			productReference = ECBDF55C4EB84235D95E90404AFD25F1 /* libMixExtention.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		6DFBBE6100FDF12997828E1CB471E960 /* Pods-MixRoute */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E030D3010D84E2810BEBB8AEC1D5EA1F /* Build configuration list for PBXNativeTarget "Pods-MixRoute" */;
@@ -187,23 +228,6 @@
 			name = "Pods-MixRoute";
 			productName = "Pods-MixRoute";
 			productReference = F3EEDB14700F431B58553D8F38B6804F /* libPods-MixRoute.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		95028F1D987D2B01546127F3199BF9E4 /* MixExtention */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A752AE10BFD38356149E1817386A9E9B /* Build configuration list for PBXNativeTarget "MixExtention" */;
-			buildPhases = (
-				BDBD17699597D57071C0FE257F09D5D7 /* Headers */,
-				85102C911434BEFAF2E951DF886F69DD /* Sources */,
-				FF7C908D704AC3D2395477E1CE2DD4B2 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MixExtention;
-			productName = MixExtention;
-			productReference = ECBDF55C4EB84235D95E90404AFD25F1 /* libMixExtention.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -227,20 +251,24 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				95028F1D987D2B01546127F3199BF9E4 /* MixExtention */,
+				00EB222D00AD672BA5B0CFF3C9290F72 /* MixExtention */,
 				6DFBBE6100FDF12997828E1CB471E960 /* Pods-MixRoute */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		85102C911434BEFAF2E951DF886F69DD /* Sources */ = {
+		2CAA805DCB7392F5A3961717462B2587 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4D314A9E376B4D02748568C3E4C817C /* MixExtention-dummy.m in Sources */,
-				ECC5D38869EDC50BE80CC611006F2666 /* UINavigationController+MixExtention.m in Sources */,
-				6412D237F5C854D232B790A10A729609 /* UIViewController+MixExtention.m in Sources */,
+				B6ED33A6F3FDE2C72E556506BBAAF75E /* MixExtention-dummy.m in Sources */,
+				C8D339568A7FF2A9078E5A9AF923AEC7 /* MixExtentionHooker.m in Sources */,
+				2346949763602D50A3907DBECBCC2F38 /* NSTimer+MixE.m in Sources */,
+				BF77A1D100767F13F4D987BCE49BF4E4 /* UINavigationBar+MixE.m in Sources */,
+				AF0EF88E1A61228A0CFEC9D068D5CF55 /* UINavigationController+MixE.m in Sources */,
+				799C538F5666391F02FCE58A8190D031 /* UITabBar+MixE.m in Sources */,
+				F847F749F76A871B486248144C0F1FF8 /* UIViewController+MixE.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +286,7 @@
 		4B177B0005B62B544BCC83D19A3C8EA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MixExtention;
-			target = 95028F1D987D2B01546127F3199BF9E4 /* MixExtention */;
+			target = 00EB222D00AD672BA5B0CFF3C9290F72 /* MixExtention */;
 			targetProxy = E81F5D30BBCFAEDE711E5FB65F7F9A58 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -388,9 +416,9 @@
 			};
 			name = Debug;
 		};
-		646DD094C7183D4F3DBDAF182082F859 /* Release */ = {
+		9A191057364FADED909F2A3BB92F6B28 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43A58B8187579E7592C4F3714E31E601 /* MixExtention.xcconfig */;
+			baseConfigurationReference = CCA737CF7E8E73C0B7D3B48A16CDE870 /* MixExtention.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -412,30 +440,6 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
-		};
-		87E8A8740B7D31248142430D72369476 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43A58B8187579E7592C4F3714E31E601 /* MixExtention.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/MixExtention/MixExtention-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = MixExtention;
-				PRODUCT_NAME = MixExtention;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
 		};
 		9B78E274B30AAE23AA60CD8F0868B696 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -480,6 +484,30 @@
 			};
 			name = Release;
 		};
+		F2567DC645F0D5AABA8596321DCA8451 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCA737CF7E8E73C0B7D3B48A16CDE870 /* MixExtention.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/MixExtention/MixExtention-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = MixExtention;
+				PRODUCT_NAME = MixExtention;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -492,11 +520,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A752AE10BFD38356149E1817386A9E9B /* Build configuration list for PBXNativeTarget "MixExtention" */ = {
+		749C0F72C2DE5FF581AB246B267017E2 /* Build configuration list for PBXNativeTarget "MixExtention" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				87E8A8740B7D31248142430D72369476 /* Debug */,
-				646DD094C7183D4F3DBDAF182082F859 /* Release */,
+				F2567DC645F0D5AABA8596321DCA8451 /* Debug */,
+				9A191057364FADED909F2A3BB92F6B28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

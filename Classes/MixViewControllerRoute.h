@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, MixViewControllerRouteStyle) {
 
 @optional
 
-@property (nonatomic, strong, nullable) UIViewControllerMixExtentionAttributes *attributes;
+@property (nonatomic, strong, nullable) MixViewControllerItem *item;
 
 @property (nonatomic, strong, nullable) UINavigationItem *navigationItem;
 

@@ -39,7 +39,7 @@
     [self.scrollView addSubview:self.contentView];
     self.scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height * 2);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.mix_extention.attributes.tabBarTintColor = [self randColor];
+        self.mixE.item.tabBarTintColor = [self randColor];
     });
 }
 
@@ -68,33 +68,33 @@
     MixRouteVC1(^(MixRouteViewControllerParams *params) {
         params.style = rand() % 2 ? MixViewControllerRouteStylePush : MixViewControllerRouteStylePresent;
 
-        UIViewControllerMixExtentionAttributes *attributes = [UIViewControllerMixExtentionAttributes new];
-        attributes.navigationBarTitleTextAttributes = @{NSForegroundColorAttributeName: [self randColor],
-                                                        NSFontAttributeName: [UIFont boldSystemFontOfSize:20],
-                                                        };
-        attributes.navigationBarTintColor = [self randColor];
-        attributes.navigationBarHidden = rand() % 2;
-        attributes.statusBarHidden = rand() % 2;
-        attributes.statusBarStyle = rand() % 2;
-        params.attributes = attributes;
+        MixViewControllerItem *item = [MixViewControllerItem new];
+        item.navigationBarTitleTextAttributes = @{NSForegroundColorAttributeName: [self randColor],
+                                                  NSFontAttributeName: [UIFont boldSystemFontOfSize:20]};
+        item.navigationBarTintColor = [self randColor];
+        item.navigationBarBarTintColor = [self randColor];
+        item.navigationBarHidden = rand() % 2;
+        item.statusBarHidden = rand() % 2;
+        item.statusBarStyle = rand() % 2;
+        params.item = item;
 
-        UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:[@(rand() / 100) stringValue]];
-        if (params.style == MixViewControllerRouteStylePresent && !attributes.navigationBarHidden) {
+        UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:[@(rand() / 100) stringValue]];
+        if (params.style == MixViewControllerRouteStylePresent && !item.navigationBarHidden) {
             UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss1)];
-            item.leftBarButtonItem = leftItem;
+            navItem.leftBarButtonItem = leftItem;
         }
-        params.navigationItem = item;
+        params.navigationItem = navItem;
     });
 }
 
 - (void)dismiss1
 {
-    MixRouteBack1(nil, MixRouteQueueFrom(@"Back"));
+    MixRouteBackWithQueue(nil, MixRouteQueueFrom(@"Back"));
 }
 
 - (IBAction)action
 {
-    MixRouteActionShowHUD1(MixRouteActionQueue);
+    MixRouteActionShowHUDWithQueue(MixRouteActionQueue);
 }
 
 - (IBAction)dismiss

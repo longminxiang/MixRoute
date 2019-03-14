@@ -1,15 +1,14 @@
 //
-//  UITabBar+BugFix.m
-//  MixRoute
+//  UITabBar+MixE.m
 //
 //  Created by Eric Lung on 2018/11/30.
 //  Copyright © 2018年 YOOEE. All rights reserved.
 //
 
-#import "UITabBar+BugFix.h"
+#import "UITabBar+MixE.h"
 #import <objc/runtime.h>
 
-@implementation MixBugFixTabBar
+@implementation MixTabBarBugFix
 
 + (void)load
 {

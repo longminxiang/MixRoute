@@ -13,7 +13,7 @@
 @synthesize style = _style;
 @synthesize tabRoutes = _tabRoutes;
 @synthesize navigationControllerClass = _navigationControllerClass;
-@synthesize attributes = _attributes;
+@synthesize item = _item;
 @synthesize navigationItem = _navigationItem;
 @synthesize tabBarItem = _tabBarItem;
 
@@ -25,8 +25,8 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        mix_extention_hook_class_swizzleMethodAndStore(self, @selector(navigationItem), @selector(_mix_vc_route_navigationItem));
-        mix_extention_hook_class_swizzleMethodAndStore(self, @selector(tabBarItem), @selector(_mix_vc_route_tabBarItem));
+        mixE_hook_class_swizzleMethodAndStore(self, @selector(navigationItem), @selector(_mix_vc_route_navigationItem));
+        mixE_hook_class_swizzleMethodAndStore(self, @selector(tabBarItem), @selector(_mix_vc_route_tabBarItem));
     });
 }
 
@@ -141,7 +141,7 @@
             NSInteger delta = params.toRoot ? count - 1 : MIN(MAX(params.delta, 1), count - 1);
             UIViewController *xvc = topVC.navigationController.viewControllers[count - delta - 1];
             [MixRouteManager lock:route.queue];
-            [topVC.navigationController.mix_extention popToViewController:xvc animated:!params.noAnimated completion:^{
+            [topVC.navigationController.mixE popToViewController:xvc animated:!params.noAnimated completion:^{
                 [MixRouteManager unlock:route.queue];
             }];
         }
@@ -156,7 +156,7 @@
     if (!vc) {
         return;
     }
-    vc.mix_extention.attributes = params.attributes;
+    [vc.mixE setItem:params.item];
     vc.mix_route = route;
 
     if ([vc isKindOfClass:[UITabBarController class]] && params.tabRoutes.count) {
@@ -191,7 +191,7 @@
     }
     else {
         [MixRouteManager lock:route.queue];
-        [[UIViewControllerMixExtention topViewController].navigationController.mix_extention pushViewController:vc animated:YES completion:^{
+        [[UIViewControllerMixExtention topViewController].navigationController.mixE pushViewController:vc animated:YES completion:^{
             [MixRouteManager unlock:route.queue];
         }];
     }

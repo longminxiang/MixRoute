@@ -1,6 +1,5 @@
 //
-//  UITabBar+BugFix.h
-//  MixRoute
+//  UITabBar+MixE.h
 //
 //  Created by Eric Lung on 2018/11/30.
 //  Copyright © 2018年 YOOEE. All rights reserved.
@@ -8,10 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface MixBugFixTabBar : NSObject
+@interface MixTabBarBugFix : NSObject
 
 @end
-
-NS_ASSUME_NONNULL_END

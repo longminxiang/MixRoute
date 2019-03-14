@@ -18,7 +18,6 @@
 		0743B2C42174334F00F15570 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0743B2C32174334F00F15570 /* main.m */; };
 		0798F47321A1498B00A1A528 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0798F47221A1498B00A1A528 /* Route.swift */; };
 		07BD20AF21779A17005BC428 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07BD20AE21779A17005BC428 /* ViewController.xib */; };
-		07E469C32214002700E8A885 /* UITabBar+BugFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E469C12214002700E8A885 /* UITabBar+BugFix.m */; };
 		07F3D9AC218069AE00B2E923 /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F3D9AB218069AE00B2E923 /* BaseVC.m */; };
 /* End PBXBuildFile section */
 
@@ -43,8 +42,6 @@
 		07BD20AE21779A17005BC428 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		07E469BF2213F1BB00E8A885 /* MixRoute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MixRoute.h; sourceTree = "<group>"; };
 		07E469C02213FFC100E8A885 /* MixRoute.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = MixRoute.podspec; sourceTree = "<group>"; };
-		07E469C12214002700E8A885 /* UITabBar+BugFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+BugFix.m"; sourceTree = "<group>"; };
-		07E469C22214002700E8A885 /* UITabBar+BugFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+BugFix.h"; sourceTree = "<group>"; };
 		07F3D9AA218069AE00B2E923 /* BaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseVC.h; sourceTree = "<group>"; };
 		07F3D9AB218069AE00B2E923 /* BaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseVC.m; sourceTree = "<group>"; };
 		8AA22899CB52337F8CCC1EBA /* Pods-MixRoute.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MixRoute.debug.xcconfig"; path = "Target Support Files/Pods-MixRoute/Pods-MixRoute.debug.xcconfig"; sourceTree = "<group>"; };
@@ -87,8 +84,6 @@
 		0743B2B32174334D00F15570 /* MixRoute */ = {
 			isa = PBXGroup;
 			children = (
-				07E469C22214002700E8A885 /* UITabBar+BugFix.h */,
-				07E469C12214002700E8A885 /* UITabBar+BugFix.m */,
 				0798F47221A1498B00A1A528 /* Route.swift */,
 				07F3D9AA218069AE00B2E923 /* BaseVC.h */,
 				07F3D9AB218069AE00B2E923 /* BaseVC.m */,
@@ -234,7 +229,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07E469C32214002700E8A885 /* UITabBar+BugFix.m in Sources */,
 				073CEE1F2212C15200CED6ED /* MixRouteManager.m in Sources */,
 				0743B2B92174334D00F15570 /* ViewController.m in Sources */,
 				0743B2C42174334F00F15570 /* main.m in Sources */,

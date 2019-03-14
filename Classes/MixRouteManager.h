@@ -20,18 +20,18 @@ typedef void (^MixRouteModuleBlock)(MixRoute *route);
 
 #define MIX_ROUTE_MAKE(__name) \
 MIX_ROUTE_NAME(__name) \
-FOUNDATION_STATIC_INLINE void MixRoute##__name##1(MixRouteQueue _Nullable queue) { \
+FOUNDATION_STATIC_INLINE void MixRoute##__name##WithQueue(MixRouteQueue _Nullable queue) { \
     MixRoute *route = [[MixRoute alloc] initWithName:MixRouteName##__name]; \
     route.queue = queue; \
     [MixRouteManager route:route]; \
 } \
 FOUNDATION_STATIC_INLINE void MixRoute##__name() { \
-    MixRoute##__name##1(nil); \
+    MixRoute##__name##WithQueue(nil); \
 }
 
 #define MIX_ROUTE_MAKE_WITH_PARAMS(__name, __params_class) \
 MIX_ROUTE_NAME(__name) \
-FOUNDATION_STATIC_INLINE void MixRoute##__name##1(void (^_Nullable block)(__params_class * params), MixRouteQueue _Nullable queue) { \
+FOUNDATION_STATIC_INLINE void MixRoute##__name##WithQueue(void (^_Nullable block)(__params_class * params), MixRouteQueue _Nullable queue) { \
     MixRoute *route = [[MixRoute alloc] initWithName:MixRouteName##__name]; \
     __params_class *params = [__params_class new]; \
     route.params = params; \
@@ -40,7 +40,7 @@ FOUNDATION_STATIC_INLINE void MixRoute##__name##1(void (^_Nullable block)(__para
     [MixRouteManager route:route]; \
 } \
 FOUNDATION_STATIC_INLINE void MixRoute##__name(void (^_Nullable block)(__params_class * params)) { \
-    MixRoute##__name##1(block, nil); \
+    MixRoute##__name##WithQueue(block, nil); \
 }
 
 FOUNDATION_EXTERN MixRouteQueue const MixRouteGlobalQueue;

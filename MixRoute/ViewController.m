@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "Action.h"
+#import "AppDelegate.h"
 
 @interface ViewController ()
 
@@ -46,45 +47,37 @@
 - (IBAction)buttonTouched:(id)sender {
     [self push];
 
-    MixRouteActionDelay(^(MixRouteActionDelayParams * _Nonnull params) {
-        params.delay = 3000;
-    });
+}
 
-    [self push];
-    [self push];
-    [self push];
-    [self push];
-    [self push];
-    [self push];
-    [self push];
-    [self push];
-    [self push];
-    [self push];
-
+- (IBAction)tabButtonTouched:(id)sender {
+    TabParams *params = [TabParams new];
+    params.index = rand() % 4;
+    MixRouteTabIndex(params);
 }
 
 - (void)push
 {
-    MixRouteVC1(^(MixRouteViewControllerParams *params) {
-        params.style = rand() % 2 ? MixViewControllerRouteStylePush : MixViewControllerRouteStylePresent;
-
-        MixViewControllerItem *item = [MixViewControllerItem new];
-        item.navigationBarTitleTextAttributes = @{NSForegroundColorAttributeName: [self randColor],
-                                                  NSFontAttributeName: [UIFont boldSystemFontOfSize:20]};
-        item.navigationBarTintColor = [self randColor];
-        item.navigationBarBarTintColor = [self randColor];
-        item.navigationBarHidden = rand() % 2;
-        item.statusBarHidden = rand() % 2;
-        item.statusBarStyle = rand() % 2;
-        params.item = item;
-
-        UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:[@(rand() / 100) stringValue]];
-        if (params.style == MixViewControllerRouteStylePresent && !item.navigationBarHidden) {
-            UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss1)];
-            navItem.leftBarButtonItem = leftItem;
-        }
-        params.navigationItem = navItem;
-    });
+    MixRouteViewControllerParams *params = [MixRouteViewControllerParams new];
+    params.style = rand() % 2 ? MixViewControllerRouteStylePush : MixViewControllerRouteStylePresent;
+    
+    MixViewControllerItem *item = [MixViewControllerItem new];
+    item.navigationBarTitleTextAttributes = @{NSForegroundColorAttributeName: [self randColor],
+                                              NSFontAttributeName: [UIFont boldSystemFontOfSize:20]};
+    item.navigationBarTintColor = [self randColor];
+    item.navigationBarBarTintColor = [self randColor];
+    item.navigationBarHidden = rand() % 2;
+    item.statusBarHidden = rand() % 2;
+    item.statusBarStyle = rand() % 2;
+    params.item = item;
+    
+    UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:[@(rand() / 100) stringValue]];
+    if (params.style == MixViewControllerRouteStylePresent && !item.navigationBarHidden) {
+        UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss1)];
+        navItem.leftBarButtonItem = leftItem;
+    }
+    params.navigationItem = navItem;
+    
+    MixRouteVC1(params);
 }
 
 - (void)dismiss1
@@ -99,9 +92,9 @@
 
 - (IBAction)dismiss
 {
-    MixRouteBack(^(MixRouteBackParams * _Nonnull params) {
-        params.delta = 10;
-    });
+    MixRouteBackParams *params = [MixRouteBackParams new];
+    params.delta = 10;
+    MixRouteBack(params);
 }
 
 - (UIColor *)randColor

@@ -12,6 +12,10 @@
 
 MIX_ROUTE_NAME(Tab)
 
+@implementation TabParams
+
+@end
+
 @interface TabBarController : UITabBarController<MixRouteViewController, MixViewControllerRouteModule>
 
 @end
@@ -22,6 +26,16 @@ MIX_ROUTE_NAME(Tab)
 {
     [reg add:MixRouteNameTab block:^UIViewController<MixRouteViewController> *(MixRoute * _Nonnull route) {
         return [TabBarController new];
+    }];
+    [reg add:MixRouteNameTabIndex block:^UIViewController<MixRouteViewController> *(MixRoute * _Nonnull route) {
+        TabParams *params = (TabParams *)route.params;
+        UINavigationController *vc = (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        TabBarController *tvc = (TabBarController *)[vc.viewControllers firstObject];
+        [((UINavigationController *)tvc.viewControllers[tvc.selectedIndex]).mixE popToRootViewControllerAnimated:YES completion:^{
+            tvc.selectedIndex = params.index;
+        }];
+//        NSLog(@"%@", [vc.viewControllers firstObject]);
+        return nil;
     }];
 }
 

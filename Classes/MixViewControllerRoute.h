@@ -55,7 +55,7 @@ typedef NS_ENUM(NSUInteger, MixViewControllerRouteStyle) {
 
 @end
 
-typedef UIViewController<MixRouteViewController> * (^MixViewControllerRouteModuleBlock)(MixRoute *route);
+typedef UIViewController<MixRouteViewController> * _Nullable (^MixViewControllerRouteModuleBlock)(MixRoute *route);
 
 @interface MixViewControllerRouteModuleRegister : NSObject
 

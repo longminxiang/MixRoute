@@ -3,65 +3,29 @@
 //  MixRoute
 //
 //  Created by Eric Lung on 2019/2/12.
-//  Copyright © 2019 YOOEE. All rights reserved.
+//  Copyright © 2019 Eric Lung. All rights reserved.
 //
 
 #import "MixRouteManager.h"
 #import <objc/runtime.h>
 
-MixRouteQueue const MixRouteGlobalQueue = @"MixRouteGlobalQueue";
+@class MixRouteQueueManager;
 
-@implementation MixRouteParams
+@interface MixRouteManager ()
 
-@end
+@property (nonatomic, readonly) NSMutableDictionary<MixRouteQueue, MixRouteQueueManager *> *queueManagers;
 
-@implementation MixRoute
+@property (nonatomic, readonly) NSMutableDictionary<MixRouteName, MixRouteModuleBlock> *mutableBlocks;
 
-- (instancetype)initWithName:(MixRouteName)name
-{
-    if (self = [super init]) {
-        _name = name;
-    }
-    return self;
-}
+@property (nonatomic, readonly) NSMutableSet<Class<MixRouteMiddleware>> *middlewareClasses;
 
-- (void)dealloc
-{
-    NSLog(@"%@ delloc", NSStringFromClass([self class]));
-}
-
-@end
-
-@interface MixRouteModuleRegister ()
-
-@property (nonatomic, readonly) NSMutableDictionary<MixRouteName, MixRouteModuleBlock> *blockDictionary;
-
-@end
-
-@implementation MixRouteModuleRegister
-
-+ (instancetype)shared
-{
-    static id obj;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        obj = [self new];
-    });
-    return obj;
-}
-
-- (void)add:(MixRouteName)name block:(MixRouteModuleBlock)block
-{
-    if (!name || !block) return;
-    if (!_blockDictionary) _blockDictionary = [NSMutableDictionary new];
-    _blockDictionary[name] = block;
-}
++ (MixRouteManager *)shared;
 
 @end
 
 @interface MixRouteQueueManager : NSObject
 
-@property (nonatomic, readonly) NSMutableArray<MixRoute *> *routes;
+@property (nonatomic, readonly) NSMutableArray<id<MixRoute>> *routes;
 
 @property (nonatomic, readonly) MixRouteQueue queue;
 
@@ -92,7 +56,7 @@ MixRouteQueue const MixRouteGlobalQueue = @"MixRouteGlobalQueue";
     [self start];
 }
 
-- (void)addRoute:(MixRoute *)route
+- (void)addRoute:(id<MixRoute>)route
 {
     if (!route) return;
     [self.routes addObject:route];
@@ -101,21 +65,18 @@ MixRouteQueue const MixRouteGlobalQueue = @"MixRouteGlobalQueue";
 
 - (void)start
 {
-    MixRoute *route = [self.routes firstObject];
+    id<MixRoute> route = [self.routes firstObject];
     if (!route) return;
     if (self.locked) return;
-    MixRouteModuleBlock block = [MixRouteModuleRegister shared].blockDictionary[route.name];
-    block(route);
+    for (Class<MixRouteMiddleware> middlewareClass in [MixRouteManager shared].middlewareClasses) {
+        [middlewareClass mixRoutePrestart:route];
+    }
+    MixRouteModuleBlock block = [MixRouteModuleRegister blocks][route.routeName];
+    if (block) block(route);
     if (!self.locked) {
         [self unlock];
     }
 }
-
-@end
-
-@interface MixRouteManager ()
-
-@property (nonatomic, readonly) NSMutableDictionary<MixRouteQueue, MixRouteQueueManager *> *queueManagers;
 
 @end
 
@@ -131,6 +92,11 @@ MixRouteQueue const MixRouteGlobalQueue = @"MixRouteGlobalQueue";
     return obj;
 }
 
++ (NSDictionary<MixRouteName, MixRouteModuleBlock> *)blocks
+{
+    return [self shared].mutableBlocks;
+}
+
 + (void)lock:(MixRouteQueue)queue
 {
     MixRouteQueueManager *manager = [[self shared] queueManager:queue];
@@ -143,10 +109,10 @@ MixRouteQueue const MixRouteGlobalQueue = @"MixRouteGlobalQueue";
     [manager unlock];
 }
 
-+ (void)route:(MixRoute *)route
++ (void)route:(id<MixRoute>)route
 {
     if (!route) return;
-    MixRouteQueueManager *manager = [[self shared] queueManager:route.queue];
+    MixRouteQueueManager *manager = [[self shared] queueManager:route.routeQueue];
     [manager addRoute:route];
 }
 
@@ -154,13 +120,19 @@ MixRouteQueue const MixRouteGlobalQueue = @"MixRouteGlobalQueue";
 {
     if (self = [super init]) {
         _queueManagers = [NSMutableDictionary new];
+        _mutableBlocks = [NSMutableDictionary new];
+        _middlewareClasses = [NSMutableSet new];
         
+        MixRouteModuleRegister *reg = [MixRouteModuleRegister new];
         unsigned int count;
         Class *allClasse = objc_copyClassList(&count);
         for (int i = 0; i < count; i++) {
             Class class = allClasse[i];
             if (class_conformsToProtocol(class, @protocol(MixRouteModule))) {
-                [class mixRouteRegisterModule:[MixRouteModuleRegister shared]];
+                [class mixRouteRegisterModule:reg];
+            }
+            if (class_conformsToProtocol(class, @protocol(MixRouteMiddleware))) {
+                [_middlewareClasses addObject:class];
             }
         }
         free(allClasse);

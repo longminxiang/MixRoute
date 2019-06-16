@@ -3,24 +3,23 @@
 //  MixRoute
 //
 //  Created by Eric Lung on 2018/11/9.
-//  Copyright © 2018年 YOOEE. All rights reserved.
+//  Copyright © 2018年 Eric Lung. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "MixRouteManager.h"
+#import "MixRoute.h"
 #import <MixExtention/MixExtention.h>
-
-NS_ASSUME_NONNULL_BEGIN
-
-#define MIX_VC_ROUTE_MAKE(__name) MIX_ROUTE_MAKE_WITH_PARAMS(__name, MixRouteViewControllerParams)
-
-#define MIX_VC_ROUTE_MAKE_WITH_PARAMS(__name, __params_type) MIX_ROUTE_MAKE_WITH_PARAMS(__name, __params_type)
 
 typedef NS_ENUM(NSUInteger, MixViewControllerRouteStyle) {
     MixViewControllerRouteStylePush,
     MixViewControllerRouteStylePresent,
     MixViewControllerRouteStyleRoot,
+    MixViewControllerRouteStyleSubTab,
 };
+
+@protocol MixRouteViewController<UIViewControllerMixExtention>
+
+@end
 
 @protocol MixRouteViewControllerParams <MixRouteParams>
 
@@ -28,44 +27,30 @@ typedef NS_ENUM(NSUInteger, MixViewControllerRouteStyle) {
 
 @optional
 
-@property (nonatomic, strong, nullable) MixViewControllerItem *item;
+@property (nonatomic, strong) MixViewControllerItem *item;
 
-@property (nonatomic, strong, nullable) UINavigationItem *navigationItem;
+@property (nonatomic, strong) UINavigationItem *navigationItem;
 
-@property (nonatomic, strong, nullable) UITabBarItem *tabBarItem;
+@property (nonatomic, strong) UITabBarItem *tabBarItem;
 
-@property (nonatomic, strong, nullable) NSArray<MixRoute *> *tabRoutes;
+@property (nonatomic, strong) NSArray<id<MixRoute>> *tabRoutes;
 
-@property (nonatomic, assign, nullable) Class navigationControllerClass;
-
-@end
-
-@interface MixRouteViewControllerParams : NSObject<MixRouteViewControllerParams>
+@property (nonatomic, assign) Class navigationControllerClass;
 
 @end
 
-
-@protocol MixRouteViewController<UIViewControllerMixExtention>
-
-@end
 
 @interface UIViewController (MixRouteViewController)
 
-@property (nonatomic, strong) MixRoute *mix_route;
+@property (nonatomic, strong) id<MixRoute> mix_route;
 
 @end
 
-typedef UIViewController<MixRouteViewController> * _Nullable (^MixViewControllerRouteModuleBlock)(MixRoute *route);
+typedef UIViewController<MixRouteViewController> * (^MixViewControllerRouteModuleBlock)(id<MixRoute> route);
 
-@interface MixViewControllerRouteModuleRegister : NSObject
+@interface MixRouteModuleRegister (ViewControllerRoute)
 
-- (void)add:(MixRouteName)name block:(MixViewControllerRouteModuleBlock)block;
-
-@end
-
-@protocol MixViewControllerRouteModule
-
-+ (void)mixViewControllerRouteRegisterModule:(MixViewControllerRouteModuleRegister *)reg;
+- (void)add:(MixRouteName)name vcBlock:(MixViewControllerRouteModuleBlock)block;
 
 @end
 
@@ -77,6 +62,4 @@ typedef UIViewController<MixRouteViewController> * _Nullable (^MixViewController
 
 @end
 
-MIX_VC_ROUTE_MAKE_WITH_PARAMS(Back, MixRouteBackParams);
-
-NS_ASSUME_NONNULL_END
+MIX_ROUTE_NAME(Back)

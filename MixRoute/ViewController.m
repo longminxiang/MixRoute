@@ -3,12 +3,22 @@
 //  MixRoute
 //
 //  Created by Eric Lung on 2018/10/15.
-//  Copyright © 2018年 YOOEE. All rights reserved.
+//  Copyright © 2018年 Eric Lung. All rights reserved.
 //
 
 #import "ViewController.h"
 #import "Action.h"
-#import "AppDelegate.h"
+#import "TabBarRoute.h"
+#import "RouteManager.h"
+
+@implementation ViewControllerParams
+@synthesize style = _style;
+@synthesize item = _item;
+@synthesize navigationItem = _navigationItem;
+@synthesize tabBarItem = _tabBarItem;
+@synthesize navigationControllerClass = _navigationControllerClass;
+
+@end
 
 @interface ViewController ()
 
@@ -20,9 +30,9 @@
 
 @implementation ViewController
 
-+ (void)mixViewControllerRouteRegisterModule:(MixViewControllerRouteModuleRegister *)reg
++ (void)mixRouteRegisterModule:(MixRouteModuleRegister *)reg
 {
-    [reg add:MixRouteNameVC1 block:^UIViewController<MixRouteViewController> *(MixRoute * _Nonnull route) {
+    [reg add:MixRouteNameVC1 vcBlock:^UIViewController<MixRouteViewController> *(id<MixRoute> route) {
         return [ViewController new];
     }];
 }
@@ -52,13 +62,13 @@
 - (IBAction)tabButtonTouched:(id)sender {
     TabParams *params = [TabParams new];
     params.index = rand() % 4;
-    MixRouteTabIndex(params);
+    [RouteManager to:MixRouteNameTabIndex params:params];
 }
 
 - (void)push
 {
-    MixRouteViewControllerParams *params = [MixRouteViewControllerParams new];
-    params.style = rand() % 2 ? MixViewControllerRouteStylePush : MixViewControllerRouteStylePresent;
+    ViewControllerParams *params = [ViewControllerParams new];
+    params.style = MixViewControllerRouteStylePush;
     
     MixViewControllerItem *item = [MixViewControllerItem new];
     item.navigationBarTitleTextAttributes = @{NSForegroundColorAttributeName: [self randColor],
@@ -77,24 +87,24 @@
     }
     params.navigationItem = navItem;
     
-    MixRouteVC1(params);
+    [RouteManager to:MixRouteNameVC1 params:params];
 }
 
 - (void)dismiss1
 {
-    MixRouteBackWithQueue(nil, MixRouteQueueFrom(@"Back"));
+    [RouteManager to:MixRouteNameBack params:nil];
 }
 
 - (IBAction)action
 {
-    MixRouteActionShowHUDWithQueue(MixRouteActionQueue);
+    [RouteManager to:MixRouteNameActionShowHUD params:nil queue:MixRouteActionQueue];
 }
 
 - (IBAction)dismiss
 {
     MixRouteBackParams *params = [MixRouteBackParams new];
     params.delta = 10;
-    MixRouteBack(params);
+    [RouteManager to:MixRouteNameBack params:params];
 }
 
 - (UIColor *)randColor

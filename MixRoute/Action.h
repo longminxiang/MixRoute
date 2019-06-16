@@ -3,19 +3,17 @@
 //  MixRoute
 //
 //  Created by Eric Lung on 2018/11/9.
-//  Copyright © 2018年 YOOEE. All rights reserved.
+//  Copyright © 2018年 Eric Lung. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "MixRoute.h"
-
-NS_ASSUME_NONNULL_BEGIN
+#import "Route.h"
 
 static MixRouteQueue const MixRouteActionQueue = @"MixRouteActionQueue";
 
-MIX_ROUTE_MAKE(ActionShowHUD)
-
-MIX_ROUTE_MAKE(ActionLog)
+MIX_ROUTE_NAME(ActionShowHUD)
+MIX_ROUTE_NAME(ActionLog)
+MIX_ROUTE_NAME(ActionDelay)
 
 @interface MixRouteActionDelayParams : NSObject<MixRouteParams>
 
@@ -23,10 +21,6 @@ MIX_ROUTE_MAKE(ActionLog)
 
 @end
 
-MIX_ROUTE_MAKE_WITH_PARAMS(ActionDelay, MixRouteActionDelayParams)
-
 @interface Action : NSObject<MixRouteModule>
 
 @end
-
-NS_ASSUME_NONNULL_END

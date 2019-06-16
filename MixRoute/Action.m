@@ -3,10 +3,11 @@
 //  MixRoute
 //
 //  Created by Eric Lung on 2018/11/9.
-//  Copyright © 2018年 YOOEE. All rights reserved.
+//  Copyright © 2018年 Eric Lung. All rights reserved.
 //
 
 #import "Action.h"
+#import "MixRouteManager.h"
 
 @implementation MixRouteActionDelayParams
 
@@ -16,19 +17,19 @@
 
 + (void)mixRouteRegisterModule:(MixRouteModuleRegister *)reg
 {
-    [reg add:MixRouteNameActionShowHUD block:^(MixRoute *route) {
+    [reg add:MixRouteNameActionShowHUD block:^(id<MixRoute>  _Nonnull route) {
         NSLog(@"hud");
     }];
-    [reg add:MixRouteNameActionLog block:^(MixRoute *route) {
+    [reg add:MixRouteNameActionLog block:^(id<MixRoute>  _Nonnull route) {
         NSLog(@"log");
     }];
-    [reg add:MixRouteNameActionDelay block:^(MixRoute *route) {
-        MIX_ROUTE_PARAMS(MixRouteActionDelayParams, route.params, params);
+    [reg add:MixRouteNameActionDelay block:^(id<MixRoute>  _Nonnull route) {
+        MixRouteActionDelayParams *params = (MixRouteActionDelayParams *)route.routeParams;
         CGFloat delay = params.delay / 1000;
         if (delay <= 0) return;
-        [MixRouteManager lock:route.queue];
+        [MixRouteManager lock:route.routeQueue];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [MixRouteManager unlock:route.queue];
+            [MixRouteManager unlock:route.routeQueue];
         });
     }];
 }

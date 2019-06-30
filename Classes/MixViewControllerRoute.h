@@ -37,12 +37,14 @@ typedef NS_ENUM(NSUInteger, MixViewControllerRouteStyle) {
 
 @property (nonatomic, assign) Class navigationControllerClass;
 
+@property (nonatomic, assign) BOOL noAnimated;
+
 @end
 
 
 @interface UIViewController (MixRouteViewController)
 
-@property (nonatomic, strong) id<MixRoute> mix_route;
+@property (nonatomic, readonly) id<MixRoute> mix_route;
 
 @end
 

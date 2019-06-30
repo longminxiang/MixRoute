@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -51,14 +51,14 @@
 		8B1AA655C58D05C6F0DA2D249CCC60EB /* MixExtention-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MixExtention-prefix.pch"; sourceTree = "<group>"; };
 		9034298C0C7FA7DF196817149A18BC82 /* NSTimer+MixE.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+MixE.m"; path = "Classes/NSTimer+MixE.m"; sourceTree = "<group>"; };
 		94879ECAC71DFBD01B3BDDFE7F18F3CA /* UITabBar+MixE.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UITabBar+MixE.m"; path = "Classes/UITabBar+MixE.m"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		ADFAF7D8B025F09069A8A899015EB81B /* NSTimer+MixE.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSTimer+MixE.h"; path = "Classes/NSTimer+MixE.h"; sourceTree = "<group>"; };
 		AE0C3F3BA95E2B0137A8A8F4D0566E4E /* Pods-MixRoute-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MixRoute-dummy.m"; sourceTree = "<group>"; };
 		B8BD372D07C1B4C9A66DD769145DAB38 /* UINavigationBar+MixE.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UINavigationBar+MixE.m"; path = "Classes/UINavigationBar+MixE.m"; sourceTree = "<group>"; };
 		CCA737CF7E8E73C0B7D3B48A16CDE870 /* MixExtention.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MixExtention.xcconfig; sourceTree = "<group>"; };
 		E7BF240ACE1CADC4703090C7235B6E9F /* MixExtention-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MixExtention-dummy.m"; sourceTree = "<group>"; };
-		ECBDF55C4EB84235D95E90404AFD25F1 /* libMixExtention.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMixExtention.a; path = libMixExtention.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3EEDB14700F431B58553D8F38B6804F /* libPods-MixRoute.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-MixRoute.a"; path = "libPods-MixRoute.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECBDF55C4EB84235D95E90404AFD25F1 /* libMixExtention.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMixExtention.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3EEDB14700F431B58553D8F38B6804F /* libPods-MixRoute.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MixRoute.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +135,6 @@
 				8AA11D213E8EBC8AD2A24EE45552F8C6 /* UIViewController+MixE.m */,
 				9A928B525E6239DC1726DC4BAEC4C46C /* Support Files */,
 			);
-			name = MixExtention;
 			path = MixExtention;
 			sourceTree = "<group>";
 		};
@@ -237,7 +236,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -345,8 +344,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};

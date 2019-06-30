@@ -17,13 +17,13 @@
 
 + (void)mixRouteRegisterModule:(MixRouteModuleRegister *)reg
 {
-    [reg add:MixRouteNameActionShowHUD block:^(id<MixRoute>  _Nonnull route) {
+    [reg add:MixRouteNameActionShowHUD block:^(id<MixRoute> route) {
         NSLog(@"hud");
     }];
-    [reg add:MixRouteNameActionLog block:^(id<MixRoute>  _Nonnull route) {
+    [reg add:MixRouteNameActionLog block:^(id<MixRoute> route) {
         NSLog(@"log");
     }];
-    [reg add:MixRouteNameActionDelay block:^(id<MixRoute>  _Nonnull route) {
+    [reg add:MixRouteNameActionDelay block:^(id<MixRoute> route) {
         MixRouteActionDelayParams *params = (MixRouteActionDelayParams *)route.routeParams;
         CGFloat delay = params.delay / 1000;
         if (delay <= 0) return;

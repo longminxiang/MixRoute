@@ -117,7 +117,7 @@
     }];
 }
 
-+ (NSMutableArray<NSArray *> *)tempVCs
++ (NSMutableArray<NSArray *> *)tempRouteAndVCs
 {
     static NSMutableArray *array;
     static dispatch_once_t onceToken;
@@ -150,12 +150,11 @@
             ablock(aroute);
             
             UIViewController<MixRouteViewController> *avc;
-            for (NSArray *array in [self tempVCs]) {
-                if (array[0] == aroute) {
-                    avc = array[1];
-                    [[self tempVCs] removeObject:array];
-                    break;
-                }
+            for (NSArray *array in [self tempRouteAndVCs]) {
+                if (array[0] != aroute) continue;
+                avc = array[1];
+                [[self tempRouteAndVCs] removeObject:array];
+                break;
             }
             if (!avc) continue;
             Class navClass = [self navigationControllerClassWithRouteParams:aparams otherParams:params];
@@ -165,9 +164,10 @@
         ((UITabBarController *)vc).viewControllers = navs;
     }
     
+    BOOL animated = !([params respondsToSelector:@selector(noAnimated)] && params.noAnimated);
     UIWindow *keyWindow = [UIApplication sharedApplication].delegate.window;
     if (params.style == MixViewControllerRouteStyleSubTab) {
-        [[self tempVCs] addObject:@[route, vc]];
+        [[self tempRouteAndVCs] addObject:@[route, vc]];
     }
     else if (params.style == MixViewControllerRouteStyleRoot || !keyWindow.rootViewController) {
         Class navClass = [self navigationControllerClassWithRouteParams:params otherParams:nil];
@@ -178,13 +178,13 @@
         Class navClass = [self navigationControllerClassWithRouteParams:params otherParams:nil];
         UINavigationController *nav = [[navClass alloc] initWithRootViewController:vc];
         [MixRouteManager lock:route.routeQueue];
-        [[UIViewControllerMixExtention topViewController] presentViewController:nav animated:YES completion:^{
+        [[UIViewControllerMixExtention topViewController] presentViewController:nav animated:animated completion:^{
             [MixRouteManager unlock:route.routeQueue];
         }];
     }
     else {
         [MixRouteManager lock:route.routeQueue];
-        [[UIViewControllerMixExtention topViewController].navigationController.mixE pushViewController:vc animated:YES completion:^{
+        [[UIViewControllerMixExtention topViewController].navigationController.mixE pushViewController:vc animated:animated completion:^{
             [MixRouteManager unlock:route.routeQueue];
         }];
     }

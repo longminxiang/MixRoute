@@ -3,7 +3,7 @@
 //  MixRoute
 //
 //  Created by Eric Long on 2019/6/16.
-//  Copyright © 2019 YOOEE. All rights reserved.
+//  Copyright © 2019 Eric Long. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

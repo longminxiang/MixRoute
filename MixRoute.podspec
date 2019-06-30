@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'MixRoute'
-    s.version = '1.0.5'
+    s.version = '1.0.6'
     s.summary = 'Mix Route'
     s.authors = { 'Eric Long' => 'longminxiang@163.com' }
     s.license = 'MIT'
